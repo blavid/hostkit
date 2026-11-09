@@ -4,7 +4,7 @@
   "type": "module",
   "description": "HostKit /v1 Worker API. No npm dependencies.",
   "scripts": {
-    "test": "node --test tests/worker.test.js",
+    "test": "node --test tests/*.js",
     "start": "node server.js"
   }
 }

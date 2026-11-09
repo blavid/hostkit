@@ -49,6 +49,8 @@ trap 'rm -rf "$WORK"' EXIT
 export EMU_WORK="$WORK"
 export EMU_ROOT="$ROOT"
 export EMU_OUT="$OUT"
+export HOSTKIT_ROOT="$(cd "$ROOT/.." && pwd)"
+export HOSTKIT_WORKER_PORT="${HOSTKIT_WORKER_PORT:-8787}"
 # brs-node 2.6 uses iterator helpers (Node 22+). Use a local Node 22 when the
 # system node is older; nothing is installed globally.
 NODE_BIN="$(command -v node)"

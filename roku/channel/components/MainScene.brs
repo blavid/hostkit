@@ -108,6 +108,8 @@ sub EnterConfiguredChannel()
     try
         if m.shell = invalid
             BuildShell()
+        end if
+        if HostKitApplyCachedGuide() <> true
             ApplyBundle(BuiltinBundle())
         end if
         ShowSection("home")
@@ -118,7 +120,7 @@ sub EnterConfiguredChannel()
     BumpIdle()
     HoldFocus()
     startGuestFetch()
-    startGuideFetch()
+    if HostKitHasDeviceToken() <> true then startGuideFetch()
     startWifiFetch()
     StartRefresh()
 end sub
@@ -145,7 +147,7 @@ sub onRelaunch()
     HoldFocus()
     BumpIdle()
     startGuestFetch()
-    startGuideFetch()
+    if HostKitHasDeviceToken() <> true then startGuideFetch()
     startWifiFetch()
     StartRefresh()
     startHostKitConfigFetch()
@@ -173,6 +175,11 @@ sub startGuestFetch()
 end sub
 
 sub startGuideFetch()
+    if HostKitHasDeviceToken() = true
+        print "Eaglewood: guide skip reason=hostkit"
+        HostKitApplyCachedGuide()
+        return
+    end if
     if m.guideTask <> invalid
         m.guideTask.unobserveField("result")
         m.guideTask.control = "STOP"
@@ -1076,9 +1083,12 @@ end sub
 sub onRefresh()
     if m.refreshTimer = invalid then return
     if m.refreshTimer.fire <> true then return
-    startGuideFetch()
+    if HostKitHasDeviceToken() = true
+        startHostKitConfigFetch()
+    else
+        startGuideFetch()
+    end if
     startWifiFetch()
-    startHostKitConfigFetch()
 end sub
 
 sub StartQrFetch(slot as string)

@@ -21,6 +21,7 @@ import threading
 import time
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
+from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
 ROOT = Path(os.environ["EMU_ROOT"])
@@ -136,6 +137,12 @@ def screens() -> list[dict]:
     add("rail-checkout-focus", rail("checkout"), "Rail Checkout focused")
     add("checkout", rail("checkout") + ["Select"], "Checkout Instructions page")
     add("home-after-idle", rail("book") + ["Select"], "Home after the idle timer fired on Book Direct", wait=IDLE_SECONDS + 3, same_as="book-direct")
+    # HostKit M3: unconfigured intro + pairing screens (Pixel reviews these).
+    add("intro-1", [], "Marketing intro 1: HostKit pitch", stage="unconfigured", card="hidden")
+    add("intro-2", ["Select"], "Marketing intro 2: Set up once", stage="unconfigured", card="hidden")
+    add("intro-3", ["Select", "Select"], "Marketing intro 3: Ready to pair", stage="unconfigured", card="hidden")
+    add("pairing", ["Select", "Select", "Select"], "Pairing: 6-character code, short URL, and QR", stage="unconfigured", card="hidden", need="pair")
+    add("pairing-refreshed", ["Select", "Select", "Select"], "Pairing screen after the 15-minute code expires and a new code is issued", stage="unconfigured", card="hidden", need="pair-refresh")
     return s
 
 
@@ -230,6 +237,64 @@ def long_fix_guide() -> str:
     return json.dumps(guide, ensure_ascii=False).replace("https://sunrivertownhome.com", ORIGIN)
 
 
+def hostkit_root() -> Path:
+    return Path(os.environ.get("HOSTKIT_ROOT", str(ROOT.parent)))
+
+
+def load_customer0() -> dict:
+    path = hostkit_root() / "schema" / "eaglewood.customer0.json"
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def rewrite_hostkit_urls(value):
+    if isinstance(value, str):
+        return value.replace("https://sunrivertownhome.com", ORIGIN)
+    if isinstance(value, list):
+        return [rewrite_hostkit_urls(v) for v in value]
+    if isinstance(value, dict):
+        return {k: rewrite_hostkit_urls(v) for k, v in value.items()}
+    return value
+
+
+def long_fix_hostkit(cfg: dict) -> dict:
+    steps = []
+    for cat in cfg.get("faqs") or []:
+        if cat.get("id") == "quick-fixes":
+            for item in cat.get("items") or []:
+                steps += item.get("steps") or []
+            long_item = {
+                "q": "Emulator fixture: long steps",
+                "a": " ".join(steps[:24]),
+                "steps": [" ".join(steps[i:i + 3]) for i in range(0, 24, 3)],
+            }
+            cat["items"] = [long_item] + list(cat.get("items") or [])
+    return cfg
+
+
+def write_hostkit_seed(stage: Path, name: str) -> None:
+    """Seed a paired device + last-good config so guest screens load from HostKit."""
+    hk = stage / "config" / "hostkit.json"
+    hk.parent.mkdir(parents=True, exist_ok=True)
+    worker = os.environ.get("HOSTKIT_BASE_URL") or f"http://127.0.0.1:{os.environ.get('HOSTKIT_WORKER_PORT', '8787')}"
+    if name == "unconfigured":
+        # Pairing talks to the local Worker. Do not seed a token.
+        hk.write_text(json.dumps({"baseUrl": worker}), encoding="utf-8")
+        return
+    cfg = load_customer0()
+    if name == "longfix":
+        cfg = long_fix_hostkit(cfg)
+    if name == "qrblocked":
+        cfg = json.loads(json.dumps(cfg).replace("/data/qr/", "/blocked-qr/"))
+    if name == "badgeblocked":
+        cfg = json.loads(json.dumps(cfg).replace("/data/qr/book-direct-booking.png", "/blocked-qr/book-direct-booking.png"))
+    cfg = rewrite_hostkit_urls(cfg)
+    seed = {"deviceToken": "emu-hostkit-device", "propertyId": "eaglewood", "configText": json.dumps(cfg)}
+    (stage / "emu" / "hostkit-seed.json").write_text(json.dumps(seed), encoding="utf-8")
+    # Keep the ORIGIN-rewritten cache. An empty base URL skips the Worker fetch,
+    # which would otherwise overwrite cache with live sunrivertownhome.com URLs.
+    hk.write_text(json.dumps({"baseUrl": ""}), encoding="utf-8")
+
+
 def build_stage(name: str, key: str) -> Path:
     stage = WORK / f"stage-{name}"
     shutil.copytree(ROOT / "channel", stage)
@@ -267,6 +332,7 @@ def build_stage(name: str, key: str) -> Path:
             task.write_text(text.replace(head, head + block, 1), encoding="utf-8")
     (stage / "emu").mkdir()
     (stage / "emu" / "enabled").write_text("screenshot harness\n", encoding="utf-8")
+    write_hostkit_seed(stage, name)
     (stage / "components" / "secrets.brs").write_text(
         "' emulator fixture only\n"
         f'function GuestPathKey() as string\n    return "{key}"\nend function\n\n'
@@ -311,7 +377,7 @@ def wait_log(text: str, seconds: float) -> None:
     raise RuntimeError(f"emulator did not log {text!r}\n{log_text()[-1500:]}")
 
 
-def launch(stage: Path, keys: list[str], ecp: bool = False) -> None:
+def launch(stage: Path, keys: list[str], ecp: bool = False, ready: str = "Eaglewood: screen=home zone=") -> None:
     stop()
     for f in (LOG, SNAP):
         if f.exists():
@@ -323,7 +389,7 @@ def launch(stage: Path, keys: list[str], ecp: bool = False) -> None:
         f"{CLI} --root {stage} --snapshot {SNAP} --log {LOG} --colors 0{link}{' --ecp' if ecp else ''}{os.environ.get('EMU_CLI_EXTRA', '')}"
     )
     tmux("send-keys", "-t", f"{SESSION}:0.0", cmd, "C-m")
-    wait_log("Eaglewood: screen=home zone=", 60)
+    wait_log(ready, 60)
     if keys:
         wait_log("emu keys done", 60)
 
@@ -446,7 +512,7 @@ RIGHT_ARROW_X = (1798, 1810)  # variant A geometry: right arrow span
 # Screens where the corner ad is hidden.
 # Build 42: hidden on every Things to Do screen (rail row, grid, card details)
 # and on Book Direct; shown on Home, Wi-Fi, House Rules, Quick Fixes, Checkout.
-AD_HIDDEN = lambda slug: slug.startswith("fy-") or slug in ("rail-todo-focus", "ok-opens-todo", "tv-replay-2", "rail-book-focus", "book-direct", "book-right-opens", "home-after-idle")
+AD_HIDDEN = lambda slug: slug.startswith("fy-") or slug.startswith("intro-") or slug in ("rail-todo-focus", "ok-opens-todo", "tv-replay-2", "rail-book-focus", "book-direct", "book-right-opens", "home-after-idle", "pairing", "pairing-refreshed")
 SAFE_BOTTOM = 1026  # action-safe bottom at FHD
 
 
@@ -1025,11 +1091,11 @@ def snapshot() -> bytes:
     raise RuntimeError("snapshot was not saved")
 
 
-def launch_retrying(stage, keys, ecp: bool = False) -> None:
+def launch_retrying(stage, keys, ecp: bool = False, ready: str = "Eaglewood: screen=home zone=") -> None:
     # brs-node sometimes stalls before the key timer runs; a fresh process fixes it.
     for attempt in range(3):
         try:
-            launch(stage, keys, ecp)
+            launch(stage, keys, ecp, ready)
             return
         except RuntimeError as err:
             if "did not log" not in str(err) or attempt == 2:
@@ -1037,11 +1103,122 @@ def launch_retrying(stage, keys, ecp: bool = False) -> None:
             print(f"retry    launch stalled: {err}", flush=True)
 
 
+
+PAIR_CODE_RE = re.compile(r"HostKit: pair start code=([A-HJ-KM-NP-Z2-9]{6})")
+
+
+def worker_url(path: str) -> str:
+    port = int(os.environ.get("HOSTKIT_WORKER_PORT", "8787"))
+    return f"http://127.0.0.1:{port}{path}"
+
+
+def http_json(method: str, path: str, body: dict | None = None) -> tuple[int, object]:
+    data = None if body is None else json.dumps(body).encode()
+    headers = {"Content-Type": "application/json"} if data is not None else {}
+    req = Request(worker_url(path), data=data, method=method, headers=headers)
+    try:
+        with urlopen(req, timeout=10) as res:
+            raw = res.read().decode()
+            return res.status, json.loads(raw) if raw else {}
+    except HTTPError as err:
+        raw = err.read().decode() if err.fp else ""
+        try:
+            parsed = json.loads(raw) if raw else {}
+        except json.JSONDecodeError:
+            parsed = raw
+        return err.code, parsed
+
+
+def last_pair_codes() -> list[str]:
+    return PAIR_CODE_RE.findall(log_text())
+
+
+def refresh_pairing_code(first: str) -> tuple[str, str]:
+    """Expire the current pairing code via the local test hook and wait for a new one."""
+    status, body = http_json("POST", "/v1/__test/expire", {"code": first})
+    if status != 200:
+        raise RuntimeError(f"expire hook HTTP {status} {body}")
+    deadline = time.time() + 25
+    second = first
+    while time.time() < deadline:
+        log = log_text()
+        if "HostKit: code refreshed" in log:
+            codes = last_pair_codes()
+            if len(codes) >= 2 and codes[-1] != first:
+                second = codes[-1]
+                time.sleep(0.8)
+                return first, second
+        time.sleep(0.2)
+    codes = last_pair_codes()
+    raise RuntimeError(f"code did not refresh (first={first}, codes={codes[-3:]})")
+
+
+HOSTKIT_WORKER = None
+
+
+def start_hostkit_worker():
+    """Local Worker so the unconfigured pairing screen can fetch a code."""
+    global HOSTKIT_WORKER
+    port = int(os.environ.get("HOSTKIT_WORKER_PORT", "8787"))
+    env = os.environ.copy()
+    env["PORT"] = str(port)
+    env["PUBLIC_BASE"] = f"http://127.0.0.1:{port}"
+    env["ALLOW_TEST_HOOKS"] = "1"
+    env["HOST_TOKEN"] = "host-preview"
+    log_path = WORK / "worker.log"
+    log = open(log_path, "w")
+    proc = subprocess.Popen(
+        ["node", str(hostkit_root() / "worker" / "server.js")],
+        cwd=str(hostkit_root() / "worker"),
+        env=env,
+        stdout=log,
+        stderr=subprocess.STDOUT,
+        start_new_session=True,
+    )
+    HOSTKIT_WORKER = proc
+    deadline = time.time() + 10
+    last = ""
+    while time.time() < deadline:
+        try:
+            urlopen(f"http://127.0.0.1:{port}/health", timeout=1).read()
+            print(f"worker   http://127.0.0.1:{port} pid={proc.pid}", flush=True)
+            return proc
+        except Exception as err:
+            last = str(err)
+            if proc.poll() is not None:
+                break
+            time.sleep(0.1)
+    raise RuntimeError(f"hostkit worker did not start: {last}\n{log_path.read_text(errors='replace')[-1000:]}")
+
+
+def stop_hostkit_worker(proc) -> None:
+    if proc is None:
+        return
+    pid = getattr(proc, "pid", None)
+    if not pid:
+        return
+    try:
+        os.killpg(pid, 15)
+    except (ProcessLookupError, PermissionError, OSError):
+        try:
+            proc.terminate()
+        except Exception:
+            pass
+    try:
+        proc.wait(timeout=5)
+    except Exception:
+        try:
+            os.killpg(pid, 9)
+        except Exception:
+            pass
+
+
 def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     build_fixtures()
-    stages = {"key": build_stage("key", FAKE_KEY), "nokey": build_stage("nokey", ""), "longfix": build_stage("longfix", FAKE_KEY), "qrblocked": build_stage("qrblocked", FAKE_KEY), "badgeblocked": build_stage("badgeblocked", FAKE_KEY), "staleetag": build_stage("staleetag", FAKE_KEY)}
+    stages = {"key": build_stage("key", FAKE_KEY), "nokey": build_stage("nokey", ""), "longfix": build_stage("longfix", FAKE_KEY), "qrblocked": build_stage("qrblocked", FAKE_KEY), "badgeblocked": build_stage("badgeblocked", FAKE_KEY), "staleetag": build_stage("staleetag", FAKE_KEY), "unconfigured": build_stage("unconfigured", FAKE_KEY)}
     threading.Thread(target=ThreadingHTTPServer(("127.0.0.1", FIX_PORT), Handler).serve_forever, daemon=True).start()
+    worker = start_hostkit_worker()
     rows = []
     seen: dict[str, str] = {}
     failed = 0
@@ -1065,15 +1242,39 @@ def main() -> None:
                 tries = 0
                 while True:
                     tries += 1
-                    launch_retrying(stages[item["stage"]], item["keys"], bool(item["ecp"]))
+                    ready = "HostKit: screen=intro-1" if item["stage"] == "unconfigured" else "Eaglewood: screen=home zone="
+                    launch_retrying(stages[item["stage"]], item["keys"], bool(item["ecp"]), ready)
                     if item["ecp"]:
                         time.sleep(4)
                         send_ecp(item["ecp"])
                     time.sleep(float(os.environ.get("EMU_SETTLE", "12")) + item["wait"])
-                    if not item["need"] or qr_ready(item["need"]) or tries >= 4:
+                    if item["need"] in ("pair", "pair-refresh"):
+                        if ("HostKit: screen=pairing" in log_text() and "HostKit: pair start code=" in log_text()) or tries >= 4:
+                            break
+                    elif not item["need"] or qr_ready(item["need"]) or tries >= 4:
                         break
-                if item["need"]:
+                if item["need"] in ("pair", "pair-refresh"):
+                    log = log_text()
+                    if "HostKit: screen=pairing" in log and "HostKit: pair start code=" in log:
+                        note = "pairing code issued"
+                    else:
+                        note = "pairing code not issued"
+                        # keep going; the status check below will fail if needed
+                elif item["need"]:
                     note = f"qr ready after {tries} launch(es)" if qr_ready(item["need"]) else f"qr not ready after {tries} launches"
+                if item.get("need") in ("pair", "pair-refresh") and "pairing code not issued" in (note or ""):
+                    data = snapshot() if SNAP.exists() else b""
+                    digest = hashlib.sha256(data).hexdigest() if data else ""
+                    if data:
+                        (OUT / f"{item['slug']}.png").write_bytes(data)
+                    status, note = "fail", "pairing code not issued"
+                    raise RuntimeError("pairing code not issued")
+                if item.get("need") == "pair-refresh":
+                    codes = last_pair_codes()
+                    if not codes:
+                        raise RuntimeError("pairing-refreshed: no code in log")
+                    first, second = refresh_pairing_code(codes[-1])
+                    note = f"refreshed {first} -> {second}"
                 data = snapshot()
                 digest = hashlib.sha256(data).hexdigest()
                 (OUT / f"{item['slug']}.png").write_bytes(data)
@@ -1088,11 +1289,11 @@ def main() -> None:
                 else:
                     seen[digest] = item["slug"]
                     status = "captured"
-                if item["card"] and status != "fail":
+                if item["stage"] != "unconfigured" and item["card"] and status != "fail":
                     problem = card_problem(data, item["card"])
                     if problem:
                         status, note = "fail", problem
-                if status != "fail":
+                if item["stage"] != "unconfigured" and status != "fail":
                     problem = geometry_problem(item["slug"], data)
                     if problem:
                         status, note = "fail", problem
@@ -1102,7 +1303,8 @@ def main() -> None:
                     if problem:
                         status = "fail"
                 if item["stage"] == "staleetag" and status != "fail":
-                    want = ["emu seeded stale etags", "wifi cache-miss refetch", "guide cache-miss refetch", "checkout cache-miss refetch", "ssid len= 7"]
+                    # M3: guide/checkout come from HostKit, so only the /tv Wi-Fi path still refetches.
+                    want = ["emu seeded stale etags", "wifi cache-miss refetch", "ssid len= 7"]
                     missing = [w for w in want if w not in log_text()]
                     if missing:
                         status, note = "fail", "stale-etag log missing: " + ", ".join(missing)
@@ -1121,7 +1323,7 @@ def main() -> None:
                     note = (note + "; " if note else "") + f"{len(io_warn)} emulator file-open warning(s), handled"
                 if errors:
                     status, note = "fail", "; ".join(errors[:2])
-                elif status != "fail":
+                elif status != "fail" and item["stage"] != "unconfigured":
                     problem = state_problem(log_text())
                     opened = {"ok-opens-todo": "nav2 fy open row=", "ok-opens-fix": "screen=fixes zone=fxsteps", "book-right-opens": "emu keys done section=book zone=panel"}.get(item["slug"])
                     if not problem and opened:
@@ -1141,6 +1343,7 @@ def main() -> None:
             print(f"{status:8} {item['slug']} {note}", flush=True)
     finally:
         stop()
+        stop_hostkit_worker(worker)
         index = OUT / ("index.tsv" if not ONLY else "index-partial.tsv")
         lines = ["screen\tfile\tshows\tkeys\tstatus\tnotes\tsha256\n"]
         lines += ["\t".join(r) + "\n" for r in rows]
