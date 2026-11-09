@@ -56,25 +56,33 @@ jobs:
           node-version: "24"
       - name: Run worker tests if present
         run: |
-          if [ -f worker/package.json ]; then
-            npm ci --prefix worker
-            npm test --prefix worker
+          # Rocky: `cd worker && node --test` — no dependencies.
+          # Gate on worker/ having tests or a package.json.
+          if [ -f worker/package.json ] || ls worker/**/*.test.js worker/**/*.test.mjs worker/*.test.js worker/*.test.mjs 2>/dev/null | grep -q .; then
+            cd worker && node --test
           else
-            echo "worker/package.json not present — Rocky owns worker/; skipping."
+            echo "worker/ tests not present yet — Rocky owns worker/; skipping."
           fi
 
-  # TODO(Rocky): roku lint — `npm run lint` in roku/ once the channel lands (M2).
   roku-lint:
-    name: Roku lint (TODO)
+    name: Roku lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Placeholder
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: roku/package-lock.json
+      - name: Lint and test Roku channel if present
         run: |
-          echo "TODO(Rocky): enable roku lint when roku/package.json exists (M2)."
+          # Rocky: `cd roku && npm ci && npm run lint` then `bash scripts/test_hostkit.sh`.
+          # Gate on roku/package.json. ubuntu-latest has zip for package.sh.
           if [ -f roku/package.json ]; then
-            npm ci --prefix roku
-            npm run lint --prefix roku
+            cd roku
+            npm ci
+            npm run lint
+            bash scripts/test_hostkit.sh
           else
-            echo "roku/ not ready — skipping."
+            echo "roku/package.json not present yet — Rocky owns roku/; skipping."
           fi

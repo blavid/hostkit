@@ -43,6 +43,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "24"
+      # HOST_TOKEN must be set as a random Worker secret before any public Worker deploy.
+      # ALLOW_TEST_HOOKS must never be set on deployed environments.
       - name: Deploy hostkit-api-preview to workers.dev only
         uses: cloudflare/wrangler-action@v3
         if: hashFiles('worker/package.json', 'worker/wrangler.toml', 'worker/wrangler.json', 'worker/wrangler.jsonc') != ''
@@ -51,6 +53,8 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           workingDirectory: worker
           # workers_dev only — never add routes on sunrivertownhome.com.
+          # HOST_TOKEN must be set as a random Worker secret before any public Worker deploy.
+          # ALLOW_TEST_HOOKS must never be set on deployed environments.
           command: deploy
       - name: Skip when worker/ missing
         if: hashFiles('worker/package.json', 'worker/wrangler.toml', 'worker/wrangler.json', 'worker/wrangler.jsonc') == ''
