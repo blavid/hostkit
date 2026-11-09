@@ -217,7 +217,7 @@ def build_fixtures() -> None:
             public_image(path, FIX / path.lstrip("/"))
     wifi = FIX / "tv" / FAKE_KEY
     wifi.mkdir(parents=True, exist_ok=True)
-    (wifi / "wifi.json").write_text(json.dumps({"ssid": "TestNet", "password": "{{WIFI_PASSWORD}}"}), encoding="utf-8")
+    (wifi / "wifi.json").write_text(json.dumps({"ssid": "TestNet", "password": "placeholder"}), encoding="utf-8")
     qr_png("WIFI:T:WPA;S:TestNet;P:placeholder;;", wifi / "wifi.png")
 
 
