@@ -6,10 +6,7 @@ function pictureSrc(id, width, ext) {
   return `${BASE}/${id}-${width}.${ext}`;
 }
 
-/**
- * Real 1920×1080 Roku captures, resized only. Local test pairing screens
- * that printed a loopback address are omitted so that address never appears.
- */
+/** Real 1920×1080 Roku captures, resized only — no mocked or edited screens. */
 export const TV_SHOTS = [
   {
     id: "intro-1",

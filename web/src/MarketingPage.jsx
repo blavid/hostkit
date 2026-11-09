@@ -34,10 +34,8 @@ export function MarketingPage() {
       <div className="card">
         <h2>On the TV</h2>
         <p>
-          These are resizes of real 1920×1080 Roku captures from the
-          M4 preview run — the three intro screens, a live preview pairing
-          screen, and the guest Home after the host claims the TV. Local test
-          pairing shots were left out because they printed a loopback address.
+          Real screens from the HostKit Roku app: a quick welcome, pairing
+          with your phone, and the guest Home your visitors see.
         </p>
         <ScreenshotCarousel />
       </div>
