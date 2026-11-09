@@ -1,0 +1,248 @@
+{
+  "version": 3,
+  "siteConfig": {
+    "name": "Sunriver Townhome",
+    "tagline": "Eaglewood · Sunriver, Oregon",
+    "domain": "sunrivertownhome.com",
+    "bookUrl": "https://book.sunrivertownhome.com",
+    "airbnbUrl": "https://www.airbnb.com/h/eaglewood",
+    "vrboUrl": "https://www.vrbo.com/2004849?dateless=true",
+    "host": {
+      "name": "Blake Clough",
+      "email": "blake@sunrivertownhome.com",
+      "phone": null
+    },
+    "stats": {
+      "guests": 9,
+      "bedrooms": 3,
+      "bathrooms": 3
+    },
+    "checkIn": "4:00 PM",
+    "checkOut": "11:00 AM"
+  },
+  "houseRules": [
+    "Check-in after 4:00 PM",
+    "Check-out before 11:00 AM",
+    "Dogs only, limited to one dog",
+    "Please do not let pets on furniture or beds",
+    "No smoking or vaping",
+    "Quiet hours after 10:00 PM"
+  ],
+  "troubleshooting": [
+    {
+      "issue": "Circuit breaker tripped",
+      "steps": [
+        "Locate the breaker panel in the downstairs bedroom behind the skiing picture. The picture frame is on a hinge. Just pull it open to reveal the panel.",
+        "Reset the tripped breaker by flipping it all the way to OFF and then back to ON."
+      ]
+    },
+    {
+      "issue": "Hot tub too hot or too cold",
+      "steps": [
+        "Turn the hot tub temperature up or down using the control panel on the side of the tub. The temperature will adjust gradually over 30–60 minutes.",
+        "If it is in ECO mode, the temperature will not adjust. Press the ECO button to turn it off."
+      ]
+    },
+    {
+      "issue": "How do I change the thermostat temperature?",
+      "steps": [
+        "Our home is equipped with a furnace for heating and an air conditioner for cooling.",
+        "The thermostat is located in the hallway near the kitchen.",
+        "Rotate the dial to adjust the temperature.",
+        "You can change the mode from heating to cooling by pressing down on the dial and rotating to the desired mode."
+      ]
+    },
+    {
+      "issue": "Where do I put the trash and recycling?",
+      "steps": [
+        "Trash and recycling bins are located on the front porch in the trash closet.",
+        "Please separate recyclables from trash. Trash is on the left, recycling on the right.",
+        "Glass bottles and jars should be rinsed and placed in the recycling bin. Please do not put glass in the trash or with the mixed recyclables."
+      ]
+    },
+    {
+      "issue": "BBQ grill not working",
+      "steps": [
+        "Open the cabinet under the grill and ensure that the propane tank valve is fully open.",
+        "If the grill still doesn't light, check that the igniter button is working. If not, use a long lighter to ignite the burners.",
+        "If the propane tank is empty, there is a spare tank in the garage. Please return the empty tank to the garage when you leave."
+      ]
+    },
+    {
+      "issue": "How do I use the dishwasher?",
+      "steps": [
+        "Dishwasher detergent tabs are located under the sink. Use one tab per load.",
+        "Load dishes and press the start button. Close the door and the dishwasher will start automatically.",
+        "It's much easier to load heavy items toward the back."
+      ]
+    },
+    {
+      "issue": "Smart lights not working",
+      "steps": [
+        "If Alexa won't turn on or off the lights, try the wall switch.",
+        "If that doesn't work, you may need to reset the smart light by switching the circuit breaker off and on again. The breaker panel is in the downstairs bedroom behind the skiing picture."
+      ]
+    },
+    {
+      "issue": "How do I lock the bikes?",
+      "steps": [
+        "There are several cable locks in the garage. Use one to secure the bike frame and wheel to a fixed object.",
+        "See the note in the garage."
+      ]
+    },
+    {
+      "issue": "How do I do laundry?",
+      "steps": [
+        "All laundry supplies are provided in the laundry room. Detergent, fabric softener, and dryer sheets are all included.",
+        "Just turn on the washer or dryer and select your desired cycle then hold down the start button for 3 seconds to start the cycle."
+      ]
+    },
+    {
+      "issue": "Hot tub is dirty or has a strange smell",
+      "steps": [
+        "Take a photo of the water and send it to us. We'll contact our maintenance team to check the water chemistry and make sure it's safe to use.",
+        "Do not use the hot tub if the water is cloudy, has a strong chemical smell, or has visible debris.",
+        "PLEASE don't pee in the hot tub. It can cause the water chemistry to go out of balance and make it unsafe to use."
+      ]
+    },
+    {
+      "issue": "WiFi not connecting",
+      "steps": [
+        "Network name: Eaglewood Escape Guest",
+        "See the note on the wall in the kitchen.",
+        "If issues persist, try restarting your device or forgetting the network and reconnecting.",
+        "If it still doesn't connect, try restarting the router. The router is located in the cabinet under the TV in the living room. Unplug the power, wait 30 seconds, and plug it back in.",
+        "If issues persist, text or call Blake and we'll get you back online as soon as we are able."
+      ]
+    },
+    {
+      "issue": "Hot tub not heating",
+      "steps": [
+        "Ensure the cover is fully closed — the tub won't heat efficiently with the cover open.",
+        "Check that the jets are off and the temperature is set to your desired level on the panel.",
+        "Heating can take 30–60 minutes after the cover has been open for a while.",
+        "Contact us if the temperature doesn't rise after an hour."
+      ]
+    },
+    {
+      "issue": "TV or streaming not working",
+      "steps": [
+        "All TVs are logged into Netflix and Prime Video — just select the app and pick a profile.",
+        "If you log into a service with your own account, please log out before you leave.",
+        "You can also use Airplay to stream from your phone or tablet to the TV.",
+        "We do not provide cable or satellite TV service, but you can use streaming services like Hulu, Disney+, and YouTube TV with your own accounts."
+      ]
+    }
+  ],
+  "guestGuideSections": [
+    {
+      "title": "Before You Arrive",
+      "items": [
+        "Check-in is at 4:00 PM. Early check-in may be available — just ask.",
+        "Your door code will be sent the morning of arrival.",
+        "Parking: two spots in the garage plus one in the driveway.",
+        "The home is in Eaglewood, between the 1st and 10th holes of Woodlands Golf Course."
+      ]
+    },
+    {
+      "title": "During Your Stay",
+      "items": [
+        "SHARC passes (8 included) are in the kitchen drawer — see sharc website for hours.",
+        "Community pool is steps from the back deck (seasonal, Eaglewood residents only).",
+        "Bikes and helmets are in the garage — please lock them when out and about.",
+        "Trash and recycling bins are located on the front porch in the trash closet. Please separate recyclables from trash. Trash is on the left, recycling on the right. Glass bottles and jars should be rinsed and placed in the recycling bin. Please do not put glass in the trash or with the mixed recyclables.",
+        "Checkout is 11:00 AM — please start the dishwasher and leave used towels in the laundry room."
+      ]
+    },
+    {
+      "title": "Getting Around",
+      "items": [
+        "Sunriver has 34+ miles of paved bike/walking paths — the best way to explore.",
+        "The Village at Sunriver is a 5-minute bike ride — shops, restaurants, and the general store.",
+        "McDivot's Cafe at the golf course is a short walk for breakfast or lunch.",
+        "Mt. Bachelor is about 24 minutes by car for skiing and summer hiking."
+      ]
+    }
+  ],
+  "quickReference": [
+    {
+      "label": "Check-in",
+      "value": "4:00 PM"
+    },
+    {
+      "label": "Check-out",
+      "value": "11:00 AM"
+    },
+    {
+      "label": "WiFi",
+      "value": "See note on wall in kitchen"
+    },
+    {
+      "label": "SHARC passes",
+      "value": "8 passes hanging in the entry"
+    },
+    {
+      "label": "Bikes",
+      "value": "Garage — helmets on hooks"
+    },
+    {
+      "label": "Hot tub",
+      "value": "Back deck — cover when done"
+    },
+    {
+      "label": "Trash day",
+      "value": "Collection on Thursday morning"
+    },
+    {
+      "label": "Emergency",
+      "value": "Call or text Blake"
+    }
+  ],
+  "bookDirect": {
+    "version": 1,
+    "headline": [
+      "Love our home?",
+      "Want to come back?",
+      "Like saving money?"
+    ],
+    "banner": "Book direct and save!",
+    "body": "Our website has lots of great information about the house, local activities, dining, outdoor adventures and more!",
+    "savingsText": "Book direct and pay up to about 10% less than Airbnb or Vrbo, plus no booking-site service fees.",
+    "siteUrl": "https://sunrivertownhome.com",
+    "bookingUrl": "https://book.sunrivertownhome.com",
+    "qrImageUrl": "https://sunrivertownhome.com/data/qr/book-direct-site.png",
+    "bookingQrImageUrl": "https://sunrivertownhome.com/data/qr/book-direct-booking.png",
+    "photoUrl": "https://sunrivertownhome.com/images/photos/house/living-room-1.jpg",
+    "photoTvUrl": "https://sunrivertownhome.com/images/tv/book-direct-living.jpg",
+    "perks": [
+      {
+        "id": "house",
+        "label": "House info",
+        "icon": "house"
+      },
+      {
+        "id": "activities",
+        "label": "Local activities",
+        "icon": "mountain"
+      },
+      {
+        "id": "dining",
+        "label": "Dining",
+        "icon": "dining"
+      },
+      {
+        "id": "outdoors",
+        "label": "Outdoor adventures",
+        "icon": "pines"
+      },
+      {
+        "id": "more",
+        "label": "And more!",
+        "icon": "more"
+      }
+    ],
+    "signOff": "Thanks for staying!",
+    "homePromptTitle": "Book direct & save",
+    "homePromptSub": "Up to about 10% less than Airbnb or Vrbo"
+  }
+}

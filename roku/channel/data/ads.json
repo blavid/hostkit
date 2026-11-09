@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "rotateSeconds": 50,
+  "fadeSeconds": 1,
+  "ads": [
+    {
+      "id": "living",
+      "image": "pkg:/images/ad-living.png",
+      "alt": "Book Direct & Save!! About 10% less than Airbnb or VRBO sunrivertownhome.com"
+    },
+    {
+      "id": "exterior",
+      "image": "pkg:/images/ad-exterior.png",
+      "alt": "Book Direct & Save!! About 10% less than Airbnb or VRBO sunrivertownhome.com"
+    },
+    {
+      "id": "kitchen",
+      "image": "pkg:/images/ad-kitchen.png",
+      "alt": "Book Direct & Save!! About 10% less than Airbnb or VRBO sunrivertownhome.com"
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "items": [
+    { "id": "home", "label": "Home", "type": "home" },
+    { "id": "wifi", "label": "Wi-Fi", "type": "wifi" },
+    {
+      "id": "todo",
+      "label": "Things to Do",
+      "type": "things",
+      "children": [
+        {
+          "id": "dining",
+          "label": "Dining",
+          "empty": "Nothing to show yet.",
+          "sectionIds": ["dining"],
+          "keywords": [],
+          "seasons": []
+        },
+        {
+          "id": "hiking",
+          "label": "Hiking",
+          "empty": "Nothing to show yet.",
+          "sectionIds": ["hiking"],
+          "keywords": [],
+          "seasons": []
+        },
+        {
+          "id": "winter",
+          "label": "Winter",
+          "empty": "Nothing to show yet.",
+          "sectionIds": [],
+          "keywords": [],
+          "seasons": ["winter", "year-round"]
+        },
+        {
+          "id": "summer",
+          "label": "Summer",
+          "empty": "Nothing to show yet.",
+          "sectionIds": [],
+          "keywords": [],
+          "seasons": ["summer", "year-round"]
+        },
+        {
+          "id": "fishing",
+          "label": "Fishing",
+          "empty": "No fishing spots listed right now.",
+          "sectionIds": [],
+          "keywords": ["fish"],
+          "seasons": []
+        },
+        {
+          "id": "biking",
+          "label": "Biking",
+          "empty": "Nothing to show yet.",
+          "sectionIds": ["mountain-biking"],
+          "keywords": ["bike", "biking"],
+          "seasons": []
+        }
+      ]
+    },
+    { "id": "rules", "label": "House Rules", "type": "rules" },
+    { "id": "fixes", "label": "Quick Fixes", "type": "quickfixes", "source": "guide.troubleshooting" },
+    { "id": "book", "label": "Book Direct", "type": "book" },
+    { "id": "checkout", "label": "Checkout", "type": "checkout" }
+  ]
+}

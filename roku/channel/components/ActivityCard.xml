@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="ActivityCard" extends="Group">
+    <interface>
+        <field id="itemContent" type="node" onChange="onItemContent" />
+        <field id="focusPercent" type="float" />
+        <field id="itemHasFocus" type="boolean" />
+    </interface>
+
+    <script type="text/brightscript" uri="pkg:/components/ActivityCard.brs" />
+
+    <children>
+        <Rectangle id="ring" width="364" height="420" color="0xF2A93BFF" visible="false" />
+        <Rectangle id="fill" translation="[5, 5]" width="354" height="410" color="0x1A2438F2" />
+        <Rectangle id="swatch" translation="[5, 5]" width="354" height="200" color="0x5C4033FF" />
+        <!-- Build 29 (Pixel b28): full-height photo, a small season pill on it,
+             the title, then the meta 16px under the title. -->
+        <Poster
+            id="photo"
+            translation="[5, 5]"
+            width="354"
+            height="200"
+            loadWidth="354"
+            loadHeight="200"
+            loadDisplayMode="scaleToZoom"
+            failedBitmapUri="pkg:/images/tv-placeholder.jpg"
+            loadingBitmapUri="pkg:/images/tv-placeholder.jpg" />
+        <Rectangle id="chip" translation="[17, 17]" width="200" height="36" color="0xF2A93BFF" />
+        <Label
+            id="chipText"
+            translation="[29, 19]"
+            width="302"
+            height="111"
+            horizAlign="left"
+            vertAlign="top"
+            wrap="true"
+            maxLines="3"
+            color="0x1B2A44FF"
+            font="font:SmallestBoldSystemFont" />
+        <Label
+            id="name"
+            translation="[16, 221]"
+            width="332"
+            height="114"
+            wrap="true"
+            maxLines="6"
+            vertAlign="top"
+            color="0xFFFFFFFF"
+            font="font:SmallBoldSystemFont" />
+        <Label
+            id="distance"
+            translation="[16, 309]"
+            width="332"
+            height="64"
+            wrap="true"
+            maxLines="2"
+            vertAlign="top"
+            color="0xC9D1E0FF"
+            font="font:SmallestSystemFont" />
+    </children>
+</component>

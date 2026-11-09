@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="QrTask" extends="Task">
+    <interface>
+        <field id="generation" type="integer" value="0" />
+        <field id="badgeUrl" type="string" value="" />
+        <field id="bookUrl" type="string" value="" />
+        <field id="detailUrl" type="string" value="" />
+        <field id="busyPaths" type="string" value="" />
+        <field id="doCleanup" type="boolean" value="false" />
+        <field id="finalUri" type="string" alwaysNotify="true" />
+        <field id="result" type="assocarray" alwaysNotify="true" />
+    </interface>
+
+    <script type="text/brightscript" uri="pkg:/components/PngRgb.brs" />
+    <script type="text/brightscript" uri="pkg:/components/QrTask.brs" />
+</component>

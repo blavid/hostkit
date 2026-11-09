@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="HostKitTask" extends="Task">
+    <interface>
+        <field id="action" type="string" value="" />
+        <field id="baseUrl" type="string" value="" />
+        <field id="deviceId" type="string" value="" />
+        <field id="deviceToken" type="string" value="" />
+        <field id="etag" type="string" value="" />
+        <field id="generation" type="integer" value="0" />
+        <field id="result" type="assocarray" alwaysNotify="true" />
+    </interface>
+
+    <script type="text/brightscript" uri="pkg:/components/HostKit.brs" />
+    <script type="text/brightscript" uri="pkg:/components/HostKitTask.brs" />
+</component>

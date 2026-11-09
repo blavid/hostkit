@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="MainScene" extends="Scene">
+    <interface>
+        <!-- Incremented when ECP relaunches the running app. Same screen. -->
+        <field id="relaunchCount" type="integer" alwaysNotify="true" value="0" />
+        <!-- Screenshot harness only; set from main.brs when pkg:/emu/enabled exists. -->
+        <field id="emuKeys" type="string" onChange="onEmuKeys" />
+    </interface>
+
+    <script type="text/brightscript" uri="pkg:/components/PngRgb.brs" />
+    <script type="text/brightscript" uri="pkg:/components/GuestRules.brs" />
+    <script type="text/brightscript" uri="pkg:/components/GuideModel.brs" />
+    <script type="text/brightscript" uri="pkg:/components/Menu.brs" />
+    <script type="text/brightscript" uri="pkg:/components/GuideFormat.brs" />
+    <script type="text/brightscript" uri="pkg:/components/GuideUi.brs" />
+    <script type="text/brightscript" uri="pkg:/components/Season.brs" />
+    <script type="text/brightscript" uri="pkg:/components/Phase2Ui.brs" />
+    <script type="text/brightscript" uri="pkg:/components/BuildStamp.brs" />
+    <script type="text/brightscript" uri="pkg:/components/QrDiag.brs" />
+    <script type="text/brightscript" uri="pkg:/components/NavV2.brs" />
+    <script type="text/brightscript" uri="pkg:/components/HostKit.brs" />
+    <script type="text/brightscript" uri="pkg:/components/HostKitUi.brs" />
+    <script type="text/brightscript" uri="pkg:/components/MainScene.brs" />
+
+    <children>
+        <Poster
+            id="background"
+            translation="[0, 0]"
+            width="1920"
+            height="1080"
+            uri="pkg:/images/background.jpg"
+            loadDisplayMode="scaleToFill" />
+        <Poster
+            id="scrim"
+            translation="[0, 0]"
+            width="1920"
+            height="1080"
+            uri="pkg:/images/scrim.png"
+            loadDisplayMode="scaleToFill" />
+        <!-- Kept so a layout failure still has a backing node. The guide
+             draws the greeting in the home column, not on this bar. -->
+        <Rectangle
+            id="greetingBacking"
+            visible="false"
+            translation="[0, 800]"
+            width="1920"
+            height="160"
+            color="0x000000B3" />
+        <!-- A Font uri only loads a TTF in the package. font:LargeBoldSystemFont
+             belongs on the Label font attribute, set again in init(). -->
+        <Label
+            id="greeting"
+            translation="[588, 120]"
+            width="1132"
+            height="130"
+            wrap="true"
+            maxLines="2"
+            horizAlign="left"
+            vertAlign="center"
+            text="Welcome to Eaglewood 19"
+            color="0xFFFFFFFF"
+            font="font:LargeBoldSystemFont" />
+        <!-- 600 seconds. A keypress stops and starts it again. -->
+        <Timer id="idleTimer" repeat="false" duration="600" />
+        <!-- Six hours. Repeats on its own; a keypress does not reset it. -->
+        <Timer id="refreshTimer" repeat="true" duration="21600" />
+        <!-- Proves the render thread is still dispatching. -->
+        <Timer id="heartbeatTimer" repeat="true" duration="5" />
+    </children>
+</component>

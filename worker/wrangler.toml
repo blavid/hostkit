@@ -1,0 +1,11 @@
+# HostKit API Worker. KV ids are placeholders only — do not deploy from this tree.
+name = "hostkit-api"
+main = "src/index.js"
+compatibility_date = "2026-11-09"
+
+# Placeholder ids. Replace only when creating the real namespace in M1/M4.
+# Never put a real Cloudflare account id or API token here.
+[[kv_namespaces]]
+binding = "KV"
+id = "00000000000000000000000000000000"
+preview_id = "11111111111111111111111111111111"

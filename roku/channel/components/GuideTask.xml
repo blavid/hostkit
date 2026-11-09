@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="GuideTask" extends="Task">
+    <interface>
+        <field id="generation" type="integer" value="0" />
+        <!-- Flat strings plus JSON text. The body is never printed. -->
+        <field id="result" type="assocarray" alwaysNotify="true" />
+    </interface>
+
+    <script type="text/brightscript" uri="pkg:/components/GuideModel.brs" />
+    <script type="text/brightscript" uri="pkg:/components/Menu.brs" />
+    <script type="text/brightscript" uri="pkg:/components/GuestRules.brs" />
+    <script type="text/brightscript" uri="pkg:/components/Season.brs" />
+    <script type="text/brightscript" uri="pkg:/components/GuideTask.brs" />
+</component>

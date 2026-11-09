@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Long copy for Quick Fixes and activity details (build 29).
+     The scene drives "offset" (in lines) from Up/Down, so scrolling does not
+     depend on which node has focus. Each line is its own Label at an exact
+     pitch, pre-broken at spaces, so no line starts with a space and numbered
+     steps get a real hanging indent. -->
+<component name="DetailScroll" extends="Group">
+    <interface>
+        <field id="body" type="string" onChange="onBody" />
+        <field id="heading" type="string" onChange="onBody" />
+        <field id="hint" type="string" onChange="onHint" />
+        <field id="offset" type="integer" onChange="onOffset" value="0" />
+        <field id="maxOffset" type="integer" value="0" />
+        <field id="lineCount" type="integer" value="0" />
+        <field id="contentHeight" type="integer" value="0" />
+        <field id="frameWidth" type="integer" onChange="onFrame" value="1132" />
+        <field id="frameHeight" type="integer" onChange="onFrame" value="412" />
+        <field id="padding" type="integer" onChange="onFrame" value="32" />
+        <field id="fontSize" type="integer" onChange="onFrame" value="30" />
+        <field id="pitch" type="integer" onChange="onFrame" value="42" />
+        <field id="indent" type="integer" onChange="onFrame" value="36" />
+        <field id="scrollText" type="node" />
+    </interface>
+    <script type="text/brightscript" uri="pkg:/components/DetailScroll.brs" />
+    <children>
+        <Rectangle id="frame" width="1132" height="640" color="0x1A2438FF" />
+        <Group id="lines" />
+        <Rectangle id="track" width="6" height="100" color="0x2A3B5CFF" visible="false" />
+        <Rectangle id="thumb" width="6" height="40" color="0xC9D1E0FF" visible="false" />
+        <Group id="hintRow" />
+    </children>
+</component>

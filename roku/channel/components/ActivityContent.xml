@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- One grid row. Identity is the scene-graph id set from sourceIndex, never the activity id. -->
+<component name="ActivityContent" extends="ContentNode">
+    <interface>
+        <field id="cardFocused" type="boolean" value="false" />
+        <field id="imageUri" type="string" value="" />
+        <field id="imageFallback" type="string" value="" />
+        <field id="distance" type="string" value="" />
+        <field id="seasonLabel" type="string" value="" />
+        <field id="swatch" type="string" value="0x5C4033FF" />
+        <field id="sourceIndex" type="integer" value="0" />
+    </interface>
+</component>
