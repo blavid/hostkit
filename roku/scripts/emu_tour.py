@@ -579,7 +579,7 @@ def b38_grid_problem(img, text: str) -> str:
         return "OK chip has no #F4EFE3 text"
     if ink_box(img, (HINT_X + 48, 920, HINT_X + 192, 960), lambda p: near(p, (0xC9, 0xD1, 0xE0), 40)) is None:
         return "no 'Details' text after the OK chip"
-    cards = [dict(kv.split("=", 1) for kv in re.findall(r"\b(?:r|c|x|y|capH|focused)=\S+", l)) for l in paint.splitlines() if "Eaglewood: fy card" in l]
+    cards = [dict(kv.split("=", 1) for kv in re.findall(r"\b(?:r|c|x|y|capH|focused)=\S+", l)) for l in paint.splitlines() if "Eaglewood: fy card " in l]
     for c in cards:
         bottom = int(c["y"]) + 209 + int(c["capH"])
         if c["focused"] == "yes":
@@ -674,7 +674,7 @@ def b39_hint_problem(img, slug: str, text: str) -> str:
         w, h = box[2] - box[0] + 1, box[3] - box[1] + 1
         if abs((box[0] + box[2]) / 2 - (want_x + 11.5)) > 2 or not (878 <= box[1] <= 884) or not (20 <= w <= 25 and 9 <= h <= 13):
             return f"centered chevron at {box} ({w}x{h}), want 24x12 at x {want_x}, y 880"
-        cards = [l for l in paint.splitlines() if "Eaglewood: fy card" in l]
+        cards = [l for l in paint.splitlines() if "Eaglewood: fy card " in l]
         for l in cards:
             y = int(re.search(r" y=(-?\d+)", l).group(1)); cap = int(re.search(r"capH=(\d+)", l).group(1))
             bottom = y + 209 + cap + (int(0.08 * (209 + cap)) + 12 if "focused=yes" in l else 0)
