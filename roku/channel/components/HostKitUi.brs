@@ -166,6 +166,8 @@ sub HostKitShowIntro(index as integer)
     m.hostKitTitle.text = page.title
     m.hostKitBody.text = page.body
     m.hostKitHint.text = page.hint
+    HostKitSetLabelSize(m.hostKitBody, 42)
+    HostKitSetLabelSize(m.hostKitHint, 28)
     HostKitPaintDots(index, pages.Count())
     m.hostKitRoot.visible = true
     m.hostKitIntro.visible = true
@@ -205,6 +207,7 @@ sub HostKitShowPairing()
     m.hostKitPair.visible = true
     if m.greeting <> invalid then m.greeting.visible = false
     HostKitPaintCode("")
+    HostKitSetPairingType()
     if m.hostKitUrl <> invalid then m.hostKitUrl.text = ""
     if m.hostKitQrLabel <> invalid then m.hostKitQrLabel.visible = false
     if m.hostKitStatus <> invalid then m.hostKitStatus.text = "Getting a code…"
@@ -234,23 +237,14 @@ function HostKitFormatCode(code as string) as string
 end function
 
 sub HostKitSetLabelSize(label as object, size as integer)
+    ' Size the label's existing system font node. Replacing it with a new
+    ' Font whose uri is "font:LargeSystemFont" draws nothing in brs-engine.
     if label = invalid then return
-    font = CreateObject("roSGNode", "Font")
+    font = label.font
     if font = invalid then return
-    current = label.font
-    uri = "font:LargeBoldSystemFont"
-    if current <> invalid
-        kind = type(current)
-        if kind = "String" or kind = "roString"
-            if current <> "" then uri = current
-        else if kind = "roSGNode" or kind = "SGNode"
-            found = current.uri
-            if found <> invalid and found <> "" then uri = found
-        end if
-    end if
-    font.uri = uri
+    kind = type(font)
+    if kind <> "roSGNode" and kind <> "SGNode" then return
     font.size = size
-    label.font = font
 end sub
 
 sub HostKitSetMonoSize(label as object, size as integer)
@@ -260,6 +254,15 @@ sub HostKitSetMonoSize(label as object, size as integer)
     font.uri = "pkg:/fonts/UbuntuMono-Regular.ttf"
     font.size = size
     label.font = font
+end sub
+
+sub HostKitSetPairingType()
+    HostKitSetLabelSize(m.hostKitPairKicker, 28)
+    HostKitSetLabelSize(m.hostKitUrlLabel, 28)
+    HostKitSetLabelSize(m.hostKitUrl, 42)
+    HostKitSetLabelSize(m.hostKitStatus, 32)
+    HostKitSetLabelSize(m.hostKitNote, 26)
+    HostKitSetLabelSize(m.hostKitQrLabel, 28)
 end sub
 
 sub HostKitPaintCode(code as string)
