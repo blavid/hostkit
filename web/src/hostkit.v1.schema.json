@@ -1,0 +1,682 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hostkit.local/schema/hostkit.v1.schema.json",
+  "title": "HostKit config v1",
+  "description": "Single JSON document that drives both the Roku channel and the web wizard, marketing pages, and optional guest website. Unknown fields MUST be ignored by clients (forward-compatible). User-facing strings are plain text or URLs only \u2014 never HTML.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schemaVersion",
+    "property",
+    "links",
+    "faqs",
+    "activities",
+    "checkout",
+    "wifi",
+    "branding",
+    "subscription"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "integer",
+      "const": 1,
+      "description": "HostKit schema major version. Bump only on breaking changes."
+    },
+    "property": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "id",
+        "name"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Stable host property id (e.g. eaglewood)."
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "tagline": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string",
+          "description": "Display address. Use a placeholder token in samples and unpublished configs when the real address must stay out of chat/repo copies."
+        },
+        "checkIn": {
+          "type": "string",
+          "description": "e.g. 4:00 PM"
+        },
+        "checkOut": {
+          "type": "string",
+          "description": "e.g. 11:00 AM"
+        },
+        "stats": {
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+            "guests": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "bedrooms": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "bathrooms": {
+              "type": "number",
+              "minimum": 0
+            }
+          }
+        },
+        "images": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true,
+            "required": [
+              "url"
+            ],
+            "properties": {
+              "url": {
+                "$ref": "#/$defs/httpUrl",
+                "description": "Full-resolution or web image. HTTPS only."
+              },
+              "tvUrl": {
+                "$ref": "#/$defs/httpUrl",
+                "description": "TV raster for a 1920\u00d71080 screen. Hero role: 1920\u00d71080 JPEG. Other roles: 960\u00d7540 JPEG."
+              },
+              "alt": {
+                "type": "string"
+              },
+              "role": {
+                "type": "string",
+                "enum": [
+                  "hero",
+                  "gallery",
+                  "promo",
+                  "other"
+                ]
+              }
+            }
+          }
+        },
+        "timezone": {
+          "type": "string",
+          "description": "IANA timezone used for seasons, stay windows, and drive-time display. Default America/Los_Angeles.",
+          "default": "America/Los_Angeles"
+        },
+        "host": {
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string",
+              "description": "Use {{HOST_EMAIL}} in git fixtures. Runtime may materialize from private config."
+            },
+            "phone": {
+              "type": "string",
+              "description": "Use {{HOST_PHONE}} in git fixtures. Never commit a real phone number."
+            }
+          }
+        }
+      }
+    },
+    "links": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "hostToolsDirect"
+      ],
+      "properties": {
+        "hostToolsDirect": {
+          "$ref": "#/$defs/httpUrl",
+          "description": "Direct-booking / Host Tools URL."
+        },
+        "airbnb": {
+          "$ref": "#/$defs/httpUrl"
+        },
+        "vrbo": {
+          "$ref": "#/$defs/httpUrl"
+        },
+        "website": {
+          "$ref": "#/$defs/httpUrl"
+        },
+        "domain": {
+          "type": "string"
+        }
+      }
+    },
+    "faqs": {
+      "type": "array",
+      "description": "Top-level FAQ categories. Categories may nest recursively via categories[]. Roku shows at most 2 levels and flattens anything deeper.",
+      "items": {
+        "$ref": "#/$defs/faqCategory"
+      }
+    },
+    "activities": {
+      "type": "array",
+      "description": "Flat list of activity cards. Clients MUST remove duplicates by id (first wins). Optional category groups the For You / Things to Do rails.",
+      "items": {
+        "$ref": "#/$defs/activityCard"
+      }
+    },
+    "checkout": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "steps"
+      ],
+      "properties": {
+        "summary": {
+          "type": "string"
+        },
+        "checkIn": {
+          "type": "string"
+        },
+        "checkOut": {
+          "type": "string"
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        }
+      }
+    },
+    "wifi": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "ssid",
+        "password"
+      ],
+      "properties": {
+        "ssid": {
+          "type": "string",
+          "description": "In git fixtures use {{WIFI_SSID}}. Runtime config may hold the real value only inside Worker KV / secrets, never in git."
+        },
+        "password": {
+          "type": "string",
+          "description": "Wi-Fi password. In samples and unpublished drafts use a placeholder token such as {{WIFI_PASSWORD}}. Runtime config may hold the real value only inside Worker KV / vault-backed secrets, never in git."
+        },
+        "qrUrl": {
+          "$ref": "#/$defs/httpUrl",
+          "description": "Optional pre-rendered Wi-Fi join QR. Fixtures may embed {{GUEST_PATH_KEY}}. Eaglewood keeps serving /tv wifi.png until migration."
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "branding": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "colors"
+      ],
+      "properties": {
+        "logoUrl": {
+          "$ref": "#/$defs/httpUrl",
+          "description": "HTTPS PNG, maximum 512\u00d7512. May be a placeholder URL in fixtures."
+        },
+        "colors": {
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+            "primary": {
+              "type": "string"
+            },
+            "secondary": {
+              "type": "string"
+            },
+            "accent": {
+              "type": "string"
+            },
+            "background": {
+              "type": "string"
+            },
+            "text": {
+              "type": "string"
+            }
+          }
+        },
+        "ad": {
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+            "text": {
+              "type": "string",
+              "description": "Corner / rail ad copy, e.g. Book Direct savings line."
+            },
+            "visibleOn": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Screen ids where the ad may show. Empty or omit = product default."
+            }
+          }
+        },
+        "bookDirect": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "Optional Book Direct page copy (Eaglewood today).",
+          "properties": {
+            "headline": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "banner": {
+              "type": "string"
+            },
+            "body": {
+              "type": "string"
+            },
+            "savingsText": {
+              "type": "string"
+            },
+            "signOff": {
+              "type": "string"
+            },
+            "perks": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": true,
+                "required": [
+                  "id",
+                  "label"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "label": {
+                    "type": "string"
+                  },
+                  "icon": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "subscription": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "status",
+        "plan"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "trial",
+            "active",
+            "past_due",
+            "canceled"
+          ]
+        },
+        "plan": {
+          "type": "string",
+          "enum": [
+            "monthly",
+            "annual"
+          ]
+        },
+        "trialEndsAt": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time",
+          "description": "ISO-8601 instant when trial ends; null if not on trial."
+        },
+        "graceDays": {
+          "type": "integer",
+          "const": 14,
+          "description": "After lapse, TV keeps serving guest content for this many days (never brick mid-stay)."
+        },
+        "currentPeriodEndsAt": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "graceEndsAt": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time",
+          "description": "ISO-8601 instant when the 14-day grace period ends; null if not in grace."
+        }
+      },
+      "description": "Coarse status the TV may read. Full payment records, tax, and processor tokens MUST NOT appear in this document; they live in private host billing state."
+    },
+    "menu": {
+      "type": "array",
+      "description": "Optional TV left-rail configuration. If omitted, the channel uses its built-in Eaglewood rail. TV ignores unknown item fields.",
+      "items": {
+        "$ref": "#/$defs/menuItem"
+      }
+    },
+    "quickReference": {
+      "type": "array",
+      "description": "Optional short guest-guide reference cards (check-in, Wi-Fi pointer, bikes, etc.). Values may use {{PLACEHOLDER}} tokens. Do not put real Wi-Fi passwords or door codes here.",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": [
+          "label",
+          "value"
+        ],
+        "properties": {
+          "label": {
+            "type": "string",
+            "minLength": 1
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "web": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Optional website chrome the TV MUST ignore: page headlines, nav, rooms, amenities, gallery captions, SEO, and other guest-site fields migrated from today's pages.json / site.json. Not required for a TV-only publish."
+    }
+  },
+  "$defs": {
+    "faqCategory": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "id",
+        "title"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/faqItem"
+          }
+        },
+        "categories": {
+          "type": "array",
+          "description": "Nested FAQ categories (recursive). Roku flattens past depth 2.",
+          "items": {
+            "$ref": "#/$defs/faqCategory"
+          }
+        }
+      }
+    },
+    "faqItem": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "q",
+        "a"
+      ],
+      "properties": {
+        "q": {
+          "type": "string",
+          "minLength": 1
+        },
+        "a": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Plain text answer. No HTML. May contain {{PLACEHOLDER}} tokens for private values."
+        },
+        "imageUrl": {
+          "$ref": "#/$defs/httpUrl"
+        },
+        "qrUrl": {
+          "$ref": "#/$defs/httpUrl"
+        }
+      }
+    },
+    "activityCard": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "id",
+        "title",
+        "category"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "category": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Section/rail id (e.g. dining, hiking)."
+        },
+        "image": {
+          "type": "string",
+          "description": "Relative or absolute image path."
+        },
+        "imageUrl": {
+          "$ref": "#/$defs/httpUrl"
+        },
+        "imageTvUrl": {
+          "$ref": "#/$defs/httpUrl",
+          "description": "HTTPS JPEG for a 1920\u00d71080 TV, 960\u00d7540 (16:9). Existing Eaglewood 640-fit assets remain valid until migration."
+        },
+        "description": {
+          "type": "string"
+        },
+        "seasons": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "winter",
+              "spring",
+              "summer",
+              "fall",
+              "year-round"
+            ]
+          },
+          "description": "e.g. year-round, summer, winter."
+        },
+        "seasonLabel": {
+          "type": "string"
+        },
+        "distance": {
+          "type": "string"
+        },
+        "tip": {
+          "type": "string"
+        },
+        "signupUrl": {
+          "$ref": "#/$defs/httpUrl",
+          "description": "Optional booking or signup link (official or affiliate). The TV turns signupUrl, or url if signupUrl is absent, into a QR code."
+        },
+        "qrUrl": {
+          "$ref": "#/$defs/httpUrl",
+          "description": "Optional pre-rendered QR. The TV may also generate a QR from signupUrl ?? url."
+        },
+        "imageAlt": {
+          "type": "string"
+        },
+        "imageCredit": {
+          "$ref": "#/$defs/imageCredit"
+        },
+        "url": {
+          "$ref": "#/$defs/httpUrl",
+          "description": "Informational website or map link for this place. Distinct from signupUrl."
+        },
+        "seasonRank": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "TV sort order per meteorological season (America/Los_Angeles). Lower sorts earlier. A missing key sorts after every ranked activity. Ties break by file order.",
+          "properties": {
+            "winter": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "spring": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "summer": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "fall": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        },
+        "seasonSpecified": {
+          "type": "boolean",
+          "description": "False when the label did not name a season (show the card in all calendar seasons)."
+        },
+        "difficulty": {
+          "type": "string"
+        },
+        "trailDistance": {
+          "type": "string"
+        },
+        "gettingThere": {
+          "type": "string"
+        }
+      }
+    },
+    "httpUrl": {
+      "type": "string",
+      "minLength": 1,
+      "description": "An https:// URL. Fixtures may embed {{PLACEHOLDER}} tokens in the path or host. Published runtime config MUST be a real URL after the Worker substitutes tokens.",
+      "anyOf": [
+        {
+          "format": "uri",
+          "pattern": "^https://"
+        },
+        {
+          "pattern": "^https://.*\\{\\{[A-Z0-9_]+\\}\\}.*$"
+        },
+        {
+          "pattern": "^\\{\\{[A-Z0-9_]+\\}\\}$"
+        }
+      ]
+    },
+    "imageCredit": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "author",
+        "license",
+        "licenseUrl",
+        "source"
+      ],
+      "properties": {
+        "author": {
+          "type": "string",
+          "minLength": 1
+        },
+        "license": {
+          "type": "string",
+          "description": "Public domain, CC0, CC BY, or CC BY-SA, optional version."
+        },
+        "licenseUrl": {
+          "$ref": "#/$defs/httpUrl"
+        },
+        "source": {
+          "$ref": "#/$defs/httpUrl",
+          "description": "Source page for the file (for example a Wikimedia Commons file page)."
+        },
+        "changes": {
+          "type": "string",
+          "description": "Set when the file is not the original, for example Resized."
+        }
+      }
+    },
+    "menuItem": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "id",
+        "label"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "type": "string",
+          "description": "Rail type, e.g. home, wifi, things, rules, quickfixes, book, checkout."
+        },
+        "source": {
+          "type": "string"
+        },
+        "empty": {
+          "type": "string"
+        },
+        "sectionIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "keywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "seasons": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "children": {
+          "type": "array",
+          "description": "Nested rail items (Things to Do children, etc.).",
+          "items": {
+            "$ref": "#/$defs/menuItem"
+          }
+        }
+      }
+    }
+  }
+}
