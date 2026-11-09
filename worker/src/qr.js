@@ -233,7 +233,9 @@ function placeFinders(mod, n) {
 }
 
 function placeTiming(mod, n) {
-  for (let i = 0; i < n; i++) {
+  // Only the stretch between the finders. Writing the full row/column
+  // would punch holes in the finder patterns and break decoding.
+  for (let i = 8; i < n - 8; i++) {
     mod[6][i] = i % 2 === 0;
     mod[i][6] = i % 2 === 0;
   }
@@ -485,7 +487,12 @@ function chunk(type, data) {
   return Uint8Array.from([...u32(data.length), ...body, ...u32(crc)]);
 }
 
-export function qrPng(text, modulePx = 8, quiet = 4) {
+// Version 3 is 29 modules. With a 4-module quiet zone that is 37 cells.
+// 11px modules produce a 407px card (integer module size, Pixel M2 review).
+export const QR_MODULE_PX = 11;
+export const QR_QUIET_MODULES = 4;
+
+export function qrPng(text, modulePx = QR_MODULE_PX, quiet = QR_QUIET_MODULES) {
   const mod = buildMatrix(text);
   const n = mod.length;
   const dim = (n + quiet * 2) * modulePx;

@@ -311,6 +311,38 @@
                   }
                 }
               }
+            },
+            "siteUrl": {
+              "$ref": "#/$defs/httpUrl",
+              "description": "Property website shown on the Book Direct page and QR."
+            },
+            "bookingUrl": {
+              "$ref": "#/$defs/httpUrl",
+              "description": "Direct-booking URL. Defaults to links.hostToolsDirect."
+            },
+            "qrImageUrl": {
+              "$ref": "#/$defs/httpUrl",
+              "description": "Pre-rendered QR for the website."
+            },
+            "bookingQrImageUrl": {
+              "$ref": "#/$defs/httpUrl",
+              "description": "Pre-rendered QR for the booking URL (Home prompt / Book Direct)."
+            },
+            "photoUrl": {
+              "$ref": "#/$defs/httpUrl",
+              "description": "Book Direct photo (web / fallback)."
+            },
+            "photoTvUrl": {
+              "$ref": "#/$defs/httpUrl",
+              "description": "Book Direct photo rastered for a 1920\u00d71080 TV."
+            },
+            "homePromptTitle": {
+              "type": "string",
+              "description": "Home rail Book Direct prompt title."
+            },
+            "homePromptSub": {
+              "type": "string",
+              "description": "Home rail Book Direct prompt subline."
             }
           }
         }
@@ -459,6 +491,14 @@
         },
         "qrUrl": {
           "$ref": "#/$defs/httpUrl"
+        },
+        "steps": {
+          "type": "array",
+          "description": "Optional ordered steps for Quick Fixes / troubleshooting. If omitted, clients may split `a` on newlines.",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
         }
       }
     },

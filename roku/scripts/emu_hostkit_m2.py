@@ -272,7 +272,7 @@ def snapshot() -> bytes:
 
 
 def last_code() -> str:
-    codes = re.findall(r"HostKit: pair start code=([A-HJ-NP-Z2-9]{6})", log_text())
+    codes = re.findall(r"HostKit: pair start code=([A-HJ-KM-NP-Z2-9]{6})", log_text())
     if not codes:
         raise RuntimeError(f"no pairing code in log\n{log_text()[-1500:]}")
     return codes[-1]
@@ -359,7 +359,7 @@ def main() -> None:
         try:
             code = last_code()
             note = f"code={code}"
-            if not re.fullmatch(r"[A-HJ-NP-Z2-9]{6}", code):
+            if not re.fullmatch(r"[A-HJ-KM-NP-Z2-9]{6}", code):
                 record(pairing, "fail", f"illegal code {code}")
             else:
                 record(pairing, "captured", note)
@@ -429,7 +429,7 @@ def main() -> None:
                 deadline = time.time() + 20
                 second = first
                 while time.time() < deadline:
-                    codes = re.findall(r"HostKit: pair start code=([A-HJ-NP-Z2-9]{6})", log_text())
+                    codes = re.findall(r"HostKit: pair start code=([A-HJ-KM-NP-Z2-9]{6})", log_text())
                     if len(codes) >= 2 and codes[-1] != first:
                         second = codes[-1]
                         break

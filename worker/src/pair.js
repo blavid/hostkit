@@ -1,6 +1,6 @@
-/** Pairing codes: 6 characters, no 0 / O / 1 / I (SPEC §4). */
+/** Pairing codes: 6 characters, no 0 / O / 1 / I / L (SPEC §4). */
 
-export const CODE_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+export const CODE_ALPHABET = "ABCDEFGH" + "JKMNPQRS" + "TUVWXYZ" + "23456789";
 export const CODE_LENGTH = 6;
 export const PAIR_TTL_MS = 15 * 60 * 1000;
 export const POLL_AFTER_MS = 5000;

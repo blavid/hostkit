@@ -70,7 +70,7 @@ async function call(env, method, path, { body, headers, origin } = {}) {
 const HOST = { Authorization: "Bearer host-preview" };
 
 describe("alphabet exclusions", () => {
-  it("rejects 0, O, 1, and I and requires 6 alphabet characters", () => {
+  it("rejects 0, O, 1, I, and L and requires 6 alphabet characters", () => {
     assert.equal(isValidCode("ABC234"), true);
     assert.equal(isValidCode("ABCDEF"), true);
     assert.equal(isValidCode("abc234"), true);
@@ -78,10 +78,11 @@ describe("alphabet exclusions", () => {
     assert.equal(isValidCode("ABOCDE"), false);
     assert.equal(isValidCode("AB1CDE"), false);
     assert.equal(isValidCode("ABICDE"), false);
+    assert.equal(isValidCode("ABL234"), false);
     assert.equal(isValidCode("ABC23"), false);
     assert.equal(isValidCode("ABC2345"), false);
     assert.equal(isValidCode(""), false);
-    for (const ch of ["0", "O", "1", "I"]) {
+    for (const ch of ["0", "O", "1", "I", "L"]) {
       assert.equal(CODE_ALPHABET.includes(ch), false, `alphabet contains ${ch}`);
     }
   });
@@ -90,7 +91,7 @@ describe("alphabet exclusions", () => {
     for (let i = 0; i < 400; i++) {
       const code = makeCode();
       assert.equal(isValidCode(code), true, code);
-      assert.equal(/[01OI]/.test(code), false, code);
+      assert.equal(/[01OIL]/.test(code), false, code);
       assert.equal(code.length, 6);
     }
   });

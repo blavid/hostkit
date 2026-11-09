@@ -29,18 +29,42 @@ sub HostKitEnsureUi()
     m.top.appendChild(root)
     m.hostKitRoot = root
 
+    ' Navy scrim behind the left column so gold and cream text stay >= 4.5:1
+    ' on Bachelor dusk. Ends before the QR so the mark is unchanged.
+    scrim = CreateObject("roSGNode", "Rectangle")
+    scrim.id = "hostKitScrim"
+    scrim.translation = [96, 80]
+    scrim.width = 1148
+    scrim.height = 920
+    scrim.color = "0x1A2336CC"
+    root.appendChild(scrim)
+    m.hostKitScrim = scrim
+
     intro = CreateObject("roSGNode", "Group")
     intro.id = "hostKitIntro"
     intro.visible = false
     root.appendChild(intro)
     m.hostKitIntro = intro
 
-    m.hostKitTitle = HostKitAddLabel(intro, [160, 200], 1400, 110, "font:LargeBoldSystemFont", "0xFFFFFFFF", "")
-    m.hostKitBody = HostKitAddLabel(intro, [160, 360], 1400, 280, "font:LargeSystemFont", "0xC9D1E0FF", "")
+    m.hostKitTitle = HostKitAddLabel(intro, [192, 200], 1000, 110, "font:LargeBoldSystemFont", "0xFFFFFFFF", "")
+    m.hostKitBody = HostKitAddLabel(intro, [192, 360], 1000, 280, "font:LargeSystemFont", "0xF4EFE3FF", "")
     m.hostKitBody.wrap = true
     m.hostKitBody.maxLines = 5
-    m.hostKitHint = HostKitAddLabel(intro, [160, 900], 1400, 50, "font:SmallSystemFont", "0xD5DBE8FF", "")
-    m.hostKitDots = HostKitAddLabel(intro, [160, 820], 800, 40, "font:SmallSystemFont", "0xE8C36AFF", "")
+    HostKitSetLabelSize(m.hostKitBody, 42)
+    m.hostKitHint = HostKitAddLabel(intro, [192, 900], 1000, 50, "font:SmallSystemFont", "0xF4EFE3FF", "")
+    HostKitSetLabelSize(m.hostKitHint, 28)
+    m.hostKitDotNodes = []
+    dotIndex = 0
+    while dotIndex < 3
+        dot = CreateObject("roSGNode", "Rectangle")
+        dot.width = 25
+        dot.height = 25
+        dot.translation = [192 + dotIndex * 47, 820]
+        dot.color = "0xF2A93BFF"
+        intro.appendChild(dot)
+        m.hostKitDotNodes.Push(dot)
+        dotIndex = dotIndex + 1
+    end while
 
     pair = CreateObject("roSGNode", "Group")
     pair.id = "hostKitPair"
@@ -48,27 +72,35 @@ sub HostKitEnsureUi()
     root.appendChild(pair)
     m.hostKitPair = pair
 
-    m.hostKitPairKicker = HostKitAddLabel(pair, [160, 140], 1000, 50, "font:SmallSystemFont", "0xE8C36AFF", "Connect this TV")
-    m.hostKitPairTitle = HostKitAddLabel(pair, [160, 200], 1000, 90, "font:LargeBoldSystemFont", "0xFFFFFFFF", "Enter this code on the web")
-    m.hostKitCode = HostKitAddLabel(pair, [160, 340], 1000, 140, "font:LargeBoldSystemFont", "0xE8C36AFF", "——— ———")
-    m.hostKitUrl = HostKitAddLabel(pair, [160, 520], 1000, 80, "font:MediumSystemFont", "0xFFFFFFFF", "")
+    m.hostKitPairKicker = HostKitAddLabel(pair, [192, 120], 1000, 50, "font:SmallSystemFont", "0xF2A93BFF", "Connect this TV")
+    HostKitSetLabelSize(m.hostKitPairKicker, 28)
+    m.hostKitPairTitle = HostKitAddLabel(pair, [192, 168], 1000, 80, "font:LargeBoldSystemFont", "0xFFFFFFFF", "Enter this code on the web")
+    m.hostKitCodeChars = []
+    cellW = 64
+    groupGap = 60
+    charIndex = 0
+    while charIndex < 6
+        charX = 192 + charIndex * cellW
+        if charIndex >= 3 then charX = charX + groupGap
+        ch = HostKitAddLabel(pair, [charX, 250], cellW, 130, "font:LargeBoldSystemFont", "0xF2A93BFF", "—")
+        ch.horizAlign = "center"
+        ch.vertAlign = "center"
+        HostKitSetMonoSize(ch, 96)
+        m.hostKitCodeChars.Push(ch)
+        charIndex = charIndex + 1
+    end while
+    m.hostKitUrlLabel = HostKitAddLabel(pair, [192, 410], 1000, 40, "font:SmallSystemFont", "0xF4EFE3FF", "Or open this link")
+    HostKitSetLabelSize(m.hostKitUrlLabel, 28)
+    m.hostKitUrl = HostKitAddLabel(pair, [192, 452], 1000, 110, "font:MediumSystemFont", "0xFFFFFFFF", "")
+    HostKitSetLabelSize(m.hostKitUrl, 42)
     m.hostKitUrl.wrap = true
     m.hostKitUrl.maxLines = 2
-    m.hostKitStatus = HostKitAddLabel(pair, [160, 640], 1000, 80, "font:MediumSystemFont", "0xC9D1E0FF", "Getting a code…")
+    m.hostKitStatus = HostKitAddLabel(pair, [192, 580], 1000, 90, "font:MediumSystemFont", "0xF4EFE3FF", "Getting a code…")
+    HostKitSetLabelSize(m.hostKitStatus, 32)
     m.hostKitStatus.wrap = true
     m.hostKitStatus.maxLines = 2
-    m.hostKitNote = HostKitAddLabel(pair, [160, 900], 1000, 50, "font:SmallSystemFont", "0xD5DBE8FF", "This code is valid for 15 minutes")
-
-    poster = CreateObject("roSGNode", "Poster")
-    poster.id = "hostKitQr"
-    poster.translation = [1280, 280]
-    poster.width = 420
-    poster.height = 420
-    poster.loadDisplayMode = "scaleToFit"
-    poster.uri = ""
-    poster.visible = false
-    pair.appendChild(poster)
-    m.hostKitQr = poster
+    m.hostKitNote = HostKitAddLabel(pair, [192, 900], 1000, 50, "font:SmallSystemFont", "0xF4EFE3FF", "This code is valid for 15 minutes")
+    HostKitSetLabelSize(m.hostKitNote, 26)
 
     frame = CreateObject("roSGNode", "Rectangle")
     frame.id = "hostKitQrFrame"
@@ -77,8 +109,26 @@ sub HostKitEnsureUi()
     frame.height = 440
     frame.color = "0x2A2622FF"
     frame.visible = false
-    pair.insertChild(frame, 0)
+    pair.appendChild(frame)
     m.hostKitQrFrame = frame
+
+    ' 11px modules + 4-module quiet zone = 407px card, centered in the
+    ' existing 420px plate so the QR is not restyled or shrunk.
+    poster = CreateObject("roSGNode", "Poster")
+    poster.id = "hostKitQr"
+    poster.translation = [1286, 286]
+    poster.width = 407
+    poster.height = 407
+    poster.loadDisplayMode = "scaleToFit"
+    poster.uri = ""
+    poster.visible = false
+    pair.appendChild(poster)
+    m.hostKitQr = poster
+
+    m.hostKitQrLabel = HostKitAddLabel(pair, [1280, 230], 420, 40, "font:SmallSystemFont", "0xF4EFE3FF", "Scan to pair")
+    m.hostKitQrLabel.horizAlign = "center"
+    HostKitSetLabelSize(m.hostKitQrLabel, 28)
+    m.hostKitQrLabel.visible = false
 end sub
 
 function HostKitAddLabel(parent as object, translation as object, width as integer, height as integer, font as string, color as string, text as string) as object
@@ -116,7 +166,9 @@ sub HostKitShowIntro(index as integer)
     m.hostKitTitle.text = page.title
     m.hostKitBody.text = page.body
     m.hostKitHint.text = page.hint
-    m.hostKitDots.text = HostKitDotsText(index, pages.Count())
+    HostKitSetLabelSize(m.hostKitBody, 42)
+    HostKitSetLabelSize(m.hostKitHint, 28)
+    HostKitPaintDots(index, pages.Count())
     m.hostKitRoot.visible = true
     m.hostKitIntro.visible = true
     m.hostKitPair.visible = false
@@ -125,19 +177,25 @@ sub HostKitShowIntro(index as integer)
     HoldFocus()
 end sub
 
-function HostKitDotsText(index as integer, count as integer) as string
-    out = ""
+sub HostKitPaintDots(index as integer, count as integer)
+    nodes = m.hostKitDotNodes
+    if nodes = invalid then return
     i = 0
-    while i < count
-        if i = index
-            out = out + "●  "
+    while i < nodes.Count()
+        node = nodes[i]
+        if i < count
+            node.visible = true
+            if i = index
+                node.color = "0xF2A93BFF"
+            else
+                node.color = "0xF2A93B66"
+            end if
         else
-            out = out + "○  "
+            node.visible = false
         end if
         i = i + 1
     end while
-    return out
-end function
+end sub
 
 sub HostKitShowPairing()
     HostKitEnsureUi()
@@ -148,8 +206,10 @@ sub HostKitShowPairing()
     m.hostKitIntro.visible = false
     m.hostKitPair.visible = true
     if m.greeting <> invalid then m.greeting.visible = false
-    if m.hostKitCode <> invalid then m.hostKitCode.text = "——— ———"
+    HostKitPaintCode("")
+    HostKitSetPairingType()
     if m.hostKitUrl <> invalid then m.hostKitUrl.text = ""
+    if m.hostKitQrLabel <> invalid then m.hostKitQrLabel.visible = false
     if m.hostKitStatus <> invalid then m.hostKitStatus.text = "Getting a code…"
     if m.hostKitQr <> invalid
         m.hostKitQr.uri = ""
@@ -163,9 +223,61 @@ sub HostKitShowPairing()
 end sub
 
 function HostKitFormatCode(code as string) as string
+    ' Letter-spaced so the 6-character code stays readable from about 10 feet.
     if Len(code) <> 6 then return code
-    return Left(code, 3) + "  " + Right(code, 3)
+    out = ""
+    i = 1
+    while i <= 6
+        if i > 1 then out = out + "  "
+        if i = 4 then out = out + "  "
+        out = out + Mid(code, i, 1)
+        i = i + 1
+    end while
+    return out
 end function
+
+sub HostKitSetLabelSize(label as object, size as integer)
+    ' Size the label's existing system font node. Replacing it with a new
+    ' Font whose uri is "font:LargeSystemFont" draws nothing in brs-engine.
+    if label = invalid then return
+    font = label.font
+    if font = invalid then return
+    kind = type(font)
+    if kind <> "roSGNode" and kind <> "SGNode" then return
+    font.size = size
+end sub
+
+sub HostKitSetMonoSize(label as object, size as integer)
+    if label = invalid then return
+    font = CreateObject("roSGNode", "Font")
+    if font = invalid then return
+    font.uri = "pkg:/fonts/UbuntuMono-Regular.ttf"
+    font.size = size
+    label.font = font
+end sub
+
+sub HostKitSetPairingType()
+    HostKitSetLabelSize(m.hostKitPairKicker, 28)
+    HostKitSetLabelSize(m.hostKitUrlLabel, 28)
+    HostKitSetLabelSize(m.hostKitUrl, 42)
+    HostKitSetLabelSize(m.hostKitStatus, 32)
+    HostKitSetLabelSize(m.hostKitNote, 26)
+    HostKitSetLabelSize(m.hostKitQrLabel, 28)
+end sub
+
+sub HostKitPaintCode(code as string)
+    chars = m.hostKitCodeChars
+    if chars = invalid then return
+    text = code
+    if text = invalid then text = ""
+    i = 0
+    while i < chars.Count()
+        glyph = "—"
+        if Len(text) = 6 then glyph = Mid(text, i + 1, 1)
+        chars[i].text = glyph
+        i = i + 1
+    end while
+end sub
 
 function HostKitRouteKey(key as string) as boolean
     HoldFocus()
@@ -259,10 +371,10 @@ sub HostKitHandleStart(result as object)
         if secs >= 1 then m.hostKitPollSeconds = secs
     end if
     m.hostKitPairCode = result.code
-    if m.hostKitCode <> invalid then m.hostKitCode.text = HostKitFormatCode(result.code)
+    HostKitPaintCode(result.code)
     if m.hostKitUrl <> invalid then m.hostKitUrl.text = result.shortUrl
     status = "Waiting for the host to finish setup"
-    if m.hostKitRefreshed = true then status = "Code refreshed"
+    if m.hostKitRefreshed = true then status = "This code expired. Use the new code or scan the QR again."
     if m.hostKitStatus <> invalid then m.hostKitStatus.text = status
     if result.qrPath <> invalid and result.qrPath <> ""
         if m.hostKitQr <> invalid
@@ -270,6 +382,7 @@ sub HostKitHandleStart(result as object)
             m.hostKitQr.visible = true
         end if
         if m.hostKitQrFrame <> invalid then m.hostKitQrFrame.visible = true
+        if m.hostKitQrLabel <> invalid then m.hostKitQrLabel.visible = true
     end if
     HostKitArmPoll(m.hostKitPollSeconds)
 end sub
@@ -330,6 +443,9 @@ sub HostKitHandleConfig(result as object)
     if reason = "not-modified" and cacheValid = true then source = "cachefs"
     if remoteOk = true then source = "network"
     print "HostKit: config source="; source
+    if source <> "none" and m.hostKitMode = "configured"
+        HostKitApplyCachedGuide()
+    end if
     if reason = "unauthorized"
         print "HostKit: token revoked"
         HostKitClearPair()
@@ -381,3 +497,68 @@ sub startHostKitConfigFetch()
     if HostKitHasDeviceToken() <> true then return
     startHostKitAction("config")
 end sub
+
+function HostKitApplyCachedGuide() as boolean
+    cfg = HostKitCachedConfig()
+    if cfg = invalid then return false
+    docs = HostKitToLegacyDocuments(cfg)
+    if docs = invalid then return false
+    ' NormalizeGuide / NormalizeBookDirect / NormalizeActivities live on the
+    ' scene. The GuideTask helpers that wrap them are not in this scope.
+    guide = NormalizeGuide(docs.guide)
+    if guide = invalid then return false
+    guide.book = NormalizeBookDirect(docs.guide)
+    guide.guideSource = "hostkit"
+    guide.guideCode = "0"
+    checkout = NormalizeCheckout(docs.checkout)
+    if checkout = invalid then checkout = FallbackCheckout()
+    checkout.checkoutSource = "hostkit"
+    checkout.checkoutCode = "0"
+    activities = NormalizeActivities(docs.activities)
+    if activities = invalid
+        activities = { activitiesVersion: 0, items: [] }
+    end if
+    activities.activitiesSource = "hostkit"
+    activities.activitiesCode = "0"
+    if guide.checkIn = "" then guide.checkIn = checkout.checkIn
+    if guide.checkOut = "" then guide.checkOut = checkout.checkOut
+    menuText = ""
+    if docs.menu <> invalid then menuText = FormatJson(docs.menu)
+    if menuText = invalid then menuText = ""
+    book = guide.book
+    if book = invalid then book = DefaultBookDirect()
+    items = activities.items
+    if items = invalid then items = []
+    bundle = {
+        brand: guide.brand,
+        place: guide.place,
+        domain: guide.domain,
+        checkIn: guide.checkIn,
+        checkOut: guide.checkOut,
+        quietHours: guide.quietHours,
+        hostName: guide.hostName,
+        hostEmail: guide.hostEmail,
+        hostPhone: guide.hostPhone,
+        summary: checkout.summary,
+        guideSource: "hostkit",
+        guideCode: "0",
+        guideVersion: VersionText(guide.guideVersion),
+        checkoutSource: "hostkit",
+        checkoutCode: "0",
+        checkoutVersion: VersionText(checkout.checkoutVersion),
+        rules: guide.rules,
+        issues: guide.issues,
+        checkoutSteps: checkout.checkoutSteps,
+        activities: items,
+        book: book,
+        activitiesSource: "hostkit",
+        activitiesCode: "0",
+        activitiesVersion: VersionText(activities.activitiesVersion),
+        menuSource: "hostkit",
+        menuJson: menuText
+    }
+    ApplyBundle(bundle)
+    print "Eaglewood: guide applied source=hostkit version="; m.guideVersion
+    return true
+end function
+

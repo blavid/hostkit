@@ -7,6 +7,7 @@ sub main()
     failed = failed + CheckFlatten()
     failed = failed + CheckCacheChoice()
     failed = failed + CheckNormalize()
+    failed = failed + CheckLegacyMap()
     if failed = 0
         print "brs hostkit checks passed"
     else
@@ -31,6 +32,8 @@ function CheckCodes() as integer
     if InStr(1, alphabet, "O") <> 0 then failed = failed + Fail("alphabet O")
     if InStr(1, alphabet, "1") <> 0 then failed = failed + Fail("alphabet 1")
     if InStr(1, alphabet, "I") <> 0 then failed = failed + Fail("alphabet I")
+    if InStr(1, alphabet, "L") <> 0 then failed = failed + Fail("alphabet L")
+    if HostKitCodeOk("ABL234") <> false then failed = failed + Fail("reject L")
     seed = 1
     while seed <= 80
         code = HostKitMakeCode(seed)
@@ -124,6 +127,43 @@ function CheckNormalize() as integer
     if mid.items.Count() <> 2 then failed = failed + Fail("normalize merged items")
     bad = HostKitAcceptConfigText("{""schemaVersion"":2,""property"":{""id"":""x""}}")
     if bad <> invalid then failed = failed + Fail("reject major version")
+    return failed
+end function
+
+function CheckLegacyMap() as integer
+    failed = 0
+    text = "{""schemaVersion"":1,""property"":{""id"":""eaglewood"",""name"":""Sunriver Townhome"",""tagline"":""Eaglewood · Sunriver, Oregon"",""checkIn"":""4:00 PM"",""checkOut"":""11:00 AM"",""host"":{""name"":""Blake Clough"",""email"":""{{HOST_EMAIL}}"",""phone"":""{{HOST_PHONE}}""}},""links"":{""hostToolsDirect"":""https://book.sunrivertownhome.com"",""website"":""https://sunrivertownhome.com"",""domain"":""sunrivertownhome.com""},""faqs"":[{""id"":""house-rules"",""title"":""House Rules"",""items"":[{""q"":""Check-in after 4:00 PM"",""a"":""Check-in after 4:00 PM""},{""q"":""Dogs only, limited to one dog"",""a"":""Dogs only, limited to one dog""}]},{""id"":""quick-fixes"",""title"":""Quick Fixes"",""items"":[{""q"":""Circuit breaker tripped"",""a"":""Find the panel."",""steps"":[""Locate the panel."",""Reset the breaker.""]}]}],""activities"":[{""id"":""viator-ebike-tour"",""title"":""Electric Bike Tour"",""category"":""guided-tours-and-activities"",""categoryTitle"":""Guided tours and activities"",""signupUrl"":""https://www.viator.com/tours/example"",""qrUrl"":""https://sunrivertownhome.com/data/qr/viator-ebike-tour.png"",""seasons"":[""year-round""]},{""id"":""hot-lava-bakery"",""title"":""Hot Lava Bakery"",""category"":""dining"",""url"":""https://www.hotlavabakery.com/""},{""id"":""viator-ebike-tour"",""title"":""Duplicate should already be gone"",""category"":""golf-family""}],""checkout"":{""summary"":""Checkout is 11:00 AM."",""checkIn"":""4:00 PM"",""checkOut"":""11:00 AM"",""steps"":[""Start the dishwasher"",""{{CHECKOUT_SECRET}}""]},""branding"":{""colors"":{},""bookDirect"":{""body"":""Our website has lots of great information about the house, local activities, dining, outdoor adventures and more!"",""homePromptTitle"":""Book direct & save"",""bookingUrl"":""https://book.sunrivertownhome.com""}},""menu"":[{""id"":""home"",""label"":""Home"",""type"":""home""},{""id"":""todo"",""label"":""Things to Do"",""type"":""things"",""children"":[{""id"":""dining"",""label"":""Dining""}]}]}"
+    cfg = HostKitAcceptConfigText(text)
+    if cfg = invalid then return Fail("legacy parse")
+    docs = HostKitToLegacyDocuments(cfg)
+    if docs = invalid then return Fail("legacy docs")
+    rules = docs.guide.houseRules
+    if rules.Count() <> 2 then failed = failed + Fail("legacy rules count")
+    if rules[1] <> "Dogs only, limited to one dog" then failed = failed + Fail("legacy rule text")
+    issues = docs.guide.troubleshooting
+    if issues.Count() <> 1 then failed = failed + Fail("legacy issues count")
+    if issues[0].issue <> "Circuit breaker tripped" then failed = failed + Fail("legacy issue title")
+    if issues[0].steps.Count() <> 2 then failed = failed + Fail("legacy issue steps")
+    sections = docs.activities.activitySections
+    if sections.Count() <> 2 then failed = failed + Fail("legacy section count")
+    if sections[0].id <> "guided-tours-and-activities" then failed = failed + Fail("legacy first section")
+    if sections[0].title <> "Guided tours and activities" then failed = failed + Fail("legacy section title")
+    tour = sections[0].activities[0]
+    if tour.name <> "Electric Bike Tour" then failed = failed + Fail("legacy activity title")
+    if tour.url <> "https://www.viator.com/tours/example" then failed = failed + Fail("legacy signupUrl becomes url")
+    if sections[1].id <> "dining" then failed = failed + Fail("legacy dining section")
+    if sections[1].activities[0].url <> "https://www.hotlavabakery.com/" then failed = failed + Fail("legacy info url")
+    if docs.checkout.steps.Count() <> 1 then failed = failed + Fail("legacy placeholder step dropped")
+    if docs.checkout.steps[0] <> "Start the dishwasher" then failed = failed + Fail("legacy checkout step")
+    host = docs.guide.siteConfig.host
+    if host.name <> "Blake Clough" then failed = failed + Fail("legacy host name")
+    if host.email <> "" then failed = failed + Fail("legacy host email placeholder dropped")
+    if host.phone <> "" then failed = failed + Fail("legacy host phone placeholder dropped")
+    if docs.guide.bookDirect.body <> "Our website has lots of great information about the house, local activities, dining, outdoor adventures and more!" then failed = failed + Fail("legacy book body")
+    if docs.guide.bookDirect.homePromptTitle <> "Book direct & save" then failed = failed + Fail("legacy prompt title")
+    if docs.menu.items.Count() <> 2 then failed = failed + Fail("legacy menu count")
+    if HostKitIsPlaceholder("{{HOST_EMAIL}}") <> true then failed = failed + Fail("placeholder token")
+    if HostKitIsPlaceholder("Blake Clough") <> false then failed = failed + Fail("real name not placeholder")
     return failed
 end function
 
