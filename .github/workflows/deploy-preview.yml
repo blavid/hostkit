@@ -1,0 +1,57 @@
+name: Deploy preview
+
+on:
+  push:
+    branches: [main]
+
+# Deploys ONLY to the new hostkit-preview Pages project and (when present) the
+# hostkit-api-preview Worker on workers.dev.
+# NEVER touch sunriver-web, eaglewood-tv, or /tv.
+
+jobs:
+  deploy-web:
+    name: Deploy web to hostkit-preview
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            web/package-lock.json
+      - run: npm ci
+      - run: npm ci --prefix web
+      - run: npm run build:web
+      # Path route on sunrivertownhome.com/hostkit-preview/* is NOT set up yet;
+      # for now the preview is the *.pages.dev URL from this project.
+      # Do not attach custom domains or routes that could hit the live site.
+      - name: Deploy Pages project hostkit-preview
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          # New project; never sunriver-web.
+          command: pages deploy web/dist --project-name=hostkit-preview
+
+  deploy-worker:
+    name: Deploy worker preview (if present)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Deploy hostkit-api-preview to workers.dev only
+        uses: cloudflare/wrangler-action@v3
+        if: hashFiles('worker/package.json', 'worker/wrangler.toml', 'worker/wrangler.json', 'worker/wrangler.jsonc') != ''
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: worker
+          # workers_dev only — never add routes on sunrivertownhome.com.
+          command: deploy
+      - name: Skip when worker/ missing
+        if: hashFiles('worker/package.json', 'worker/wrangler.toml', 'worker/wrangler.json', 'worker/wrangler.jsonc') == ''
+        run: echo "worker/ not present yet — Rocky owns it; skipping deploy."

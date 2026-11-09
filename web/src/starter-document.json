@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "property": {
+    "id": "preview-property",
+    "name": "Preview Property",
+    "tagline": "HostKit wizard stub",
+    "address": "{{PROPERTY_ADDRESS}}",
+    "checkIn": "4:00 PM",
+    "checkOut": "11:00 AM",
+    "stats": { "guests": 4, "bedrooms": 2, "bathrooms": 2 },
+    "images": [
+      {
+        "url": "https://example.com/hero.jpg",
+        "tvUrl": "https://example.com/hero-tv.jpg"
+      }
+    ]
+  },
+  "links": {
+    "hostToolsDirect": "https://example.com/book",
+    "airbnb": "https://www.airbnb.com/rooms/0",
+    "vrbo": "https://www.vrbo.com/0"
+  },
+  "faqs": [
+    {
+      "id": "house-rules",
+      "title": "House Rules",
+      "items": [{ "q": "Quiet hours?", "a": "10pm–8am" }]
+    }
+  ],
+  "activities": [
+    {
+      "id": "sample-walk",
+      "title": "Sample Walk",
+      "category": "outdoors",
+      "description": "Placeholder activity card.",
+      "seasons": ["summer"]
+    }
+  ],
+  "checkout": {
+    "summary": "Please leave keys in the lockbox.",
+    "steps": ["Lock up", "{{CHECKOUT_STEP_1}}"]
+  },
+  "wifi": {
+    "ssid": "{{WIFI_SSID}}",
+    "password": "{{WIFI_PASSWORD}}"
+  },
+  "branding": {
+    "logoUrl": "https://example.com/logo.png",
+    "colors": { "primary": "#1a4a7a", "accent": "#c9a227" }
+  },
+  "subscription": {
+    "status": "trial",
+    "plan": "monthly",
+    "graceDays": 14
+  }
+}

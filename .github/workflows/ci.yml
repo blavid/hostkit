@@ -1,0 +1,80 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+
+jobs:
+  schema-validate:
+    name: Schema validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+      - run: npm ci
+      - run: npm run validate
+
+  secrets-scan:
+    name: Secrets scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+      - run: npm ci
+      - run: npm run scan
+      - run: npm run test:scan
+
+  web-build:
+    name: Web build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            web/package-lock.json
+      - run: npm ci
+      - run: npm ci --prefix web
+      - run: npm run build:web
+
+  worker-tests:
+    name: Worker tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Run worker tests if present
+        run: |
+          if [ -f worker/package.json ]; then
+            npm ci --prefix worker
+            npm test --prefix worker
+          else
+            echo "worker/package.json not present — Rocky owns worker/; skipping."
+          fi
+
+  # TODO(Rocky): roku lint — `npm run lint` in roku/ once the channel lands (M2).
+  roku-lint:
+    name: Roku lint (TODO)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Placeholder
+        run: |
+          echo "TODO(Rocky): enable roku lint when roku/package.json exists (M2)."
+          if [ -f roku/package.json ]; then
+            npm ci --prefix roku
+            npm run lint --prefix roku
+          else
+            echo "roku/ not ready — skipping."
+          fi

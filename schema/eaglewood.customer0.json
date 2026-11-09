@@ -1,0 +1,554 @@
+{
+  "schemaVersion": 1,
+  "property": {
+    "id": "eaglewood",
+    "name": "Sunriver Townhome",
+    "tagline": "Eaglewood \u00b7 Sunriver, Oregon",
+    "address": "{{PROPERTY_ADDRESS}}",
+    "checkIn": "4:00 PM",
+    "checkOut": "11:00 AM",
+    "stats": {
+      "guests": 9,
+      "bedrooms": 3,
+      "bathrooms": 3
+    },
+    "images": [
+      {
+        "url": "https://sunrivertownhome.com/images/photos/house/placeholder-hero.jpg",
+        "tvUrl": "https://sunrivertownhome.com/images/photos/house/placeholder-hero-tv.jpg",
+        "alt": "Eaglewood exterior",
+        "role": "hero"
+      }
+    ],
+    "timezone": "America/Los_Angeles",
+    "host": {
+      "name": "Blake Clough",
+      "email": "{{HOST_EMAIL}}",
+      "phone": "{{HOST_PHONE}}"
+    }
+  },
+  "links": {
+    "hostToolsDirect": "https://book.sunrivertownhome.com",
+    "airbnb": "https://www.airbnb.com/h/eaglewood",
+    "vrbo": "https://www.vrbo.com/{{VRBO_LISTING_ID}}",
+    "website": "https://sunrivertownhome.com",
+    "domain": "sunrivertownhome.com"
+  },
+  "faqs": [
+    {
+      "id": "house-rules",
+      "title": "House Rules",
+      "items": [
+        {
+          "q": "Rule 1",
+          "a": "{{HOUSE_RULE_PLACEHOLDER}}"
+        },
+        {
+          "q": "Rule 2",
+          "a": "{{HOUSE_RULE_PLACEHOLDER}}"
+        },
+        {
+          "q": "Rule 3",
+          "a": "{{HOUSE_RULE_PLACEHOLDER}}"
+        }
+      ]
+    },
+    {
+      "id": "guest-guide",
+      "title": "Guest Guide",
+      "categories": [
+        {
+          "id": "before-you-arrive",
+          "title": "Before You Arrive",
+          "items": [
+            {
+              "q": "Tip 1",
+              "a": "{{GUEST_GUIDE_ITEM_PLACEHOLDER}}"
+            },
+            {
+              "q": "Tip 2",
+              "a": "{{GUEST_GUIDE_ITEM_PLACEHOLDER}}"
+            }
+          ]
+        },
+        {
+          "id": "during-your-stay",
+          "title": "During Your Stay",
+          "items": [
+            {
+              "q": "Tip 1",
+              "a": "{{GUEST_GUIDE_ITEM_PLACEHOLDER}}"
+            },
+            {
+              "q": "Tip 2",
+              "a": "{{GUEST_GUIDE_ITEM_PLACEHOLDER}}"
+            }
+          ]
+        },
+        {
+          "id": "getting-around",
+          "title": "Getting Around",
+          "items": [
+            {
+              "q": "Tip 1",
+              "a": "{{GUEST_GUIDE_ITEM_PLACEHOLDER}}"
+            },
+            {
+              "q": "Tip 2",
+              "a": "{{GUEST_GUIDE_ITEM_PLACEHOLDER}}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "quick-fixes",
+      "title": "Quick Fixes",
+      "items": [
+        {
+          "q": "{{TROUBLESHOOTING_ISSUE_PLACEHOLDER}}",
+          "a": "{{TROUBLESHOOTING_STEPS_PLACEHOLDER}}"
+        }
+      ],
+      "categories": [
+        {
+          "id": "nested-demo",
+          "title": "Nested (depth 2)",
+          "categories": [
+            {
+              "id": "too-deep",
+              "title": "Depth 3 \u2014 Roku flattens",
+              "items": [
+                {
+                  "q": "Deep item",
+                  "a": "Roku flattens categories past 2 levels into the parent."
+                }
+              ]
+            }
+          ],
+          "items": [
+            {
+              "q": "Example fix",
+              "a": "See the on-site binder; never store door PINs here."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "activities": [
+    {
+      "id": "viator-ebike-tour",
+      "title": "Electric Bike Tour of Bend & Deschutes River",
+      "category": "guided-tours-and-activities",
+      "image": "/images/photos/activities/Viator/E-bikeTour.jpg",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Viator/E-bikeTour.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/viator-ebike-tour.jpg",
+      "description": "Explore Bend and the Deschutes River with ease on a guided e-bike tour. With an electric bike to assist, you can go farther and see more while learning local history and stopping for refreshments.",
+      "seasons": [
+        "year-round"
+      ],
+      "seasonLabel": "Year-round",
+      "distance": "25\u201330 min drive to Bend",
+      "tip": "Includes e-bike and helmet; wear closed-toe shoes.",
+      "signupUrl": "https://www.viator.com/tours/Bend/Electric-Bike-Tour-of-Bend-and-Deschutes-River/d22372-348862P1?pid=P00286716&mcid=42383&medium=link",
+      "qrUrl": "https://sunrivertownhome.com/data/qr/viator-ebike-tour.png",
+      "imageAlt": "An electric bicycle and another rider in a bike lane in Bend",
+      "imageCredit": {
+        "author": "Oregon Department of Transportation",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Riding_in_the_bike_lane_in_Bend,_OR._(52389757790).jpg",
+        "changes": "Resized"
+      },
+      "seasonRank": {
+        "winter": 170,
+        "spring": 380,
+        "summer": 510,
+        "fall": 450
+      }
+    },
+    {
+      "id": "ride-the-river-ebike",
+      "title": "Ride the River Guided E-Bike Tour of Bend",
+      "category": "guided-tours-and-activities",
+      "image": "/images/photos/activities/Viator/RideTheRiverEbike.jpg",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Viator/RideTheRiverEbike.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/ride-the-river-ebike.jpg",
+      "description": "A relaxed guided e-bike ride focusing on Bend's riverfront, Old Mill District, and neighborhood highlights \u2014 great for visitors who want a local introduction.",
+      "seasons": [
+        "year-round"
+      ],
+      "seasonLabel": "Year-round",
+      "distance": "25\u201330 min drive to Bend",
+      "tip": "Smaller groups sell out on weekends; book ahead.",
+      "signupUrl": "https://www.viator.com/tours/Bend/Guided-E-Bike-Tour-of-Bend/d22372-443338P3?pid=P00286716&mcid=42383&medium=link",
+      "qrUrl": "https://sunrivertownhome.com/data/qr/ride-the-river-ebike.png",
+      "imageAlt": "Riders on e-bikes following a river path",
+      "seasonRank": {
+        "winter": 180,
+        "spring": 390,
+        "summer": 520,
+        "fall": 460
+      }
+    },
+    {
+      "id": "hot-lava-bakery",
+      "title": "Hot Lava Bakery",
+      "category": "dining",
+      "image": "/images/photos/activities/Dining/HotLavaBakery.jpeg",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Dining/HotLavaBakery.jpeg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/hot-lava-bakery.jpg",
+      "description": "Fresh pastries, croissants, and coffee in Sunriver Village \u2014 a local favorite for breakfast and take-away treats.",
+      "seasons": [
+        "year-round"
+      ],
+      "seasonLabel": "Year-round",
+      "distance": "5 min by bike to the Village",
+      "tip": "Arrive before 9:30 AM in peak season.",
+      "qrUrl": "https://sunrivertownhome.com/data/qr/hot-lava-bakery.png",
+      "imageAlt": "Fresh pastries and croissants in a bakery display",
+      "seasonRank": {
+        "winter": 40,
+        "spring": 280,
+        "summer": 410,
+        "fall": 350
+      },
+      "url": "https://www.hotlavabakery.com/"
+    },
+    {
+      "id": "sparrow-bakery",
+      "title": "Sparrow Bakery",
+      "category": "dining",
+      "image": "/images/photos/activities/Dining/SparrowBakery.jpg",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Dining/SparrowBakery.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/sparrow-bakery.jpg",
+      "description": "Bend's cult-favorite bakery famous for the ocean roll \u2014 a buttery, salted-sweet masterpiece. Also excellent savory pastries and coffee.",
+      "seasons": [
+        "year-round"
+      ],
+      "seasonLabel": "Year-round",
+      "distance": "20 min drive to Bend",
+      "tip": "Ocean rolls sell out \u2014 go early or pre-order.",
+      "qrUrl": "https://sunrivertownhome.com/data/qr/sparrow-bakery.png",
+      "imageAlt": "Fresh baked goods on a counter",
+      "seasonRank": {
+        "winter": 50,
+        "spring": 290,
+        "summer": 420,
+        "fall": 360
+      },
+      "url": "https://www.thesparrowbakery.net/restaurant/"
+    },
+    {
+      "id": "benham-falls",
+      "title": "Benham Falls",
+      "category": "hiking",
+      "image": "/images/photos/activities/Hiking/BenhamFalls.jpeg",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Hiking/BenhamFalls.jpeg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/benham-falls.jpg",
+      "description": "The largest waterfall on the upper Deschutes River, thundering through a rugged lava canyon. Mostly flat, family-friendly, and beautiful year-round.",
+      "seasons": [
+        "spring"
+      ],
+      "seasonLabel": "Best in spring for peak flow",
+      "distance": "10 min drive from Sunriver",
+      "tip": "Combine with a bike ride on the Deschutes River Trail.",
+      "imageAlt": "Waterfall cascading through a forest canyon",
+      "seasonRank": {
+        "winter": 560,
+        "spring": 40,
+        "summer": 620,
+        "fall": 570
+      },
+      "difficulty": "Easy",
+      "trailDistance": "2.4 miles round trip",
+      "gettingThere": "Short drive or bike ride from Sunriver. Trailhead parking off Forest Road 41."
+    },
+    {
+      "id": "deschutes-river-trail",
+      "title": "Deschutes River Trail",
+      "category": "hiking",
+      "image": "/images/photos/activities/Hiking/deschutes-river-trail.jpg",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Hiking/deschutes-river-trail.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/deschutes-river-trail.jpg",
+      "description": "Paved and dirt paths following the Deschutes River through pine forest. Walk or bike from Sunriver toward Benham Falls.",
+      "seasons": [
+        "year-round"
+      ],
+      "seasonLabel": "Year-round",
+      "distance": "Varies \u2014 up to 18 miles",
+      "tip": "Flat and scenic \u2014 perfect for an evening stroll.",
+      "imageAlt": "Dirt trail beside the Deschutes River on the way to Benham Falls",
+      "imageCredit": {
+        "author": "Another Believer",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Deschutes_River_Trail_to_Benham_Falls,_Oregon_(2014)_-_06.JPG",
+        "changes": "Resized"
+      },
+      "seasonRank": {
+        "winter": 300,
+        "spring": 180,
+        "summer": 310,
+        "fall": 250
+      },
+      "difficulty": "Easy"
+    },
+    {
+      "id": "sharc",
+      "title": "SHARC Aquatic Center",
+      "category": "swimming",
+      "image": "/images/photos/activities/Swimming/SunriverSHARC.jpg",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Swimming/SunriverSHARC.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/sharc.jpg",
+      "description": "Sunriver's premier aquatic center \u2014 waterslides, lazy river, lap pool, surf simulator, rock climbing wall, and fitness center. Your stay includes 8 guest passes.",
+      "seasons": [
+        "year-round"
+      ],
+      "seasonLabel": "Year-round (indoor/outdoor)",
+      "distance": "5 min drive",
+      "tip": "Passes are in the kitchen drawer at the house.",
+      "qrUrl": "https://sunrivertownhome.com/data/qr/sharc.png",
+      "imageAlt": "Outdoor swimming pool with water slides",
+      "seasonRank": {
+        "winter": 140,
+        "spring": 490,
+        "summer": 300,
+        "fall": 560
+      },
+      "url": "https://www.sunriversharc.com/"
+    },
+    {
+      "id": "elk-lake",
+      "title": "Elk Lake",
+      "category": "swimming",
+      "image": "/images/photos/activities/Swimming/ElkLakeResort.jpeg",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Swimming/ElkLakeResort.jpeg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/elk-lake.jpg",
+      "description": "A gorgeous alpine lake at 4,900 ft with sandy beaches, paddle rentals, and Mt. Bachelor as a backdrop. The water is cold but refreshing on hot summer days.",
+      "seasons": [
+        "summer",
+        "fall"
+      ],
+      "seasonLabel": "June through September",
+      "distance": "30 min drive",
+      "tip": "Grab lunch at the Elk Lake Resort cafe on the shore.",
+      "imageAlt": "Clear alpine lake with pine trees and mountains",
+      "seasonRank": {
+        "winter": 370,
+        "spring": 600,
+        "summer": 50,
+        "fall": 190
+      }
+    }
+  ],
+  "checkout": {
+    "summary": "{{CHECKOUT_SUMMARY_PLACEHOLDER}}",
+    "checkIn": "4:00 PM",
+    "checkOut": "11:00 AM",
+    "steps": [
+      "{{CHECKOUT_STEP_1}}",
+      "{{CHECKOUT_STEP_2}}"
+    ]
+  },
+  "wifi": {
+    "ssid": "{{WIFI_SSID}}",
+    "password": "{{WIFI_PASSWORD}}",
+    "qrUrl": "https://sunrivertownhome.com/tv/{{GUEST_PATH_KEY}}/wifi.png",
+    "notes": "Eaglewood continues to serve Wi-Fi via the existing /tv Worker until Blake approves migration."
+  },
+  "branding": {
+    "logoUrl": "https://sunrivertownhome.com/images/logo-placeholder.png",
+    "colors": {
+      "primary": "#1B3A4B",
+      "secondary": "#C4A35A",
+      "accent": "#E8F1F5",
+      "background": "#0E1A22",
+      "text": "#FFFFFF"
+    },
+    "ad": {
+      "text": "Book direct and pay up to about 10% less than Airbnb or Vrbo, plus no booking-site service fees.",
+      "visibleOn": [
+        "home",
+        "house-rules",
+        "quick-fixes",
+        "wifi",
+        "checkout"
+      ]
+    },
+    "bookDirect": {
+      "headline": [
+        "Love our home?",
+        "Want to come back?",
+        "Like saving money?"
+      ],
+      "banner": "Book direct and save!",
+      "body": "{{BOOK_DIRECT_BODY}}",
+      "savingsText": "Book direct and pay up to about 10% less than Airbnb or Vrbo, plus no booking-site service fees.",
+      "signOff": "Thanks for staying!",
+      "perks": [
+        {
+          "id": "house",
+          "label": "House info",
+          "icon": "house"
+        },
+        {
+          "id": "activities",
+          "label": "Local activities",
+          "icon": "mountain"
+        },
+        {
+          "id": "dining",
+          "label": "Dining",
+          "icon": "dining"
+        },
+        {
+          "id": "outdoors",
+          "label": "Outdoor adventures",
+          "icon": "pines"
+        },
+        {
+          "id": "more",
+          "label": "And more!",
+          "icon": "more"
+        }
+      ]
+    }
+  },
+  "subscription": {
+    "status": "active",
+    "plan": "annual",
+    "trialEndsAt": null,
+    "graceDays": 14,
+    "currentPeriodEndsAt": null
+  },
+  "menu": [
+    {
+      "id": "home",
+      "label": "Home",
+      "type": "home"
+    },
+    {
+      "id": "wifi",
+      "label": "Wi-Fi",
+      "type": "wifi"
+    },
+    {
+      "id": "todo",
+      "label": "Things to Do",
+      "type": "things",
+      "children": [
+        {
+          "id": "dining",
+          "label": "Dining",
+          "empty": "Nothing to show yet.",
+          "sectionIds": [
+            "dining"
+          ]
+        },
+        {
+          "id": "hiking",
+          "label": "Hiking",
+          "empty": "Nothing to show yet.",
+          "sectionIds": [
+            "hiking"
+          ]
+        },
+        {
+          "id": "winter",
+          "label": "Winter",
+          "empty": "Nothing to show yet.",
+          "seasons": [
+            "winter",
+            "year-round"
+          ]
+        },
+        {
+          "id": "summer",
+          "label": "Summer",
+          "empty": "Nothing to show yet.",
+          "seasons": [
+            "summer",
+            "year-round"
+          ]
+        },
+        {
+          "id": "fishing",
+          "label": "Fishing",
+          "empty": "No fishing spots listed right now.",
+          "keywords": [
+            "fish"
+          ]
+        },
+        {
+          "id": "biking",
+          "label": "Biking",
+          "empty": "Nothing to show yet.",
+          "sectionIds": [
+            "mountain-biking"
+          ],
+          "keywords": [
+            "bike",
+            "biking"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rules",
+      "label": "House Rules",
+      "type": "rules"
+    },
+    {
+      "id": "fixes",
+      "label": "Quick Fixes",
+      "type": "quickfixes",
+      "source": "guide.troubleshooting"
+    },
+    {
+      "id": "book",
+      "label": "Book Direct",
+      "type": "book"
+    },
+    {
+      "id": "checkout",
+      "label": "Checkout Instructions",
+      "type": "checkout"
+    }
+  ],
+  "quickReference": [
+    {
+      "label": "Check-in",
+      "value": "After 4:00 PM"
+    },
+    {
+      "label": "Check-out",
+      "value": "Before 11:00 AM"
+    },
+    {
+      "label": "WiFi",
+      "value": "See the note on the wall in the kitchen, or in the welcome book."
+    },
+    {
+      "label": "SHARC passes",
+      "value": "{{SHARC_PASSES_NOTE}}"
+    },
+    {
+      "label": "Bikes",
+      "value": "Bikes are in the garage. Lock combination is in the welcome book."
+    },
+    {
+      "label": "Hot tub",
+      "value": "{{HOT_TUB_NOTE}}"
+    },
+    {
+      "label": "Trash day",
+      "value": "{{TRASH_DAY_NOTE}}"
+    },
+    {
+      "label": "Emergency",
+      "value": "Call or text {{HOST_NAME}} at {{HOST_PHONE}}"
+    }
+  ]
+}
