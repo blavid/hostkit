@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { ScreenshotCarousel } from "./ScreenshotCarousel.jsx";
 
 export function MarketingPage() {
   return (
@@ -30,13 +31,15 @@ export function MarketingPage() {
         </ul>
       </div>
 
-      <div className="card todo">
-        <h2>Screenshots</h2>
+      <div className="card">
+        <h2>On the TV</h2>
         <p>
-          Real emulator captures will land here after Rocky’s M3 build clears
-          Pixel’s P1s (code size and contrast, title-safe, and QR decode). No
-          stand-in or fake screenshots in this preview.
+          These are resizes of real 1920×1080 Roku captures from the
+          M4 preview run — the three intro screens, a live preview pairing
+          screen, and the guest Home after the host claims the TV. Local test
+          pairing shots were left out because they printed a loopback address.
         </p>
+        <ScreenshotCarousel />
       </div>
 
       <div className="card">

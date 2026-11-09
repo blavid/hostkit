@@ -149,3 +149,54 @@ input[type="number"], input[type="email"], input[type="password"], textarea.shor
 textarea.short { min-height: 90px; font-family: inherit; font-size: 0.95rem; }
 button:disabled { opacity: 0.55; cursor: not-allowed; }
 .nav-row { display: flex; justify-content: space-between; gap: 0.5rem; margin-top: 1rem; }
+
+.carousel { margin: 1rem 0 0.25rem; }
+.carousel-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.6rem;
+}
+.carousel-status { margin: 0; font-size: 0.9rem; color: #9ab0c9; }
+.carousel-controls { display: flex; gap: 0.4rem; }
+.carousel-frame {
+  margin: 0;
+  background: #0b1016;
+  border: 1px solid #314155;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.carousel-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+  background: #0b1016;
+  vertical-align: middle;
+}
+.carousel-caption {
+  margin: 0;
+  padding: 0.7rem 0.9rem 0.85rem;
+  font-size: 0.95rem;
+  color: #c5d0db;
+}
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.4rem;
+  margin: 0.7rem 0 0;
+}
+.carousel-dots button {
+  width: 0.7rem;
+  height: 0.7rem;
+  padding: 0;
+  border-radius: 999px;
+  background: #0b1016;
+  border: 1px solid #314155;
+}
+.carousel-dots button.active {
+  background: #c9a227;
+  border-color: #c9a227;
+}
