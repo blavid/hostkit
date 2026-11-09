@@ -54,6 +54,14 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "24"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install QR decoder for qr.test.js (zxing-cpp, Pillow, OpenCV)
+        run: |
+          python -m venv "$RUNNER_TEMP/qrvenv"
+          "$RUNNER_TEMP/qrvenv/bin/pip" install -q zxing-cpp pillow opencv-python-headless
+          echo "HOSTKIT_QR_PYTHON=$RUNNER_TEMP/qrvenv/bin/python" >> "$GITHUB_ENV"
       - name: Run worker tests if present
         run: |
           if [ -f worker/package.json ]; then

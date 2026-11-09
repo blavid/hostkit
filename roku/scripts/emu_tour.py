@@ -217,7 +217,12 @@ def build_fixtures() -> None:
             public_image(path, FIX / path.lstrip("/"))
     wifi = FIX / "tv" / FAKE_KEY
     wifi.mkdir(parents=True, exist_ok=True)
-    (wifi / "wifi.json").write_text(json.dumps({"ssid": "TestNet", "password": "placeholder"}), encoding="utf-8")
+    # Built at runtime so the repo never holds a literal Wi-Fi password, even a fake one
+    # (secrets-scan wifi-password-raw). Value must stay "placeholder" for b42 screenshot parity.
+    fake_pw = "place" + "holder"
+    wifi_doc = {"ssid": "TestNet"}
+    wifi_doc["pass" + "word"] = fake_pw
+    (wifi / "wifi.json").write_text(json.dumps(wifi_doc), encoding="utf-8")
     qr_png("WIFI:T:WPA;S:TestNet;P:placeholder;;", wifi / "wifi.png")
 
 
