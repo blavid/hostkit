@@ -13,6 +13,18 @@ import { CODE_ALPHABET, isValidCode, makeCode, newExpiresAt, isExpired, PAIR_TTL
 import { guestContentAllowed, graceEndsAt, DEFAULT_GRACE_DAYS } from "./grace.js";
 import { MemoryKV } from "./kv.js";
 import { qrPng } from "./qr.js";
+import {
+  authorizeHost,
+  assertOwnsProperty,
+  assertOwnsDevice,
+  hostSignup,
+  listHostDevices,
+  putPrivateValues,
+  substitutePrivate,
+  rememberDevice,
+  markDeviceRevoked,
+  isAllowedOrigin,
+} from "./host.js";
 
 export { MemoryKV, isValidCode, makeCode, CODE_ALPHABET, guestContentAllowed, graceEndsAt, DEFAULT_GRACE_DAYS };
 
@@ -30,14 +42,14 @@ export default {
 export async function handleRequest(request, env) {
   const url = new URL(request.url);
   if (request.method === "OPTIONS") {
-    return cors(new Response(null, { status: 204 }));
+    return cors(new Response(null, { status: 204 }), request, env);
   }
   try {
     const response = await route(request, url, env);
-    return cors(response);
+    return cors(response, request, env);
   } catch (err) {
     const message = err && err.message ? err.message : "internal error";
-    return cors(json({ error: "internal", message }, 500));
+    return cors(json({ error: "internal", message }, 500), request, env);
   }
 }
 
@@ -56,6 +68,9 @@ async function route(request, url, env) {
   if (method === "GET" && path === "/v1/pair/qr") return pairQr(url);
   if (method === "GET" && path === "/v1/config") return getConfig(request, env);
   if (method === "PUT" && path === "/v1/config") return putConfig(request, env);
+  if (method === "POST" && path === "/v1/host/signup") return hostSignup(request, env);
+  if (method === "GET" && path === "/v1/host/devices") return listHostDevices(request, env);
+  if (method === "PUT" && path === "/v1/host/private") return putPrivateValues(request, env);
 
   if (env.ALLOW_TEST_HOOKS === "1") {
     if (method === "POST" && path === "/v1/__test/expire") return testExpire(request, env);
@@ -86,13 +101,6 @@ function bearer(request) {
   return match ? match[1].trim() : "";
 }
 
-function requireHost(request, env) {
-  const token = bearer(request);
-  if (!token || token !== hostToken(env)) {
-    return json({ error: "unauthorized" }, 401);
-  }
-  return null;
-}
 
 async function readJson(request) {
   const text = await request.text();
@@ -191,14 +199,16 @@ async function withClaimLock(code, fn) {
 }
 
 async function pairClaim(request, env) {
-  const denied = requireHost(request, env);
-  if (denied) return denied;
+  const authz = await authorizeHost(request, env);
+  if (authz.error) return authz.error;
   const body = await safeJson(request);
   if (body.error) return body.error;
   const code = String(body.json.code || "").trim().toUpperCase();
   const propertyId = String(body.json.propertyId || "").trim();
   if (!isValidCode(code)) return json({ error: "invalid_code" }, 400);
   if (!propertyId) return json({ error: "invalid_property_id" }, 400);
+  const owned = await assertOwnsProperty(env, authz.auth, propertyId);
+  if (owned) return owned;
 
   return withClaimLock(code, async () => {
     const kv = env.KV;
@@ -227,9 +237,15 @@ async function pairClaim(request, env) {
     await kv.put(`device:${deviceToken}`, JSON.stringify({
       propertyId,
       deviceId: session.deviceId,
+      hostId: authz.auth.hostId || null,
       revoked: false,
       issuedAt: new Date(now).toISOString(),
     }));
+    await rememberDevice(env, authz.auth, {
+      deviceId: session.deviceId,
+      propertyId,
+      pairedAt: paired.pairedAt,
+    });
 
     return json({
       status: "paired",
@@ -240,8 +256,8 @@ async function pairClaim(request, env) {
 }
 
 async function pairRevoke(request, env) {
-  const denied = requireHost(request, env);
-  if (denied) return denied;
+  const authz = await authorizeHost(request, env);
+  if (authz.error) return authz.error;
   const body = await safeJson(request);
   if (body.error) return body.error;
   const kv = env.KV;
@@ -252,9 +268,12 @@ async function pairRevoke(request, env) {
   if (!token) return json({ error: "not_found" }, 404);
   const record = await kv.get(`device:${token}`, "json");
   if (!record) return json({ error: "not_found" }, 404);
+  const owned = await assertOwnsDevice(env, authz.auth, record);
+  if (owned) return owned;
   record.revoked = true;
   record.revokedAt = new Date(nowMs(env)).toISOString();
   await kv.put(`device:${token}`, JSON.stringify(record));
+  await markDeviceRevoked(env, authz.auth, record.deviceId);
   return json({ status: "revoked" }, 200);
 }
 
@@ -291,8 +310,9 @@ async function getConfig(request, env) {
   const record = await env.KV.get(`device:${token}`, "json");
   if (!record || record.revoked === true) return json({ error: "unauthorized" }, 401);
   await ensureDefaultConfig(env);
-  const raw = await env.KV.get(`property:${record.propertyId}:config`);
-  if (!raw) return json({ error: "not_found" }, 404);
+  const stored = await env.KV.get(`property:${record.propertyId}:config`);
+  if (!stored) return json({ error: "not_found" }, 404);
+  const raw = await substitutePrivate(env, record.propertyId, stored);
   const config = JSON.parse(raw);
   const etag = await etagFor(raw);
   const incoming = request.headers.get("If-None-Match") || "";
@@ -311,14 +331,16 @@ async function getConfig(request, env) {
 }
 
 async function putConfig(request, env) {
-  const denied = requireHost(request, env);
-  if (denied) return denied;
+  const authz = await authorizeHost(request, env);
+  if (authz.error) return authz.error;
   const body = await safeJson(request);
   if (body.error) return body.error;
   const config = body.json;
   const reason = configRejectReason(config);
   if (reason) return json({ error: reason }, 400);
   const propertyId = config.property.id;
+  const owned = await assertOwnsProperty(env, authz.auth, propertyId);
+  if (owned) return owned;
   const raw = JSON.stringify(config);
   await env.KV.put(`property:${propertyId}:config`, raw);
   const etag = await etagFor(raw);
@@ -391,9 +413,13 @@ function json(body, status) {
   return new Response(JSON.stringify(body), { status, headers: JSON_HEADERS });
 }
 
-function cors(response) {
+function cors(response, request, env) {
   const headers = new Headers(response.headers);
-  headers.set("access-control-allow-origin", "*");
+  const origin = request ? (request.headers.get("Origin") || request.headers.get("origin") || "") : "";
+  if (origin && isAllowedOrigin(origin, env || {})) {
+    headers.set("access-control-allow-origin", origin);
+    headers.set("vary", "Origin");
+  }
   headers.set("access-control-allow-headers", "Authorization, Content-Type, If-None-Match");
   headers.set("access-control-allow-methods", "GET, POST, PUT, OPTIONS");
   return new Response(response.body, { status: response.status, headers });
@@ -406,6 +432,7 @@ export function createTestEnv(overrides = {}) {
     HOST_TOKEN: "host-preview",
     PUBLIC_BASE: "http://hostkit.test",
     ALLOW_TEST_HOOKS: "1",
+    CORS_ORIGINS: "*",
     now: () => Date.now(),
     ...overrides,
     KV: kv,
