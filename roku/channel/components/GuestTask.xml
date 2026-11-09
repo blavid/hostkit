@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="GuestTask" extends="Task">
+    <interface>
+        <field id="generation" type="integer" value="0" />
+        <!-- Flat strings only, so the render thread never receives the URL. -->
+        <field id="result" type="assocarray" alwaysNotify="true" />
+    </interface>
+
+    <script type="text/brightscript" uri="pkg:/components/secrets.brs" />
+    <script type="text/brightscript" uri="pkg:/components/GuestConfig.brs" />
+    <script type="text/brightscript" uri="pkg:/components/GuestRules.brs" />
+    <script type="text/brightscript" uri="pkg:/components/GuestTask.brs" />
+</component>

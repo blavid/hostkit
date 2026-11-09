@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Shared list for Things to Do and Quick Fixes.
+     MarkupList setup from MarkupListExample/components/markuplistscene.xml.
+     Focus handoff from LabelListPanel/LabelListPanel.brs. -->
+<component name="MenuPanel" extends="Group">
+    <interface>
+        <field id="list" type="node" />
+        <field id="focusedIndex" type="integer" />
+        <field id="selectedIndex" type="integer" alwaysNotify="true" />
+        <field id="moreBelow" type="boolean" value="false" onChange="onMoreBelow" />
+        <field id="moreY" type="integer" value="780" onChange="onMoreBelow" />
+    </interface>
+    <script type="text/brightscript" uri="pkg:/components/MenuPanel.brs" />
+    <children>
+        <MarkupList
+            id="list"
+            itemComponentName="MenuRow"
+            itemSize="[364, 176]"
+            itemSpacing="[0, 4]"
+            numRows="4"
+            drawFocusFeedback="false"
+            vertFocusAnimationStyle="floatingFocus"
+            translation="[12, 64]" />
+        <!-- Build 33 (Pixel b32 P3): 16px gold down-chevron while rows remain below. -->
+        <Poster id="more" uri="pkg:/images/chevron-down.png" width="16" height="10" translation="[186, 780]" visible="false" />
+    </children>
+</component>

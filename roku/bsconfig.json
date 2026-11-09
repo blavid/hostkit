@@ -1,0 +1,14 @@
+{
+  "rootDir": "channel",
+  "files": [
+    "manifest",
+    "source/**/*.brs",
+    "components/**/*.brs",
+    "components/**/*.xml"
+  ],
+  "createPackage": false,
+  "stagingDir": "dist/bs-staging",
+  "plugins": ["@rokucommunity/bslint"],
+  "diagnosticFilters": [],
+  "sourceMap": false
+}

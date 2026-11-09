@@ -1,0 +1,18 @@
+node_modules/
+dist/
+out/
+.DS_Store
+__pycache__/
+*.log
+channel/components/secrets.brs
+channel/source/secrets.brs
+# Live guide copied at package time. It can contain the host phone and
+# access details. The committed fallback under channel/data/ is scrubbed.
+dist/snapshot/
+channel/data/live/
+# Worker Wi-Fi secrets. The device may cache these under cachefs. Never commit them.
+channel/data/wifi.json
+channel/data/wifi.png
+# Live activities download used only by the detail QR proof. Do not package it.
+channel/data/activities-live.json
+channel/data/guide-live.json

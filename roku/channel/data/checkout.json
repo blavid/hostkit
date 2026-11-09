@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "checkIn": "4:00 PM",
+  "checkOut": "11:00 AM",
+  "summary": "Checkout is 11:00 AM — please start the dishwasher and leave used towels in the laundry room.",
+  "steps": [
+    "Start the dishwasher",
+    "Leave used towels in the laundry room"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "name": "eaglewood-roku",
+  "private": true,
+  "description": "Dev tooling for the Eaglewood Roku welcome screen. The channel itself is BrightScript.",
+  "scripts": {
+    "lint": "python3 scripts/write_guest_secrets.py --dest channel/components/secrets.brs --ensure-empty && bslint --project bsconfig.json && bsc --project bsconfig.json && python3 scripts/lint_compare.py channel",
+    "validate": "python3 scripts/validate.py",
+    "preview": "python3 scripts/render_preview.py"
+  },
+  "devDependencies": {
+    "@rokucommunity/bslint": "^0.8.47",
+    "brighterscript": "^0.73.8"
+  }
+}
