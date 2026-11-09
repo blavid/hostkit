@@ -80,14 +80,28 @@ else
     python3 "$ROOT/scripts/write_guest_secrets.py" --dest "$STAGE/components/secrets.brs" --key-from-env
 fi
 
+if [[ -n "${HOSTKIT_BASE_URL:-}" ]]; then
+    python3 - "$STAGE/config/hostkit.json" "$HOSTKIT_BASE_URL" <<'HOSTKITJSON'
+import json
+import pathlib
+import sys
+
+path = pathlib.Path(sys.argv[1])
+url = sys.argv[2].rstrip("/")
+path.parent.mkdir(parents=True, exist_ok=True)
+path.write_text(json.dumps({"baseUrl": url}, indent=2) + "\n", encoding="utf-8")
+HOSTKITJSON
+fi
+
 mkdir -p "$OUT/snapshot"
 python3 "$ROOT/scripts/guide_snapshot.py" --into-stage "$STAGE" --snapshot-dir "$OUT/snapshot"
 
 rm -f "$ZIP"
 (
     cd "$STAGE"
-    zip -r -X -D "$ZIP" manifest source components images data -x '*.DS_Store' -x '*/.DS_Store'
+    zip -r -X -D "$ZIP" manifest source components images data fonts config -x '*.DS_Store' -x '*/.DS_Store'
 )
+
 
 python3 - "$ZIP" <<'PY'
 import sys
@@ -96,7 +110,7 @@ import zipfile
 import json
 
 path = sys.argv[1]
-required = ("manifest", "components/secrets.brs", "data/guide.json", "data/checkout.json", "data/activities.json")
+required = ("manifest", "components/secrets.brs", "data/guide.json", "data/checkout.json", "data/activities.json", "fonts/UbuntuMono-Regular.ttf", "fonts/UFL.txt", "config/hostkit.json")
 with zipfile.ZipFile(path) as archive:
     names = archive.namelist()
     missing = [name for name in required if name not in names]
