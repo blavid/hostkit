@@ -2,14 +2,15 @@
   "name": "hostkit",
   "private": true,
   "version": "0.1.0",
-  "description": "HostKit — Roku guest guide + host wizard (schema, worker, web)",
+  "description": "HostKit \u2014 Roku guest guide + host wizard (schema, worker, web)",
   "scripts": {
     "validate": "node scripts/validate-schema.mjs",
     "scan": "node scripts/secrets-scan.mjs",
     "test:scan": "node scripts/secrets-scan.test.mjs",
-    "test": "npm run test:scan",
+    "test": "npm run test:scan && npm run test:web-lib",
     "build:web": "npm run build --prefix web",
-    "ci": "npm run validate && npm run scan && npm test && npm run build:web"
+    "ci": "npm run validate && npm run scan && npm test && npm run build:web",
+    "test:web-lib": "npm run test --prefix web"
   },
   "devDependencies": {
     "ajv": "^8.17.1",

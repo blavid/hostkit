@@ -7,7 +7,11 @@
     "address": "{{PROPERTY_ADDRESS}}",
     "checkIn": "4:00 PM",
     "checkOut": "11:00 AM",
-    "stats": { "guests": 4, "bedrooms": 2, "bathrooms": 2 },
+    "stats": {
+      "guests": 4,
+      "bedrooms": 2,
+      "bathrooms": 2
+    },
     "images": [
       {
         "url": "https://example.com/hero.jpg",
@@ -24,7 +28,36 @@
     {
       "id": "house-rules",
       "title": "House Rules",
-      "items": [{ "q": "Quiet hours?", "a": "10pm–8am" }]
+      "items": [
+        {
+          "q": "Quiet hours?",
+          "a": "10pm\u20138am"
+        }
+      ],
+      "categories": [
+        {
+          "id": "pool",
+          "title": "Pool",
+          "items": [
+            {
+              "q": "Hours?",
+              "a": "9am\u20139pm"
+            }
+          ],
+          "categories": [
+            {
+              "id": "pool-deep",
+              "title": "Deep rules",
+              "items": [
+                {
+                  "q": "Glass?",
+                  "a": "No glass by the pool."
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   ],
   "activities": [
@@ -33,12 +66,17 @@
       "title": "Sample Walk",
       "category": "outdoors",
       "description": "Placeholder activity card.",
-      "seasons": ["summer"]
+      "seasons": [
+        "summer"
+      ]
     }
   ],
   "checkout": {
     "summary": "Please leave keys in the lockbox.",
-    "steps": ["Lock up", "{{CHECKOUT_STEP_1}}"]
+    "steps": [
+      "Lock up",
+      "{{CHECKOUT_STEP_1}}"
+    ]
   },
   "wifi": {
     "ssid": "{{WIFI_SSID}}",
@@ -46,7 +84,12 @@
   },
   "branding": {
     "logoUrl": "https://example.com/logo.png",
-    "colors": { "primary": "#1a4a7a", "accent": "#c9a227" }
+    "colors": {
+      "primary": "#1a4a7a",
+      "accent": "#0b3d91",
+      "background": "#ffffff",
+      "text": "#111111"
+    }
   },
   "subscription": {
     "status": "trial",
