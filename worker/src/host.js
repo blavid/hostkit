@@ -28,6 +28,25 @@ export async function sha256Hex(value) {
   return [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, "0")).join("");
 }
 
+/**
+ * Compare two strings in constant time (SHA-256 digest, then a fixed 32-byte XOR).
+ * Used for the HOST_TOKEN admin fallback so the compare does not short-circuit
+ * on the first differing character. Works in Node tests and the Workers runtime
+ * without node:crypto.
+ */
+export async function timingSafeEqualText(a, b) {
+  const enc = new TextEncoder();
+  const [left, right] = await Promise.all([
+    crypto.subtle.digest("SHA-256", enc.encode(String(a ?? ""))),
+    crypto.subtle.digest("SHA-256", enc.encode(String(b ?? ""))),
+  ]);
+  const x = new Uint8Array(left);
+  const y = new Uint8Array(right);
+  let diff = 0;
+  for (let i = 0; i < x.length; i++) diff |= x[i] ^ y[i];
+  return diff === 0;
+}
+
 export function randomToken() {
   const bytes = new Uint8Array(24);
   crypto.getRandomValues(bytes);
@@ -93,8 +112,8 @@ export async function authorizeHost(request, env) {
   const token = bearer(request);
   if (!token) return { error: json({ error: "unauthorized" }, 401) };
 
-  const admin = env.HOST_TOKEN;
-  if (admin && token === admin) {
+  const admin = env.HOST_TOKEN || "";
+  if (admin && await timingSafeEqualText(token, admin)) {
     return { auth: { role: "admin", hostId: null } };
   }
 

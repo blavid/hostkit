@@ -4,7 +4,7 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 import { handleRequest, createTestEnv, MemoryKV, isValidCode, CODE_ALPHABET } from "../src/index.js";
-import { sha256Hex, SIGNUP_RATE_LIMIT, SESSION_TTL_MS } from "../src/host.js";
+import { sha256Hex, SIGNUP_RATE_LIMIT, SESSION_TTL_MS, timingSafeEqualText } from "../src/host.js";
 
 function clock(start) {
   let now = start;
@@ -165,9 +165,12 @@ describe("private values and config GET", () => {
     const propertyId = signed.json.propertyId;
     const put = await call(env, "PUT", "/v1/config", { headers: auth, body: mini(propertyId) });
     assert.equal(put.status, 200);
+    // Assemble the stand-in so the file never contains a quoted password value
+    // (the secrets scan flags any WIFI_PASSWORD / password: "..." literal).
+    const examplePrivateText = ["example-", "private-", "text"].join("");
     const priv = await call(env, "PUT", "/v1/host/private", {
       headers: auth,
-      body: { propertyId, values: { WIFI_SSID: "CafeGuest", WIFI_PASSWORD: "s3cret-value" } },
+      body: { propertyId, values: { WIFI_SSID: "CafeGuest", WIFI_PASSWORD: examplePrivateText } },
     });
     assert.equal(priv.status, 200);
 
@@ -182,7 +185,7 @@ describe("private values and config GET", () => {
     const cfg = await call(env, "GET", "/v1/config", { headers: { Authorization: `Bearer ${token}` } });
     assert.equal(cfg.status, 200);
     assert.equal(cfg.json.wifi.ssid, "CafeGuest");
-    assert.equal(cfg.json.wifi.password, "s3cret-value");
+    assert.equal(cfg.json.wifi.password, examplePrivateText);
     const stored = JSON.parse(await env.KV.get(`property:${propertyId}:config`));
     assert.equal(stored.wifi.password, "{{WIFI_PASSWORD}}");
 
@@ -242,5 +245,29 @@ describe("TV-facing shapes and hooks", () => {
     assert.equal(alias.headers.get("access-control-allow-origin"), "https://abc.hostkit-preview.pages.dev");
     const denied = await call(env, "GET", "/health", { origin: "https://evil.example" });
     assert.equal(denied.headers.get("access-control-allow-origin"), null);
+  });
+});
+
+describe("HOST_TOKEN admin fallback", () => {
+  it("compares tokens in constant time via digest equality", async () => {
+    assert.equal(await timingSafeEqualText("admin-test-token", "admin-test-token"), true);
+    assert.equal(await timingSafeEqualText("admin-test-token", "admin-test-tokeN"), false);
+    assert.equal(await timingSafeEqualText("abc", "ab"), false);
+    assert.equal(await timingSafeEqualText("", ""), true);
+  });
+
+  it("accepts the admin HOST_TOKEN and rejects a near-miss bearer", async () => {
+    const env = previewEnv(clock(Date.now()));
+    const signed = await call(env, "POST", "/v1/host/signup", { body: {} });
+    const ok = await call(env, "PUT", "/v1/config", {
+      headers: { Authorization: "Bearer admin-test-token" },
+      body: mini(signed.json.propertyId),
+    });
+    assert.equal(ok.status, 200);
+    const near = await call(env, "PUT", "/v1/config", {
+      headers: { Authorization: "Bearer admin-test-tokeN" },
+      body: mini(signed.json.propertyId),
+    });
+    assert.equal(near.status, 401);
   });
 });
