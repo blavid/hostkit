@@ -51,18 +51,28 @@ sub HostKitEnsureUi()
     m.hostKitBody.wrap = true
     m.hostKitBody.maxLines = 5
     HostKitSetLabelSize(m.hostKitBody, 42)
-    m.hostKitHint = HostKitAddLabel(intro, [192, 900], 1000, 50, "font:SmallSystemFont", "0xF4EFE3FF", "")
-    HostKitSetLabelSize(m.hostKitHint, 28)
+    m.hostKitHint = HostKitAddLabel(intro, [192, 900], 1000, 56, "font:SmallSystemFont", "0xF4EFE3FF", "")
+    HostKitSetLabelSize(m.hostKitHint, 32)
     m.hostKitDotNodes = []
+    m.hostKitDotFills = []
     dotIndex = 0
     while dotIndex < 3
-        dot = CreateObject("roSGNode", "Rectangle")
-        dot.width = 25
-        dot.height = 25
-        dot.translation = [192 + dotIndex * 47, 820]
-        dot.color = "0xF2A93BFF"
-        intro.appendChild(dot)
-        m.hostKitDotNodes.Push(dot)
+        ' 25x25 gold outline, 3px ring, navy fill. Positions unchanged.
+        outline = CreateObject("roSGNode", "Rectangle")
+        outline.width = 25
+        outline.height = 25
+        outline.translation = [192 + dotIndex * 47, 820]
+        outline.color = "0xF2A93BFF"
+        intro.appendChild(outline)
+        fill = CreateObject("roSGNode", "Rectangle")
+        fill.width = 19
+        fill.height = 19
+        fill.translation = [192 + dotIndex * 47 + 3, 823]
+        fill.color = "0x1A2336FF"
+        fill.visible = false
+        intro.appendChild(fill)
+        m.hostKitDotNodes.Push(outline)
+        m.hostKitDotFills.Push(fill)
         dotIndex = dotIndex + 1
     end while
 
@@ -82,10 +92,16 @@ sub HostKitEnsureUi()
     while charIndex < 6
         charX = 192 + charIndex * cellW
         if charIndex >= 3 then charX = charX + groupGap
-        ch = HostKitAddLabel(pair, [charX, 250], cellW, 130, "font:LargeBoldSystemFont", "0xF2A93BFF", "—")
+        ch = CreateObject("roSGNode", "Label")
+        ch.translation = [charX, 250]
+        ch.width = cellW
+        ch.height = 130
+        ch.color = "0xF2A93BFF"
+        ch.text = "—"
         ch.horizAlign = "center"
         ch.vertAlign = "center"
         HostKitSetMonoSize(ch, 96)
+        pair.appendChild(ch)
         m.hostKitCodeChars.Push(ch)
         charIndex = charIndex + 1
     end while
@@ -99,8 +115,8 @@ sub HostKitEnsureUi()
     HostKitSetLabelSize(m.hostKitStatus, 32)
     m.hostKitStatus.wrap = true
     m.hostKitStatus.maxLines = 2
-    m.hostKitNote = HostKitAddLabel(pair, [192, 900], 1000, 50, "font:SmallSystemFont", "0xF4EFE3FF", "This code is valid for 15 minutes")
-    HostKitSetLabelSize(m.hostKitNote, 26)
+    m.hostKitNote = HostKitAddLabel(pair, [192, 900], 1000, 56, "font:SmallSystemFont", "0xF4EFE3FF", "This code is valid for 15 minutes")
+    HostKitSetLabelSize(m.hostKitNote, 32)
 
     frame = CreateObject("roSGNode", "Rectangle")
     frame.id = "hostKitQrFrame"
@@ -125,9 +141,21 @@ sub HostKitEnsureUi()
     pair.appendChild(poster)
     m.hostKitQr = poster
 
-    m.hostKitQrLabel = HostKitAddLabel(pair, [1280, 230], 420, 40, "font:SmallSystemFont", "0xF4EFE3FF", "Scan to pair")
+    ' Navy chip behind "Scan to pair" so the label is not sitting on the sky.
+    chip = CreateObject("roSGNode", "Rectangle")
+    chip.id = "hostKitQrChip"
+    chip.translation = [1360, 224]
+    chip.width = 260
+    chip.height = 48
+    chip.color = "0x1A2336FF"
+    chip.visible = false
+    pair.appendChild(chip)
+    m.hostKitQrChip = chip
+
+    m.hostKitQrLabel = HostKitAddLabel(pair, [1360, 228], 260, 40, "font:SmallSystemFont", "0xF4EFE3FF", "Scan to pair")
     m.hostKitQrLabel.horizAlign = "center"
-    HostKitSetLabelSize(m.hostKitQrLabel, 28)
+    m.hostKitQrLabel.vertAlign = "center"
+    HostKitSetLabelSize(m.hostKitQrLabel, 32)
     m.hostKitQrLabel.visible = false
 end sub
 
@@ -167,7 +195,7 @@ sub HostKitShowIntro(index as integer)
     m.hostKitBody.text = page.body
     m.hostKitHint.text = page.hint
     HostKitSetLabelSize(m.hostKitBody, 42)
-    HostKitSetLabelSize(m.hostKitHint, 28)
+    HostKitSetLabelSize(m.hostKitHint, 32)
     HostKitPaintDots(index, pages.Count())
     m.hostKitRoot.visible = true
     m.hostKitIntro.visible = true
@@ -179,19 +207,29 @@ end sub
 
 sub HostKitPaintDots(index as integer, count as integer)
     nodes = m.hostKitDotNodes
+    fills = m.hostKitDotFills
     if nodes = invalid then return
     i = 0
     while i < nodes.Count()
         node = nodes[i]
+        fill = invalid
+        if fills <> invalid and i < fills.Count() then fill = fills[i]
         if i < count
             node.visible = true
+            node.color = "0xF2A93BFF"
             if i = index
-                node.color = "0xF2A93BFF"
+                ' Active: solid gold square, same 25x25 box.
+                if fill <> invalid then fill.visible = false
             else
-                node.color = "0xF2A93B66"
+                ' Inactive: navy fill, 3px gold outline, contrast from the ring.
+                if fill <> invalid
+                    fill.color = "0x1A2336FF"
+                    fill.visible = true
+                end if
             end if
         else
             node.visible = false
+            if fill <> invalid then fill.visible = false
         end if
         i = i + 1
     end while
@@ -210,6 +248,7 @@ sub HostKitShowPairing()
     HostKitSetPairingType()
     if m.hostKitUrl <> invalid then m.hostKitUrl.text = ""
     if m.hostKitQrLabel <> invalid then m.hostKitQrLabel.visible = false
+    if m.hostKitQrChip <> invalid then m.hostKitQrChip.visible = false
     if m.hostKitStatus <> invalid then m.hostKitStatus.text = "Getting a code…"
     if m.hostKitQr <> invalid
         m.hostKitQr.uri = ""
@@ -247,10 +286,23 @@ sub HostKitSetLabelSize(label as object, size as integer)
     font.size = size
 end sub
 
+sub HostKitEnsureMonoFont()
+    if m.hostKitMonoRegistered = true then return
+    registry = CreateObject("roFontRegistry")
+    if registry <> invalid
+        ok = registry.Register("pkg:/fonts/UbuntuMono-Regular.ttf")
+        print "HostKit: mono font register="; ok
+    end if
+    m.hostKitMonoRegistered = true
+end sub
+
 sub HostKitSetMonoSize(label as object, size as integer)
     if label = invalid then return
+    HostKitEnsureMonoFont()
     font = CreateObject("roSGNode", "Font")
     if font = invalid then return
+    ' Prefer the scene-declared TTF so the uri is a packaged file, not a
+    ' font: system name (those draw nothing when used as Font.uri).
     font.uri = "pkg:/fonts/UbuntuMono-Regular.ttf"
     font.size = size
     label.font = font
@@ -261,8 +313,16 @@ sub HostKitSetPairingType()
     HostKitSetLabelSize(m.hostKitUrlLabel, 28)
     HostKitSetLabelSize(m.hostKitUrl, 42)
     HostKitSetLabelSize(m.hostKitStatus, 32)
-    HostKitSetLabelSize(m.hostKitNote, 26)
-    HostKitSetLabelSize(m.hostKitQrLabel, 28)
+    HostKitSetLabelSize(m.hostKitNote, 32)
+    HostKitSetLabelSize(m.hostKitQrLabel, 32)
+    chars = m.hostKitCodeChars
+    if chars <> invalid
+        i = 0
+        while i < chars.Count()
+            HostKitSetMonoSize(chars[i], 96)
+            i = i + 1
+        end while
+    end if
 end sub
 
 sub HostKitPaintCode(code as string)
@@ -378,10 +438,13 @@ sub HostKitHandleStart(result as object)
     if m.hostKitStatus <> invalid then m.hostKitStatus.text = status
     if result.qrPath <> invalid and result.qrPath <> ""
         if m.hostKitQr <> invalid
+            ' Clear first so a same-host refresh cannot keep a stale poster.
+            m.hostKitQr.uri = ""
             m.hostKitQr.uri = result.qrPath
             m.hostKitQr.visible = true
         end if
         if m.hostKitQrFrame <> invalid then m.hostKitQrFrame.visible = true
+        if m.hostKitQrChip <> invalid then m.hostKitQrChip.visible = true
         if m.hostKitQrLabel <> invalid then m.hostKitQrLabel.visible = true
     end if
     HostKitArmPoll(m.hostKitPollSeconds)

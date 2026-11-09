@@ -1110,6 +1110,132 @@ def launch_retrying(stage, keys, ecp: bool = False, ready: str = "Eaglewood: scr
 
 
 PAIR_CODE_RE = re.compile(r"HostKit: pair start code=([A-HJ-KM-NP-Z2-9]{6})")
+PAIR_URL_RE = re.compile(r"HostKit: pair url=(\S+)")
+QR_BOX = (1286, 286, 1693, 693)  # 407px card, exclusive end
+URL_BOX = (192, 452, 1240, 570)
+
+
+def decoder_python() -> str:
+    """Reuse the Worker QR test venv (zxing-cpp, OpenCV, Pillow)."""
+    env = os.environ.get("HOSTKIT_QR_PYTHON")
+    if env:
+        return env
+    venv = Path("/tmp/hostkit-qrvenv/bin/python")
+    probe = ["import zxingcpp, PIL, cv2"]
+    if venv.is_file():
+        check = subprocess.run([str(venv), "-c", probe[0]], capture_output=True, text=True)
+        if check.returncode == 0:
+            return str(venv)
+    setup = subprocess.run(
+        ["bash", "-lc", "python3 -m venv /tmp/hostkit-qrvenv && /tmp/hostkit-qrvenv/bin/pip install -q zxing-cpp opencv-python-headless pillow"],
+        capture_output=True,
+        text=True,
+    )
+    if setup.returncode != 0:
+        raise RuntimeError(f"QR decoder venv failed: {setup.stderr or setup.stdout}")
+    again = subprocess.run([str(venv), "-c", probe[0]], capture_output=True, text=True)
+    if again.returncode != 0:
+        raise RuntimeError(f"QR decoder import failed: {again.stderr}")
+    return str(venv)
+
+
+def decode_qr_png(data: bytes, box: tuple[int, int, int, int] = QR_BOX) -> str:
+    from io import BytesIO
+    from PIL import Image
+
+    img = Image.open(BytesIO(data)).convert("RGB").crop(box)
+    tmp = WORK / "qr-decode.png"
+    img.save(tmp)
+    py = decoder_python()
+    script = (
+        "import sys\n"
+        "from PIL import Image\n"
+        "import zxingcpp\n"
+        "img = Image.open(sys.argv[1])\n"
+        "found = zxingcpp.read_barcodes(img)\n"
+        "text = found[0].text if found else ''\n"
+        "if not text:\n"
+        "    import cv2, numpy as np\n"
+        "    val, pts, _ = cv2.QRCodeDetector().detectAndDecode(np.array(img.convert('RGB')))\n"
+        "    text = val or ''\n"
+        "sys.stdout.write(text)\n"
+    )
+    run = subprocess.run([py, "-c", script, str(tmp)], capture_output=True, text=True)
+    if run.returncode != 0:
+        raise RuntimeError(run.stderr or run.stdout or f"decoder exit {run.returncode}")
+    return (run.stdout or "").strip()
+
+
+def last_pair_url() -> str:
+    found = PAIR_URL_RE.findall(log_text())
+    return found[-1] if found else ""
+
+
+def printed_url_on_screen(data: bytes, expected: str) -> bool:
+    """True if the expected URL ink is drawn in the printed-URL band."""
+    if not expected:
+        return False
+    from io import BytesIO
+    from PIL import Image, ImageDraw, ImageFont
+    import zipfile
+
+    screen = Image.open(BytesIO(data)).convert("RGB").crop(URL_BOX)
+    # White / near-white ink on the navy scrim.
+    band = screen
+    assets = Path(os.environ.get("EMU_NODE_PATH", "/tmp/brs-emu/node_modules")) / "brs-node" / "assets" / "common.zip"
+    font = None
+    if assets.is_file():
+        raw = zipfile.ZipFile(assets).read("fonts/Metropolis-Regular.ttf")
+        font = ImageFont.truetype(BytesIO(raw), 42)
+    if font is None:
+        return False
+    tmpl = Image.new("L", (band.width, band.height), 0)
+    ImageDraw.Draw(tmpl).text((0, 0), expected, font=font, fill=255)
+    # Slide the rendered URL across the band and score overlap with white ink.
+    ink = [(x, y) for y in range(band.height) for x in range(band.width) if min(band.getpixel((x, y))) > 200]
+    if not ink:
+        return False
+    # Bound the rendered glyph box.
+    bbox = tmpl.getbbox()
+    if not bbox:
+        return False
+    tw, th = bbox[2], bbox[3]
+    # Search a small vertical window; the URL starts near the left of the band.
+    best = 0
+    ink_set = set(ink)
+    for dy in range(0, max(1, band.height - th + 1), 2):
+        hits = 0
+        total = 0
+        for y in range(th):
+            for x in range(tw):
+                if tmpl.getpixel((x, y)) > 128:
+                    total += 1
+                    if (x, y + dy) in ink_set:
+                        hits += 1
+        if total and hits / total > best:
+            best = hits / total
+        if best >= 0.55:
+            return True
+    return best >= 0.55
+
+
+def assert_qr_matches_printed(data: bytes, slug: str) -> str:
+    """Decode the on-screen QR and require it equal the URL printed on this frame."""
+    codes = last_pair_codes()
+    if not codes:
+        raise RuntimeError(f"{slug}: no pairing code in log")
+    printed = last_pair_url()
+    if not printed:
+        # Fall back to the local Worker URL for this code.
+        printed = worker_url(f"/pair/{codes[-1]}")
+    decoded = decode_qr_png(data)
+    if not decoded:
+        raise RuntimeError(f"{slug}: QR did not decode")
+    if decoded != printed:
+        raise RuntimeError(f"{slug}: QR decoded to a different URL than the one printed on this screen")
+    if not printed_url_on_screen(data, printed):
+        raise RuntimeError(f"{slug}: printed URL not found in the URL band")
+    return f"QR decodes to printed URL ({codes[-1]})"
 
 
 def worker_url(path: str) -> str:
@@ -1151,6 +1277,12 @@ def refresh_pairing_code(first: str) -> tuple[str, str]:
             codes = last_pair_codes()
             if len(codes) >= 2 and codes[-1] != first:
                 second = codes[-1]
+                # The code line is printed before the QR download finishes.
+                # Wait for the rebuilt mark, then let the poster draw.
+                qr_mark = f"HostKit: pair qr saved code={second}"
+                deadline_qr = time.time() + 8
+                while time.time() < deadline_qr and qr_mark not in log_text():
+                    time.sleep(0.1)
                 time.sleep(0.8)
                 return first, second
         time.sleep(0.2)
@@ -1281,6 +1413,9 @@ def main() -> None:
                     first, second = refresh_pairing_code(codes[-1])
                     note = f"refreshed {first} -> {second}"
                 data = snapshot()
+                if item.get("need") in ("pair", "pair-refresh"):
+                    qr_note = assert_qr_matches_printed(data, item["slug"])
+                    note = (note + "; " if note else "") + qr_note
                 digest = hashlib.sha256(data).hexdigest()
                 (OUT / f"{item['slug']}.png").write_bytes(data)
                 (OUT / f"{item['slug']}.log").write_text(log_text(), encoding="utf-8")

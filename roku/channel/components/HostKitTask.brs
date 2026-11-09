@@ -78,9 +78,14 @@ function HostKitDoStart() as object
     end if
     result.ok = "yes"
     print "HostKit: pair start code="; result.code
-    if result.qrUrl <> ""
-        qrPath = HostKitDownloadQr(result.qrUrl)
-        result.qrPath = qrPath
+    print "HostKit: pair url="; result.shortUrl
+    qrUrl = result.qrUrl
+    if qrUrl = "" and result.code <> ""
+        qrUrl = base + "/v1/pair/qr?code=" + result.code
+        result.qrUrl = qrUrl
+    end if
+    if qrUrl <> ""
+        result.qrPath = HostKitDownloadQr(qrUrl, result.code)
     end if
     return result
 end function
@@ -163,24 +168,32 @@ function HostKitDoConfig() as object
     return result
 end function
 
-function HostKitDownloadQr(url as string) as string
+function HostKitDownloadQr(url as string, code as string) as string
     if url = invalid or url = "" then return ""
     transfer = CreateObject("roUrlTransfer")
     port = CreateObject("roMessagePort")
     if transfer = invalid or port = invalid then return ""
     HostKitPrepareCacheDir()
-    path = HostKitQrCachePath()
+    path = HostKitQrCachePath(code)
+    fetchUrl = url
+    ' Cache-bust the GET by code even if the server URL was a stable path.
+    if code <> invalid and code <> "" and InStr(fetchUrl, "code=") = 0
+        sep = "?"
+        if InStr(fetchUrl, "?") > 0 then sep = "&"
+        fetchUrl = fetchUrl + sep + "code=" + code
+    end if
     transfer.SetMessagePort(port)
     transfer.SetCertificatesFile("common:/certs/ca-bundle.crt")
     transfer.InitClientCertificates()
     transfer.EnableEncodings(true)
-    transfer.SetUrl(url)
+    transfer.AddHeader("Cache-Control", "no-cache")
+    transfer.SetUrl(fetchUrl)
     started = transfer.AsyncGetToFile(path)
     if started = false or started = invalid then return ""
     event = wait(8000, port)
     if type(event) <> "roUrlEvent" then return ""
     if event.GetResponseCode() <> 200 then return ""
-    print "HostKit: pair qr saved"
+    print "HostKit: pair qr saved code="; code
     return path
 end function
 
