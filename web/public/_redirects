@@ -1,0 +1,5 @@
+# SPA fallback for deep links and refresh under the hidden preview path.
+# Existing static assets are served first; this rewrite only applies on miss.
+# /* covers pair codes if the more specific rule is not applied.
+/hostkit-preview/*  /hostkit-preview/index.html  200
+/*                  /hostkit-preview/index.html  200
