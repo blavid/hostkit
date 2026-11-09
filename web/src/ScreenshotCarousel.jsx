@@ -26,7 +26,7 @@ export const TV_SHOTS = [
   {
     id: "pairing-preview",
     alt: "Roku pairing screen: Connect this TV, a large gold six-character code in two groups of three, a preview pair URL wrapped onto two lines, a Scan to pair QR, the status Waiting for the host to finish setup, and This code is valid for 15 minutes.",
-    caption: "Pairing on the preview Worker: enter the code, open both lines of the URL, or scan the QR.",
+    caption: "Pairing: type the code on your phone, open the link, or scan the QR.",
   },
   {
     id: "home-configured",
