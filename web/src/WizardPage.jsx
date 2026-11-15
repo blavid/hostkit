@@ -8,7 +8,7 @@ import { flattenFaqsForTv, faqExceedsTvDepth } from "./lib/faqFlatten.js";
 import { dedupeActivitiesById } from "./lib/activityDedupe.js";
 import { checkBrandingContrast } from "./lib/contrast.js";
 import { lintDocumentForHtml } from "./lib/htmlLint.js";
-import { MockPaymentProvider } from "./lib/MockPaymentProvider.js";
+import { MockPaymentProvider, PLAN } from "./lib/MockPaymentProvider.js";
 import { FaqEditor } from "./wizard/FaqEditor.jsx";
 import {
   isValidPairCode,
@@ -265,13 +265,30 @@ export function WizardPage({ initialCode = "" }) {
     }
   };
 
-  const runBilling = async (action, plan) => {
+  useEffect(() => {
+    if (!trial || billing) return;
+    payments
+      .adoptTrial(session?.hostId || hostId, trial)
+      .then(setBilling)
+      .catch(() => {});
+    // Adopt the signup trial once on load; later billing actions own the state.
+  }, [trial]);
+
+  const trialActive = billing?.status === "trial";
+  const trialEndLabel = billing?.trialEndsAt
+    ? new Date(billing.trialEndsAt).toLocaleDateString(undefined, {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      })
+    : "";
+
+  const runBilling = async (action) => {
     try {
       const id = session?.hostId || hostId;
       let status;
       if (action === "trial") return startTrial();
-      if (action === "subscribe") status = await payments.subscribe(id, plan);
-      else if (action === "cancel") status = await payments.cancel(id);
+      if (action === "cancel") status = await payments.cancel(id);
       else status = await payments.getStatus(id);
       setBilling(status);
       syncFromDoc({ ...doc, subscription: payments.toSchemaSubscription(status) });
@@ -431,10 +448,23 @@ export function WizardPage({ initialCode = "" }) {
       {step === 0 && (
         <section className="card">
           <h2>Account and mock trial</h2>
-          <p>
-            Start a 30-day trial to explore the wizard. No payment is required.
-            At the end of the trial, pick monthly or annual. MockPaymentProvider
-            only — no card fields, no processor.
+          <p className="plan-line" data-testid="wizard-plan">
+            <b>{PLAN.label}.</b>
+          </p>
+          {trialActive ? (
+            <p className="ok" data-testid="wizard-trial-active">
+              Your free trial is active
+              {trial?.name ? <> for <b>{trial.name}</b></> : null} until{" "}
+              {trialEndLabel}. No payment is required.
+            </p>
+          ) : (
+            <p>
+              Start a 30-day free trial to explore the wizard. No payment is
+              required.
+            </p>
+          )}
+          <p className="fineprint">
+            MockPaymentProvider only — no card fields, no processor.
           </p>
           {billing && (
             <pre className="preview" aria-label="Billing status">
@@ -443,15 +473,11 @@ export function WizardPage({ initialCode = "" }) {
           )}
           {billingMsg && <p className="errors">{billingMsg}</p>}
           <div className="row">
-            <button type="button" onClick={() => runBilling("trial")}>
-              Start 30-day trial
-            </button>
-            <button type="button" onClick={() => runBilling("subscribe", "monthly")}>
-              Subscribe monthly
-            </button>
-            <button type="button" onClick={() => runBilling("subscribe", "annual")}>
-              Subscribe annual
-            </button>
+            {!trialActive && (
+              <button type="button" onClick={() => runBilling("trial")}>
+                Start 30-day free trial
+              </button>
+            )}
             <button type="button" onClick={() => runBilling("cancel")}>
               Cancel → grace
             </button>

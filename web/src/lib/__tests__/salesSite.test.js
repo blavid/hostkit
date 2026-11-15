@@ -37,3 +37,11 @@ test("CTAs stay under /hostkit-preview/ and no third-party fonts load", () => {
   const js = readFileSync(join(site, "assets/site.js"), "utf8");
   assert.ok(js.includes("'signup?code='"));
 });
+
+test("wizard step 1 and marketing copy offer only the single plan", () => {
+  const src = join(dirname(fileURLToPath(import.meta.url)), "../..");
+  for (const f of ["WizardPage.jsx", "MarketingPage.jsx"]) {
+    const text = readFileSync(join(src, f), "utf8");
+    assert.ok(!/annual|Subscribe monthly|pick monthly/i.test(text), `${f} still offers a plan choice`);
+  }
+});

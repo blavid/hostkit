@@ -43,24 +43,14 @@ export function MarketingPage() {
       <div className="card">
         <h2>Pricing (mock)</h2>
         <p className="fineprint">
-          Amounts are placeholders until prices are set. Preview billing is a
-          mock 30-day trial — no charges, no cards, no payment processor.
+          Preview billing is a mock 30-day trial — no charges, no cards, no
+          payment processor.
         </p>
         <div className="plans">
           <div className="plan">
-            <h3>Trial</h3>
-            <p className="price">30 days</p>
-            <p>Explore the wizard and publish to a preview TV.</p>
-          </div>
-          <div className="plan">
-            <h3>Monthly</h3>
-            <p className="price">$TBD / month</p>
-            <p>After the trial, stay month to month.</p>
-          </div>
-          <div className="plan">
-            <h3>Annual</h3>
-            <p className="price">$TBD / year</p>
-            <p>Same product, billed once a year.</p>
+            <h3>One plan</h3>
+            <p className="price">$5/mo per property</p>
+            <p>30-day free trial, then $5/mo per property.</p>
           </div>
         </div>
         <p>
