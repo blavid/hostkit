@@ -200,3 +200,26 @@ button:disabled { opacity: 0.55; cursor: not-allowed; }
   background: #c9a227;
   border-color: #c9a227;
 }
+
+.tv-code-banner {
+  background: #1a2336;
+  border: 1px solid #f2a93b;
+  border-radius: 10px;
+  padding: 0.6rem 1rem;
+  margin: 1rem 0;
+  color: #f4efe3;
+}
+.tv-code-banner p {
+  margin: 0.35rem 0;
+}
+.tv-code-banner .code-chip {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  background: #f2a93b;
+  color: #1a2336;
+  padding: 1px 8px;
+  border-radius: 6px;
+  letter-spacing: 0.08em;
+}
+.tv-code-banner button {
+  margin-left: 0.5rem;
+}

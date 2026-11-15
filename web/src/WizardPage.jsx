@@ -34,6 +34,7 @@ import {
   makeOfficialLinkCard,
 } from "./lib/activityLibrary.js";
 import { loadApiConfig, TV_SERVICE_NOT_LIVE } from "./lib/apiConfig.js";
+import { loadTrial, CODE_KEY } from "../sales-site/assets/trial.js";
 import {
   createHostApi,
   loadStoredSession,
@@ -61,6 +62,17 @@ const STEPS = [
   { id: "editors", label: "Editors" },
   { id: "publish", label: "Publish" },
 ];
+
+const PAIR_STEP = STEPS.findIndex((s) => s.id === "pairing");
+
+function storedTvCode() {
+  try {
+    const c = normalizePairCode(window.sessionStorage.getItem(CODE_KEY) || "");
+    return isValidPairCode(c) ? c : "";
+  } catch {
+    return "";
+  }
+}
 
 export function WizardPage({ initialCode = "" }) {
   const [params] = useSearchParams();
@@ -90,9 +102,17 @@ export function WizardPage({ initialCode = "" }) {
       initialCode ||
         codeFromLocation(window.location.search, window.location.pathname) ||
         params.get("code") ||
+        storedTvCode() ||
         ""
     )
   );
+  const [trial] = useState(() => {
+    try {
+      return loadTrial(window.localStorage);
+    } catch {
+      return null;
+    }
+  });
   const [devices, setDevices] = useState([]);
   const [pairMsg, setPairMsg] = useState("");
   const [publishMsg, setPublishMsg] = useState("");
@@ -127,6 +147,16 @@ export function WizardPage({ initialCode = "" }) {
     const fromQuery = normalizePairCode(params.get("code") || initialCode || "");
     if (fromQuery && !pairCode) setPairCode(fromQuery);
   }, [params, initialCode, pairCode]);
+
+  // Keep the TV code for the whole visit (same key as the sales site).
+  useEffect(() => {
+    if (!isValidPairCode(pairCode)) return;
+    try {
+      window.sessionStorage.setItem(CODE_KEY, pairCode);
+    } catch {
+      /* storage unavailable */
+    }
+  }, [pairCode]);
 
   const syncFromDoc = useCallback((next) => {
     setDoc(next);
@@ -363,6 +393,27 @@ export function WizardPage({ initialCode = "" }) {
         document.
       </p>
       {apiNotice && <p className="notice">{apiNotice}</p>}
+      {(isValidPairCode(pairCode) || trial) && (
+        <div className="tv-code-banner" role="status">
+          {trial && (
+            <p>
+              Mock 30-day free trial started for <b>{trial.name}</b>. No payment
+              was taken and no email was sent.
+            </p>
+          )}
+          {isValidPairCode(pairCode) && (
+            <p>
+              Your TV code <b className="code-chip" data-testid="wizard-tv-code">{pairCode}</b>{" "}
+              is filled in. It’s used on step {PAIR_STEP + 1}, {STEPS[PAIR_STEP].label}.{" "}
+              {step !== PAIR_STEP && (
+                <button type="button" onClick={() => setStep(PAIR_STEP)}>
+                  Go to pairing
+                </button>
+              )}
+            </p>
+          )}
+        </div>
+      )}
 
       <div className="stepper" role="tablist" aria-label="Wizard steps">
         {STEPS.map((s, i) => (

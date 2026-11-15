@@ -1,7 +1,6 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route, Link, useParams } from "react-router-dom";
-import { MarketingPage } from "./MarketingPage.jsx";
 import { WizardPage } from "./WizardPage.jsx";
 import { applyPreviewPathNormalization } from "./lib/pathNormalize.js";
 import "./styles.css";
@@ -29,21 +28,30 @@ function PairRedirect() {
   return <WizardPage initialCode={code} />;
 }
 
+// /hostkit-preview/ is now the static sales site. If the SPA ever renders
+// its root route (client-side nav or a stray shell), hand off to it.
+function SalesHome() {
+  React.useEffect(() => {
+    window.location.replace("/hostkit-preview/" + window.location.search + window.location.hash);
+  }, []);
+  return null;
+}
+
 function App() {
   return (
     <BrowserRouter basename="/hostkit-preview">
       <header className="top">
-        <Link to="/" className="brand">
+        <a href="/hostkit-preview/" className="brand">
           HostKit preview
-        </Link>
+        </a>
         <nav>
-          <Link to="/">Marketing</Link>
+          <a href="/hostkit-preview/">Home</a>
           <Link to="/wizard">Wizard</Link>
         </nav>
       </header>
       <main>
         <Routes>
-          <Route path="/" element={<MarketingPage />} />
+          <Route path="/" element={<SalesHome />} />
           <Route path="/wizard/*" element={<WizardPage />} />
           <Route path="/setup/*" element={<WizardPage />} />
           <Route path="/pair/:code" element={<PairRedirect />} />
