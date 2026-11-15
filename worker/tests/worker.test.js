@@ -263,3 +263,18 @@ describe("pair/start device id from Roku", () => {
     assert.equal(missing.json.error, "missing_device_id");
   });
 });
+
+describe("pair short link", () => {
+  it("redirects /pair/:code to the wizard with the code filled in", async () => {
+    const env = envWithClock(clock(Date.now()));
+    const start = await call(env, "POST", "/v1/pair/start", { body: { deviceId: "tv-link" } });
+    const path = new URL(start.json.shortUrl).pathname;
+    const res = await handleRequest(new Request(`http://hostkit.test${path}`), env);
+    assert.equal(res.status, 302);
+    const loc = new URL(res.headers.get("location"));
+    assert.equal(loc.origin + loc.pathname, "https://hostkit-preview.pages.dev/hostkit-preview/wizard/");
+    assert.equal(loc.searchParams.get("code"), start.json.code);
+    const bad = await handleRequest(new Request("http://hostkit.test/pair/BAD0"), env);
+    assert.equal(bad.status, 404);
+  });
+});
