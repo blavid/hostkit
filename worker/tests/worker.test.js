@@ -278,3 +278,23 @@ describe("pair short link", () => {
     assert.equal(bad.status, 404);
   });
 });
+
+describe("host-kit.com settings", () => {
+  // Production env: PUBLIC_BASE=https://api.host-kit.com, WIZARD_URL=https://host-kit.com/
+  it("puts the short link and QR on api.host-kit.com and sends /pair/:code to the home page", async () => {
+    const env = envWithClock(clock(Date.now()), {
+      PUBLIC_BASE: "https://api.host-kit.com/",
+      WIZARD_URL: "https://host-kit.com/",
+    });
+    const start = await call(env, "POST", "/v1/pair/start", {
+      body: { deviceId: "tv-hk" },
+      origin: "https://api.host-kit.com",
+    });
+    assert.equal(start.status, 200);
+    assert.equal(start.json.shortUrl, `https://api.host-kit.com/pair/${start.json.code}`);
+    assert.ok(start.json.qrUrl.startsWith("https://api.host-kit.com/v1/pair/qr?code="));
+    const res = await handleRequest(new Request(start.json.shortUrl), env);
+    assert.equal(res.status, 302);
+    assert.equal(res.headers.get("location"), `https://host-kit.com/?code=${start.json.code}`);
+  });
+});
