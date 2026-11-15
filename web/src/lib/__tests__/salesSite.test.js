@@ -20,6 +20,8 @@ test("every page is noindex and shows the noindex-safe price wording only", () =
     assert.ok(html.includes("30-day free trial, then $5/mo per property"), p);
     assert.ok(!/annual|monthly/i.test(html), `${p} mentions another plan`);
     assert.ok(html.includes("Hidden preview · noindex"), `${p} lacks the visible noindex note`);
+    assert.match(html, /<footer[\s\S]*Hidden preview · noindex[\s\S]*<\/footer>/, `${p} noindex note is not in the footer`);
+    assert.ok(!/<header[\s\S]*Hidden preview · noindex[\s\S]*<\/header>/.test(html), `${p} noindex note is in the header`);
   }
 });
 

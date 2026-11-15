@@ -216,6 +216,17 @@ details p{margin:10px 0 0;color:var(--m1);max-width:62ch}
 @media(min-width:1000px){.sticky{display:none}}
 @media(max-width:999px){body{padding-bottom:88px}}
 
+/* before/after: side-by-side image on desktop, stacked labeled crops on phones */
+.ba-desktop{margin:0}.ba-desktop img{border-radius:16px}
+.ba-mobile{display:none}
+.ba-item{margin:0}
+.ba-item+.ba-item{margin-top:24px}
+.ba-lbl{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-weight:600;font-size:21px;line-height:1.2;color:var(--navy);margin-bottom:10px}
+.ba-tag{flex:none;font-family:var(--sans);font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;border-radius:999px;background:var(--m1);color:var(--cream)}
+.ba-tag.after{background:var(--navy);color:var(--gold)}
+.ba-item img{width:100%;border-radius:12px}
+@media(max-width:699px){.ba-desktop{display:none}.ba-mobile{display:block}}
+
 /* signup (mock trial) */
 .signup-code{display:none;margin:18px 0 0;font-size:17px}.has-code .signup-code{display:block}
 .signup-mock{margin:14px 0 0;color:var(--m1);font-size:15px;max-width:58ch}
