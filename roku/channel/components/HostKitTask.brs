@@ -58,7 +58,7 @@ function HostKitDoStart() as object
     result.httpCode = response.code
     result.reason = response.reason
     if response.reason <> "ok"
-        print "HostKit: pair start failure reason="; response.reason; " code="; response.code
+        print "HostKit: pair start failure reason="; response.reason; " code="; response.code; " url="; base + "/v1/pair/start"
         return result
     end if
     parsed = ParseJson(response.body)
@@ -243,6 +243,8 @@ function HostKitHttp(method as string, url as string, body as string, authorizat
     end if
     if result.code <> 200
         result.reason = "http"
+        failure = event.GetFailureReason()
+        if failure <> invalid then print "HostKit: http failure code="; result.code; " detail="; failure
         result.body = bodyText
         return result
     end if

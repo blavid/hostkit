@@ -419,7 +419,7 @@ end sub
 
 sub HostKitHandleStart(result as object)
     if result.ok <> "yes"
-        if m.hostKitStatus <> invalid then m.hostKitStatus.text = "Could not reach HostKit. Retrying…"
+        if m.hostKitStatus <> invalid then m.hostKitStatus.text = "Could not reach HostKit. Retrying…" + HostKitFailureTag(result)
         waitSec = HostKitPollBackoff(HostKitCurrentPoll(), true)
         m.hostKitPollSeconds = waitSec
         HostKitArmPoll(waitSec)
@@ -625,3 +625,14 @@ function HostKitApplyCachedGuide() as boolean
     return true
 end function
 
+
+' Short diagnostic suffix so a photo of the TV shows why pairing failed,
+' e.g. " (timeout 0)" or " (http -60)". No secrets: reason and code only.
+function HostKitFailureTag(result as object) as string
+    if result = invalid then return ""
+    reason = result.reason
+    if reason = invalid or reason = "" then return ""
+    code = result.httpCode
+    if code = invalid then code = 0
+    return "  (" + reason + " " + code.ToStr() + ")"
+end function
