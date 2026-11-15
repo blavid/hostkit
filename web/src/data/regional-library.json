@@ -1,0 +1,1626 @@
+{
+  "version": 1,
+  "source": "https://sunrivertownhome.com/data/activities.json",
+  "note": "Public activity cards only. Private house notes stripped. Affiliate query params removed. First id wins.",
+  "curated": [
+    {
+      "id": "viator-ebike-tour",
+      "title": "Electric Bike Tour of Bend & Deschutes River",
+      "category": "guided-tours-and-activities",
+      "description": "Explore Bend and the Deschutes River with ease on a guided e-bike tour. With an electric bike to assist, you can go farther and see more while learning local history and stopping for refreshments.",
+      "seasons": [
+        "year-round"
+      ],
+      "seasonLabel": "Year-round",
+      "distance": "25–30 min drive to Bend",
+      "tip": "Includes e-bike and helmet; wear closed-toe shoes.",
+      "signupUrl": "https://www.viator.com/tours/Bend/Electric-Bike-Tour-of-Bend-and-Deschutes-River/d22372-348862P1",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Viator/E-bikeTour.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/viator-ebike-tour.jpg",
+      "imageAlt": "An electric bicycle and another rider in a bike lane in Bend",
+      "imageCredit": {
+        "author": "Oregon Department of Transportation",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Riding_in_the_bike_lane_in_Bend,_OR._(52389757790).jpg",
+        "changes": "Resized"
+      },
+      "seasonRank": {
+        "winter": 170,
+        "spring": 380,
+        "summer": 510,
+        "fall": 450
+      },
+      "source": "viator",
+      "linkPolicy": "official-link-or-widget",
+      "needsHostConfirm": true
+    },
+    {
+      "id": "ride-the-river-ebike",
+      "title": "Ride the River Guided E-Bike Tour of Bend",
+      "category": "guided-tours-and-activities",
+      "description": "A relaxed guided e-bike ride focusing on Bend's riverfront, Old Mill District, and neighborhood highlights — great for visitors who want a local introduction.",
+      "seasons": [
+        "year-round"
+      ],
+      "seasonLabel": "Year-round",
+      "distance": "25–30 min drive to Bend",
+      "tip": "Smaller groups sell out on weekends; book ahead.",
+      "signupUrl": "https://www.viator.com/tours/Bend/Guided-E-Bike-Tour-of-Bend/d22372-443338P3",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Viator/RideTheRiverEbike.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/ride-the-river-ebike.jpg",
+      "imageAlt": "Riders on e-bikes following a river path",
+      "seasonRank": {
+        "winter": 180,
+        "spring": 390,
+        "summer": 520,
+        "fall": 460
+      },
+      "source": "viator",
+      "linkPolicy": "official-link-or-widget",
+      "needsHostConfirm": true
+    },
+    {
+      "id": "deschutes-ebike",
+      "title": "Deschutes River E-Bike Tour",
+      "category": "guided-tours-and-activities",
+      "description": "A shorter e-bike experience focused on scenic stretches of the Deschutes River and nearby attractions — ideal for casual riders.",
+      "seasons": [
+        "year-round"
+      ],
+      "seasonLabel": "Year-round",
+      "distance": "25–30 min drive to Bend",
+      "tip": "Bring a water bottle and camera for river views.",
+      "signupUrl": "https://www.viator.com/tours/Bend/Deschutes-River-E-bike-Tour/d22372-5593697P2",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Viator/DeschutesEbike.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/deschutes-ebike.jpg",
+      "imageAlt": "E-bike parked near a river bank",
+      "seasonRank": {
+        "winter": 190,
+        "spring": 400,
+        "summer": 530,
+        "fall": 470
+      },
+      "source": "viator",
+      "linkPolicy": "official-link-or-widget",
+      "needsHostConfirm": true
+    },
+    {
+      "id": "cascade-lakes-kayak",
+      "title": "Cascade Lakes Kayak Tour",
+      "category": "guided-tours-and-activities",
+      "description": "Guided kayak tours among the Cascade Lakes — stunning alpine scenery and calm water paddling. Some itineraries include multiple lakes and shore snacks.",
+      "seasons": [
+        "summer"
+      ],
+      "seasonLabel": "Summer",
+      "distance": "45–60 min drive",
+      "tip": "Dress in layers; water can be chilly even on warm days.",
+      "signupUrl": "https://www.viator.com/tours/Bend/Cascade-Lakes-Kayaking-Tour-Bend-Oregon/d22372-408340P3",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Viator/CascadeLakesKayak.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/cascade-lakes-kayak.jpg",
+      "imageAlt": "Kayaks on a calm mountain lake",
+      "seasonRank": {
+        "winter": 450,
+        "spring": 570,
+        "summer": 210,
+        "fall": 590
+      },
+      "source": "viator",
+      "linkPolicy": "official-link-or-widget",
+      "needsHostConfirm": true
+    },
+    {
+      "id": "high-cascades-atv",
+      "title": "2-Hour High Cascades Scenic ATV Tour",
+      "category": "guided-tours-and-activities",
+      "description": "Off-road ATV rides through High Cascades terrain — fast-paced, scenic fun with guided instruction and safety gear provided.",
+      "seasons": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "seasonLabel": "Late spring through fall",
+      "distance": "40–60 min drive",
+      "tip": "Closed-toe shoes required; bring sun protection and gloves if you have them.",
+      "signupUrl": "https://www.viator.com/tours/Bend/High-Cascades-Scenic-ATV-Tour/d22372-454771P3",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Viator/HighCascadesATV.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/high-cascades-atv.jpg",
+      "imageAlt": "ATV riding on volcanic terrain",
+      "seasonRank": {
+        "winter": 460,
+        "spring": 110,
+        "summer": 220,
+        "fall": 120
+      },
+      "source": "viator",
+      "linkPolicy": "official-link-or-widget",
+      "needsHostConfirm": true
+    },
+    {
+      "id": "deschutes-horse-ride",
+      "title": "Deschutes River Horse Ride",
+      "category": "guided-tours-and-activities",
+      "description": "Guided horseback rides along the Deschutes River corridor — serene river views and a relaxed pace suitable for most riders.",
+      "seasons": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "seasonLabel": "Spring through fall",
+      "distance": "25–40 min drive",
+      "tip": "Wear long pants and closed-toe shoes; bring a camera for riverside views.",
+      "signupUrl": "https://www.viator.com/tours/Bend/Deschutes-River-Horse-Ride/d22372-158741P1",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Viator/DeschutesHorseRide.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/deschutes-horse-ride.jpg",
+      "imageAlt": "Horseback rider trotting along a riverside trail",
+      "seasonRank": {
+        "winter": 470,
+        "spring": 120,
+        "summer": 230,
+        "fall": 130
+      },
+      "source": "viator",
+      "linkPolicy": "official-link-or-widget",
+      "needsHostConfirm": true
+    },
+    {
+      "id": "moonlight-canoe",
+      "title": "Cascade Lakes Moonlight & Starlight Canoe Tour",
+      "category": "guided-tours-and-activities",
+      "description": "A guided evening canoe tour under the stars — magical moonlit paddling with storytelling and light refreshments.",
+      "seasons": [
+        "summer"
+      ],
+      "seasonLabel": "Summer (clear nights)",
+      "distance": "45–60 min drive",
+      "tip": "Check moon phase and weather; tours run on calm nights.",
+      "signupUrl": "https://www.viator.com/tours/Bend/Cascade-Lakes-Moonlight-and-Starlight-Canoe-Tour/d22372-408340P1",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Viator/MoonlightCanoe.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/moonlight-canoe.jpg",
+      "imageAlt": "Canoes on a lake at night under a starry sky",
+      "seasonRank": {
+        "winter": 480,
+        "spring": 580,
+        "summer": 240,
+        "fall": 600
+      },
+      "source": "viator",
+      "linkPolicy": "official-link-or-widget",
+      "needsHostConfirm": true
+    },
+    {
+      "id": "lava-tube-guided",
+      "title": "Guided Lava Tube Cave Tour",
+      "category": "guided-tours-and-activities",
+      "description": "Naturalist-led exploration of local lava tubes — learn volcanic geology and see dramatic subterranean formations. Guides provide lights and helmets.",
+      "seasons": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "seasonLabel": "Late spring through early fall",
+      "distance": "15–30 min drive",
+      "tip": "Wear warm layers and sturdy shoes; tours often require bending and uneven footing.",
+      "signupUrl": "https://www.viator.com/tours/Bend/Guided-Lava-Tube-Cave-Tour-Bend-Oregon/d22372-408340P2",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Viator/LavaTubeTour.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/lava-tube-guided.jpg",
+      "imageAlt": "Inside a lava tube cave with a guided group",
+      "seasonRank": {
+        "winter": 490,
+        "spring": 130,
+        "summer": 250,
+        "fall": 140
+      },
+      "source": "viator",
+      "linkPolicy": "official-link-or-widget",
+      "needsHostConfirm": true
+    },
+    {
+      "id": "limited-lava-tube",
+      "title": "Limited-Entry Lava Tube Cave Tour",
+      "category": "guided-tours-and-activities",
+      "description": "Smaller-group or limited-access lava tube experiences — often include expert-led interpretation and quieter cave sections.",
+      "seasons": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "seasonLabel": "Late spring through early fall",
+      "distance": "15–30 min drive",
+      "tip": "Limited-entry tours may require advance booking and have minimum fitness levels.",
+      "signupUrl": "https://www.viator.com/tours/Bend/Limited-Entry-Lava-Tube-Cave-Tour-in-Bend-Oregon/d22372-408340P7",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Viator/LimitedLavaTube.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/limited-lava-tube.jpg",
+      "imageAlt": "Tour group inside a narrow lava tube",
+      "seasonRank": {
+        "winter": 500,
+        "spring": 140,
+        "summer": 260,
+        "fall": 150
+      },
+      "source": "viator",
+      "linkPolicy": "official-link-or-widget",
+      "needsHostConfirm": true
+    },
+    {
+      "id": "alpaca-picnic",
+      "title": "Alpaca Picnic Experience",
+      "category": "guided-tours-and-activities",
+      "description": "Meet alpacas and enjoy a guided outdoor picnic — a family-friendly experience combining animal encounter and local snacks.",
+      "seasons": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "seasonLabel": "Spring through fall",
+      "distance": "30–45 min drive",
+      "tip": "Perfect for kids and small groups — book for a private time slot.",
+      "signupUrl": "https://www.viator.com/tours/Bend/The-Original-Alpaca-Picnic-Experience/d22372-405907P1",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Viator/AlpacaPicnic.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/alpaca-picnic.jpg",
+      "imageAlt": "Picnic with alpacas in a meadow",
+      "seasonRank": {
+        "winter": 510,
+        "spring": 150,
+        "summer": 270,
+        "fall": 160
+      },
+      "source": "viator",
+      "linkPolicy": "official-link-or-widget",
+      "needsHostConfirm": true
+    },
+    {
+      "id": "chocolate-tour",
+      "title": "Chocolate Tour (Hot Chocolate & Samples)",
+      "category": "guided-tours-and-activities",
+      "description": "A tasty guided walk sampling chocolate, hot cocoa, and paired treats at local shops — a sweet local introduction.",
+      "seasons": [
+        "year-round"
+      ],
+      "seasonLabel": "Year-round",
+      "distance": "Downtown Bend",
+      "tip": "Great as a half-day indulgence — bring comfortable shoes.",
+      "signupUrl": "https://www.viator.com/tours/Bend/Chocolate-Tour-Including-Hot-Chocolate-and-Samples/d22372-348862P4",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Viator/ChocolateTour.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/chocolate-tour.jpg",
+      "imageAlt": "Assorted chocolates and hot chocolate cups",
+      "seasonRank": {
+        "winter": 200,
+        "spring": 410,
+        "summer": 540,
+        "fall": 480
+      },
+      "source": "viator",
+      "linkPolicy": "official-link-or-widget",
+      "needsHostConfirm": true
+    },
+    {
+      "id": "food-truck-brewery-tour",
+      "title": "Food Truck & Brewery Tour (Complimentary Tastings)",
+      "category": "guided-tours-and-activities",
+      "description": "A guided tasting tour pairing Bend's food-truck scene with local breweries — small-group format with curated tastings.",
+      "seasons": [
+        "year-round"
+      ],
+      "seasonLabel": "Year-round",
+      "distance": "Downtown Bend",
+      "tip": "Designated driver or transportation recommended when sampling beers.",
+      "signupUrl": "https://www.viator.com/tours/Bend/Food-Truck-and-Brewery-Tour-with-Complimentary-Tastings/d22372-348862P8",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Viator/FoodTruckBrewery.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/food-truck-brewery-tour.jpg",
+      "imageAlt": "Assortment of food truck dishes and craft beer",
+      "seasonRank": {
+        "winter": 210,
+        "spring": 420,
+        "summer": 550,
+        "fall": 490
+      },
+      "source": "viator",
+      "linkPolicy": "official-link-or-widget",
+      "needsHostConfirm": true
+    },
+    {
+      "id": "craft-brewery-tour",
+      "title": "Craft Brewery Tour with Tastings",
+      "category": "guided-tours-and-activities",
+      "description": "A curated brewery crawl showcasing Bend's best craft beer scene with guided tastings and behind-the-scenes insights.",
+      "seasons": [
+        "year-round"
+      ],
+      "seasonLabel": "Year-round",
+      "distance": "Downtown Bend",
+      "tip": "Bring ID; tours often include transportation between stops.",
+      "signupUrl": "https://www.viator.com/tours/Bend/Craft-Brewery-Tour-and-Tastings-Everything-Included/d22372-348862P6",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Viator/CraftBreweryTour.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/craft-brewery-tour.jpg",
+      "imageAlt": "Tasting flight of craft beers",
+      "seasonRank": {
+        "winter": 220,
+        "spring": 430,
+        "summer": 560,
+        "fall": 500
+      },
+      "source": "viator",
+      "linkPolicy": "official-link-or-widget",
+      "needsHostConfirm": true
+    },
+    {
+      "id": "ultimate-scavenger-downtown",
+      "title": "Ultimate Scavenger Bend (Downtown)",
+      "category": "guided-tours-and-activities",
+      "description": "A playful city-wide scavenger hunt exploring downtown Bend's history, public art, and hidden gems — great for groups.",
+      "seasons": [
+        "year-round"
+      ],
+      "seasonLabel": "Year-round",
+      "distance": "Downtown Bend",
+      "tip": "Works well for team outings or family groups; wear comfortable shoes.",
+      "signupUrl": "https://www.viator.com/tours/Bend/Ultimate-Scavenger-Downtown-Bend/d22372-121288P3",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Viator/ScavengerHunt.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/ultimate-scavenger-downtown.jpg",
+      "imageAlt": "Group solving clues in a downtown setting",
+      "seasonRank": {
+        "winter": 230,
+        "spring": 440,
+        "summer": 570,
+        "fall": 510
+      },
+      "source": "viator",
+      "linkPolicy": "official-link-or-widget",
+      "needsHostConfirm": true
+    },
+    {
+      "id": "night-sky-photo-tour",
+      "title": "Central Oregon Night Sky Photo Tour",
+      "category": "guided-tours-and-activities",
+      "description": "A guided astrophotography outing to prime dark-sky locations with instruction on long-exposure techniques — capture the Milky Way over the Cascades.",
+      "seasons": [
+        "year-round"
+      ],
+      "seasonLabel": "Clear nights, year-round",
+      "distance": "30–60 min drive",
+      "tip": "Bring a tripod and spare batteries; instructors often provide remote triggers.",
+      "signupUrl": "https://www.viator.com/tours/Bend/Night-Sky-Private-Photo-Tour/d22372-16533P5",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Viator/NightSkyPhotoTour.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/night-sky-photo-tour.jpg",
+      "imageAlt": "Starry Milky Way over a mountain silhouette",
+      "seasonRank": {
+        "winter": 240,
+        "spring": 450,
+        "summer": 580,
+        "fall": 520
+      },
+      "source": "viator",
+      "linkPolicy": "official-link-or-widget",
+      "needsHostConfirm": true
+    },
+    {
+      "id": "personal-photo-tutoring",
+      "title": "Personal Photography Tutoring in Bend",
+      "category": "guided-tours-and-activities",
+      "description": "One-on-one or small-group photography tutoring focused on composition, camera settings, and local shooting locations.",
+      "seasons": [
+        "year-round"
+      ],
+      "seasonLabel": "Year-round",
+      "distance": "Varies by meeting point",
+      "tip": "Share your gear and learning goals when booking for a tailored session.",
+      "signupUrl": "https://www.viator.com/tours/Bend/Personal-Photography-Tutoring-in-Bend/d22372-16533P3",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Viator/PhotoTutoring.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/personal-photo-tutoring.jpg",
+      "imageAlt": "Photographer leading a tutoring session outdoors",
+      "seasonRank": {
+        "winter": 250,
+        "spring": 460,
+        "summer": 590,
+        "fall": 530
+      },
+      "source": "viator",
+      "linkPolicy": "official-link-or-widget",
+      "needsHostConfirm": true
+    },
+    {
+      "id": "private-photo-tour",
+      "title": "Private Bend Street Photo Tours",
+      "category": "guided-tours-and-activities",
+      "description": "Private guided street photography tours through Bend's most photogenic neighborhoods and the Old Mill District — great for aspiring photographers and visitors who want curated shots.",
+      "seasons": [
+        "year-round"
+      ],
+      "seasonLabel": "Year-round",
+      "distance": "Downtown Bend",
+      "tip": "Book a morning slot for softer light and fewer people.",
+      "signupUrl": "https://www.viator.com/tours/Bend/Bend-Street-Photography-Private-Tour/d22372-16533P6",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Viator/StreetPhotoTour.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/private-photo-tour.jpg",
+      "imageAlt": "Photographer shooting in an urban streetscape",
+      "seasonRank": {
+        "winter": 260,
+        "spring": 470,
+        "summer": 600,
+        "fall": 540
+      },
+      "source": "viator",
+      "linkPolicy": "official-link-or-widget",
+      "needsHostConfirm": true
+    },
+    {
+      "id": "paddleboard-happy-hour",
+      "title": "Small-Group Paddle Board & Happy Hour — Cascade Lakes",
+      "category": "guided-tours-and-activities",
+      "description": "Paddle boarding on calm waters followed by a lakeside happy hour — a relaxed small-group outing on the Cascade Lakes.",
+      "seasons": [
+        "summer"
+      ],
+      "seasonLabel": "Summer",
+      "distance": "45–60 min drive",
+      "tip": "Bring swimwear and a towel; tours often include light snacks.",
+      "signupUrl": "https://www.viator.com/tours/Bend/Small-Group-Paddle-Board-and-Happy-Hour-in-Cascade-Lakes/d22372-348862P3",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Viator/PaddleBoardHappyHour.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/paddleboard-happy-hour.jpg",
+      "imageAlt": "Paddle boards lined up on a lake shore",
+      "seasonRank": {
+        "winter": 520,
+        "spring": 590,
+        "summer": 280,
+        "fall": 610
+      },
+      "source": "viator",
+      "linkPolicy": "official-link-or-widget",
+      "needsHostConfirm": true
+    },
+    {
+      "id": "murder-mystery",
+      "title": "Murder Mystery Detective Experience",
+      "category": "guided-tours-and-activities",
+      "description": "An interactive city-based murder-mystery experience — team up, solve clues, and explore Bend in a playful way.",
+      "seasons": [
+        "year-round"
+      ],
+      "seasonLabel": "Year-round",
+      "distance": "Downtown Bend",
+      "tip": "Fun for groups — good for rainy-day entertainment.",
+      "signupUrl": "https://www.viator.com/tours/Bend/Murder-Mystery-Detective-Experience-in-Bend-OR/d22372-371631P106",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Viator/MurderMystery.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/murder-mystery.jpg",
+      "imageAlt": "Clues and map on a table for a detective game",
+      "seasonRank": {
+        "winter": 270,
+        "spring": 480,
+        "summer": 610,
+        "fall": 550
+      },
+      "source": "viator",
+      "linkPolicy": "official-link-or-widget",
+      "needsHostConfirm": true
+    },
+    {
+      "id": "hot-lava-bakery",
+      "title": "Hot Lava Bakery",
+      "category": "dining",
+      "description": "Fresh pastries, croissants, and coffee in Sunriver Village — a local favorite for breakfast and take-away treats.",
+      "seasons": [
+        "year-round"
+      ],
+      "seasonLabel": "Year-round",
+      "distance": "5 min by bike to the Village",
+      "tip": "Arrive before 9:30 AM in peak season.",
+      "url": "https://www.hotlavabakery.com/",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Dining/HotLavaBakery.jpeg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/hot-lava-bakery.jpg",
+      "imageAlt": "Fresh pastries and croissants in a bakery display",
+      "seasonRank": {
+        "winter": 40,
+        "spring": 280,
+        "summer": 410,
+        "fall": 350
+      },
+      "source": "curated-regional"
+    },
+    {
+      "id": "sparrow-bakery",
+      "title": "Sparrow Bakery",
+      "category": "dining",
+      "description": "Bend's cult-favorite bakery famous for the ocean roll — a buttery, salted-sweet masterpiece. Also excellent savory pastries and coffee.",
+      "seasons": [
+        "year-round"
+      ],
+      "seasonLabel": "Year-round",
+      "distance": "20 min drive to Bend",
+      "tip": "Ocean rolls sell out — go early or pre-order.",
+      "url": "https://www.thesparrowbakery.net/restaurant/",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Dining/SparrowBakery.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/sparrow-bakery.jpg",
+      "imageAlt": "Fresh baked goods on a counter",
+      "seasonRank": {
+        "winter": 50,
+        "spring": 290,
+        "summer": 420,
+        "fall": 360
+      },
+      "source": "curated-regional"
+    },
+    {
+      "id": "rio-sol",
+      "title": "Rio Sol at Sunriver Marina",
+      "category": "dining",
+      "description": "Latin American cuisine and craft cocktails on the Deschutes River at the Sunriver Marina. Scenic sunset dinners with water views.",
+      "seasons": [
+        "winter",
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "seasonLabel": "Seasonal — check hours",
+      "distance": "8 min drive",
+      "tip": "Request a patio table for golden-hour views.",
+      "url": "https://www.riosollatinkitchen.com/",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Dining/RioSol.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/rio-sol.jpg",
+      "imageAlt": "Outdoor dining with river views at sunset",
+      "seasonRank": {
+        "winter": 60,
+        "spring": 300,
+        "summer": 430,
+        "fall": 370
+      },
+      "seasonSpecified": false,
+      "source": "curated-regional"
+    },
+    {
+      "id": "el-caporal",
+      "title": "El Caporal",
+      "category": "dining",
+      "description": "Authentic Mexican cuisine with lively margaritas and a warm Village atmosphere.",
+      "seasons": [
+        "year-round"
+      ],
+      "seasonLabel": "Year-round",
+      "distance": "5 min by bike to the Village",
+      "tip": "Try the carne asada tacos and house margaritas.",
+      "url": "https://www.elcaporalco.com/",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Dining/ElCaporal.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/el-caporal.jpg",
+      "imageAlt": "Mexican dish with tortillas and salsa",
+      "seasonRank": {
+        "winter": 70,
+        "spring": 310,
+        "summer": 440,
+        "fall": 380
+      },
+      "source": "curated-regional"
+    },
+    {
+      "id": "blondies-pizza",
+      "title": "Blondie's Pizza",
+      "category": "dining",
+      "description": "Wood-fired, family-friendly pizza in Sunriver — great for groups and takeout.",
+      "seasons": [
+        "year-round"
+      ],
+      "seasonLabel": "Year-round",
+      "distance": "5–10 min by bike",
+      "tip": "Order ahead on busy summer nights.",
+      "url": "https://blondiespizzasunriver.com/",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Dining/BlondiesPizza.jpeg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/blondies-pizza.jpg",
+      "imageAlt": "Wood-fired pizza fresh from the oven",
+      "seasonRank": {
+        "winter": 80,
+        "spring": 320,
+        "summer": 450,
+        "fall": 390
+      },
+      "source": "curated-regional"
+    },
+    {
+      "id": "village-bar-grill",
+      "title": "Village Bar & Grill",
+      "category": "dining",
+      "description": "Casual American fare, cocktails, and a friendly local vibe right in the Village.",
+      "seasons": [
+        "year-round"
+      ],
+      "seasonLabel": "Year-round",
+      "distance": "Walkable in the Village",
+      "tip": "Good spot for families and late-night bites.",
+      "url": "https://www.sunrivervbag.com/",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Dining/VillageBarAndGrill.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/village-bar-grill.jpg",
+      "imageAlt": "Bar and grill dining area with rustic decor",
+      "seasonRank": {
+        "winter": 90,
+        "spring": 330,
+        "summer": 460,
+        "fall": 400
+      },
+      "source": "curated-regional"
+    },
+    {
+      "id": "the-wallow",
+      "title": "The Wallow",
+      "category": "dining",
+      "description": "Contemporary Pacific Northwest dishes with seasonal ingredients and a refined yet relaxed dining room.",
+      "seasons": [
+        "year-round"
+      ],
+      "seasonLabel": "Year-round",
+      "distance": "20–25 min drive to Bend",
+      "tip": "Excellent for date nights and special occasions.",
+      "url": "https://www.thewallowgrill.com/",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Dining/TheWallow.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/the-wallow.jpg",
+      "imageAlt": "Elegant plated entree on a table",
+      "seasonRank": {
+        "winter": 100,
+        "spring": 340,
+        "summer": 470,
+        "fall": 410
+      },
+      "source": "curated-regional"
+    },
+    {
+      "id": "campfire-cucina",
+      "title": "Campfire Cucina",
+      "category": "dining",
+      "description": "Italian-inspired cooking with wood-fired flavors — pizza, pasta, and shareable small plates.",
+      "seasons": [
+        "year-round"
+      ],
+      "seasonLabel": "Year-round",
+      "distance": "10–20 min drive",
+      "tip": "Great for groups — try a few small plates to share.",
+      "url": "https://www.pizzasunriver.com/",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Dining/CampfireCucina.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/campfire-cucina.jpg",
+      "imageAlt": "Pasta and Italian dishes on a wooden table",
+      "seasonRank": {
+        "winter": 110,
+        "spring": 350,
+        "summer": 480,
+        "fall": 420
+      },
+      "source": "curated-regional"
+    },
+    {
+      "id": "century-common-taps-and-trucks",
+      "title": "Century Common Taps & Trucks",
+      "category": "dining",
+      "description": "A rotating lineup of food trucks paired with local craft taps — casual outdoor dining and community vibes.",
+      "seasons": [
+        "winter",
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "seasonLabel": "Seasonal — check schedule",
+      "distance": "20–25 min drive to Bend",
+      "tip": "Check the events calendar for truck lineups and tap takeovers.",
+      "url": "https://www.centurycommonstaps.com/",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Dining/CenturyCommonsTapsTrucks.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/century-common-taps-and-trucks.jpg",
+      "imageAlt": "Outdoor food trucks and beer taps",
+      "seasonRank": {
+        "winter": 120,
+        "spring": 360,
+        "summer": 490,
+        "fall": 430
+      },
+      "seasonSpecified": false,
+      "source": "curated-regional"
+    },
+    {
+      "id": "josie-ks-deli",
+      "title": "Josie K's Deli",
+      "category": "dining",
+      "description": "Casual deli fare with hearty sandwiches, salads, and quick grab-and-go options for day trips.",
+      "seasons": [
+        "year-round"
+      ],
+      "seasonLabel": "Year-round",
+      "distance": "10–20 min drive",
+      "tip": "Perfect for picnic boxes and quick lunches.",
+      "url": "https://www.josiek.com/",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Dining/JosieKsDeli.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/josie-ks-deli.jpg",
+      "imageAlt": "Deli sandwich on a plate",
+      "seasonRank": {
+        "winter": 130,
+        "spring": 370,
+        "summer": 500,
+        "fall": 440
+      },
+      "source": "curated-regional"
+    },
+    {
+      "id": "benham-falls",
+      "title": "Benham Falls",
+      "category": "hiking",
+      "description": "The largest waterfall on the upper Deschutes River, thundering through a rugged lava canyon. Mostly flat, family-friendly, and beautiful year-round.",
+      "seasons": [
+        "spring"
+      ],
+      "seasonLabel": "Best in spring for peak flow",
+      "distance": "10 min drive from Sunriver",
+      "tip": "Combine with a bike ride on the Deschutes River Trail.",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Hiking/BenhamFalls.jpeg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/benham-falls.jpg",
+      "imageAlt": "Waterfall cascading through a forest canyon",
+      "seasonRank": {
+        "winter": 560,
+        "spring": 40,
+        "summer": 620,
+        "fall": 570
+      },
+      "difficulty": "Easy",
+      "trailDistance": "2.4 miles round trip",
+      "gettingThere": "Short drive or bike ride from Sunriver. Trailhead parking off Forest Road 41.",
+      "source": "curated-regional"
+    },
+    {
+      "id": "deschutes-river-trail",
+      "title": "Deschutes River Trail",
+      "category": "hiking",
+      "description": "Paved and dirt paths following the Deschutes River through pine forest. Walk or bike from Sunriver toward Benham Falls.",
+      "seasons": [
+        "year-round"
+      ],
+      "seasonLabel": "Year-round",
+      "distance": "Varies — up to 18 miles",
+      "tip": "Flat and scenic — perfect for an evening stroll.",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Hiking/deschutes-river-trail.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/deschutes-river-trail.jpg",
+      "imageAlt": "Dirt trail beside the Deschutes River on the way to Benham Falls",
+      "imageCredit": {
+        "author": "Another Believer",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Deschutes_River_Trail_to_Benham_Falls,_Oregon_(2014)_-_06.JPG",
+        "changes": "Resized"
+      },
+      "seasonRank": {
+        "winter": 300,
+        "spring": 180,
+        "summer": 310,
+        "fall": 250
+      },
+      "difficulty": "Easy",
+      "source": "curated-regional"
+    },
+    {
+      "id": "smith-rock",
+      "title": "Smith Rock State Park",
+      "category": "hiking",
+      "description": "Oregon's most iconic crags — golden cliffs rising above the Crooked River. Misery Ridge is the classic loop with jaw-dropping views. Also world-class rock climbing.",
+      "seasons": [
+        "spring",
+        "fall"
+      ],
+      "seasonLabel": "Spring and fall are ideal",
+      "distance": "45 min drive north",
+      "tip": "Start early — the trail gets hot and crowded by midday in summer.",
+      "url": "https://stateparks.oregon.gov/index.cfm?do=park.profile&parkId=36",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Hiking/smith-rock-vert.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/smith-rock.jpg",
+      "imageAlt": "Dramatic rocky cliffs and river canyon",
+      "seasonRank": {
+        "winter": 570,
+        "spring": 50,
+        "summer": 630,
+        "fall": 10
+      },
+      "source": "curated-regional"
+    },
+    {
+      "id": "green-lakes",
+      "title": "Green Lakes Trail",
+      "category": "hiking",
+      "description": "A Central Oregon classic — hike through wildflower meadows and lava fields to impossibly blue alpine lakes beneath the South Sister volcano.",
+      "seasons": [
+        "summer",
+        "fall"
+      ],
+      "seasonLabel": "July through September",
+      "distance": "45 min drive to trailhead",
+      "tip": "Arrive before 7 AM on weekends — the trailhead fills fast. Start early and bring layers — elevation gain and afternoon storms are real.",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Hiking/Green-Lakes-Trail.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/green-lakes.jpg",
+      "imageAlt": "Alpine lake surrounded by mountain peaks",
+      "seasonRank": {
+        "winter": 580,
+        "spring": 510,
+        "summer": 100,
+        "fall": 20
+      },
+      "difficulty": "Moderate–Strenuous",
+      "trailDistance": "4.5–9 miles",
+      "gettingThere": "45 min drive to trailhead off Cascade Lakes Highway.",
+      "source": "curated-regional"
+    },
+    {
+      "id": "todd-lake-loop",
+      "title": "Todd Lake Loop",
+      "category": "hiking",
+      "description": "Alpine lake loop at 6,500 ft with wildflowers in summer and Mt. Bachelor views. Cool escape on hot days.",
+      "seasons": [
+        "summer"
+      ],
+      "seasonLabel": "Wildflowers in summer",
+      "distance": "1.1 miles",
+      "tip": "Arrive early — small parking lot fills quickly on weekends.",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Hiking/todd-lake.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/todd-lake-loop.jpg",
+      "imageAlt": "Todd Lake with Mount Bachelor behind it in the Deschutes National Forest",
+      "imageCredit": {
+        "author": "U.S. Forest Service, Pacific Northwest Region",
+        "license": "Public domain",
+        "licenseUrl": "https://commons.wikimedia.org/wiki/Template:PD-USGov-USDA",
+        "source": "https://commons.wikimedia.org/wiki/File:MT_BACHELOR_AND_TODD_LAKE-DESCHUTES_(23870530396).jpg"
+      },
+      "seasonRank": {
+        "winter": 590,
+        "spring": 520,
+        "summer": 110,
+        "fall": 580
+      },
+      "difficulty": "Easy",
+      "gettingThere": "25 min drive up Cascade Lakes Highway from Mt. Bachelor turnoff.",
+      "source": "curated-regional"
+    },
+    {
+      "id": "tam-mcarthur-rim",
+      "title": "Tam McArthur Rim",
+      "category": "hiking",
+      "description": "A relatively short hike with enormous payoff — stand on the rim of a glacial cirque with views of Broken Top, the Three Sisters, and endless Cascades.",
+      "seasons": [
+        "summer",
+        "fall"
+      ],
+      "seasonLabel": "Late June through October",
+      "distance": "40 min drive",
+      "tip": "Wildflowers peak in July. Bring layers — it's exposed at the top.",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Hiking/TamMcArthurRimTrail.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/tam-mcarthur-rim.jpg",
+      "imageAlt": "Mountain ridge trail with panoramic views",
+      "seasonRank": {
+        "winter": 600,
+        "spring": 530,
+        "summer": 120,
+        "fall": 30
+      },
+      "source": "curated-regional"
+    },
+    {
+      "id": "tumalo-falls",
+      "title": "Tumalo Falls",
+      "category": "hiking",
+      "description": "A 97-foot waterfall just outside Bend with a scenic loop trail above the falls. Easy access and one of the most photographed spots in Central Oregon.",
+      "seasons": [
+        "year-round"
+      ],
+      "seasonLabel": "Year-round — check road access in winter",
+      "distance": "35 min drive",
+      "tip": "The upper trail gives you views most visitors miss.",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Hiking/TumaloFalls.jpeg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/tumalo-falls.jpg",
+      "imageAlt": "Tall waterfall in a lush forest",
+      "seasonRank": {
+        "winter": 310,
+        "spring": 190,
+        "summer": 320,
+        "fall": 260
+      },
+      "source": "curated-regional"
+    },
+    {
+      "id": "lava-butte",
+      "title": "Lava Butte & Lava Lands",
+      "category": "hiking",
+      "description": "Climb a cinder cone for 360° views of volcanic landscape, then walk the paved Lava Lands loop through jagged black lava fields. Great for all ages.",
+      "seasons": [
+        "year-round"
+      ],
+      "seasonLabel": "Year-round",
+      "distance": "10 min drive",
+      "tip": "Timed entry may be required in summer — check recreation.gov. Combine with the Lava River Cave or Lava Cast Forest for a full volcanic day.",
+      "url": "https://www.fs.usda.gov/r06/deschutes/recreation/lava-lands-visitor-center",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Hiking/LavaButte.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/lava-butte.jpg",
+      "imageAlt": "Lava Butte cinder cone with volcanic landscape",
+      "seasonRank": {
+        "winter": 320,
+        "spring": 200,
+        "summer": 330,
+        "fall": 270
+      },
+      "difficulty": "Easy–Moderate",
+      "trailDistance": "Lava Butte 1.5 miles round trip; Lava Lands Trail 0.5 miles",
+      "gettingThere": "10 min drive to Lava Lands Visitor Center. May require a timed entry pass in summer.",
+      "source": "curated-regional"
+    },
+    {
+      "id": "sharc",
+      "title": "SHARC Aquatic Center",
+      "category": "swimming",
+      "description": "Sunriver's premier aquatic center — waterslides, lazy river, lap pool, surf simulator, rock climbing wall, and fitness center. Your stay includes 8 guest passes.",
+      "seasons": [
+        "year-round"
+      ],
+      "seasonLabel": "Year-round (indoor/outdoor)",
+      "distance": "5 min drive",
+      "url": "https://www.sunriversharc.com/",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Swimming/SunriverSHARC.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/sharc.jpg",
+      "imageAlt": "Outdoor swimming pool with water slides",
+      "seasonRank": {
+        "winter": 140,
+        "spring": 490,
+        "summer": 300,
+        "fall": 560
+      },
+      "source": "curated-regional"
+    },
+    {
+      "id": "elk-lake",
+      "title": "Elk Lake",
+      "category": "swimming",
+      "description": "A gorgeous alpine lake at 4,900 ft with sandy beaches, paddle rentals, and Mt. Bachelor as a backdrop. The water is cold but refreshing on hot summer days.",
+      "seasons": [
+        "summer",
+        "fall"
+      ],
+      "seasonLabel": "June through September",
+      "distance": "30 min drive",
+      "tip": "Grab lunch at the Elk Lake Resort cafe on the shore.",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Swimming/ElkLakeResort.jpeg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/elk-lake.jpg",
+      "imageAlt": "Clear alpine lake with pine trees and mountains",
+      "seasonRank": {
+        "winter": 370,
+        "spring": 600,
+        "summer": 50,
+        "fall": 190
+      },
+      "source": "curated-regional"
+    },
+    {
+      "id": "sparks-lake",
+      "title": "Sparks Lake",
+      "category": "swimming",
+      "description": "One of the most photographed lakes in Oregon — shallow, crystal-clear water with South Sister reflected on calm mornings. Wade in from the shore or bring a float.",
+      "seasons": [
+        "summer",
+        "fall"
+      ],
+      "seasonLabel": "July through September",
+      "distance": "35 min drive",
+      "tip": "Sunrise here is magical — bring a camera.",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Swimming/SparksLake.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/sparks-lake.jpg",
+      "imageAlt": "Serene lake reflecting mountain peaks at sunrise",
+      "seasonRank": {
+        "winter": 380,
+        "spring": 610,
+        "summer": 60,
+        "fall": 200
+      },
+      "source": "curated-regional"
+    },
+    {
+      "id": "paulina-lake",
+      "title": "Paulina Lake",
+      "category": "swimming",
+      "description": "A deep volcanic lake inside the Newberry Caldera with hot springs on the far shore, boat rentals, and excellent fishing. Two lakes in one caldera — East Lake is nearby.",
+      "seasons": [
+        "summer",
+        "fall"
+      ],
+      "seasonLabel": "June through October",
+      "distance": "45 min drive",
+      "tip": "Hike to Paulina Peak for a caldera overview before swimming.",
+      "url": "https://www.fs.usda.gov/r06/deschutes/recreation/paulina-lake-day-use-area",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Swimming/PaulinaLake.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/paulina-lake.jpg",
+      "imageAlt": "Mountain lake with forest shoreline",
+      "seasonRank": {
+        "winter": 390,
+        "spring": 620,
+        "summer": 70,
+        "fall": 210
+      },
+      "source": "curated-regional"
+    },
+    {
+      "id": "devils-lake",
+      "title": "Devil's Lake",
+      "category": "swimming",
+      "description": "A pristine alpine lake tucked in a glacial cirque with stunning mountain views and excellent swimming. Crystal-clear water and a scenic trail loop make it a must-visit destination.",
+      "seasons": [
+        "summer",
+        "fall"
+      ],
+      "seasonLabel": "July through September",
+      "distance": "40 min drive",
+      "tip": "Arrive early — parking fills quickly on weekends.",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Swimming/DevilsLake.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/devils-lake.jpg",
+      "imageAlt": "Alpine lake surrounded by forested mountains",
+      "seasonRank": {
+        "winter": 400,
+        "spring": 630,
+        "summer": 80,
+        "fall": 220
+      },
+      "source": "curated-regional"
+    },
+    {
+      "id": "eaglewood-pool",
+      "title": "Eaglewood Community Pool",
+      "category": "swimming",
+      "description": "Eaglewood Community Pool in Central Oregon.",
+      "seasons": [
+        "summer"
+      ],
+      "seasonLabel": "Summer only",
+      "distance": "2 min walk",
+      "tip": "Check the HOA board by the pool for seasonal hours.",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Swimming/EaglewoodPool.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/eaglewood-pool.jpg",
+      "imageAlt": "Community swimming pool on a sunny day",
+      "seasonRank": {
+        "winter": 410,
+        "spring": 640,
+        "summer": 90,
+        "fall": 640
+      },
+      "source": "curated-regional"
+    },
+    {
+      "id": "deschutes-float",
+      "title": "Deschutes River Float",
+      "category": "river-floats",
+      "description": "The quintessential Central Oregon summer experience — float the gentle Deschutes on a tube or kayak through pine forests. Popular routes run from Sunriver toward Bend.",
+      "seasons": [
+        "summer"
+      ],
+      "seasonLabel": "June through August",
+      "distance": "Launch points within Sunriver",
+      "tip": "Rent tubes at the Sunriver Marina or in Bend. Bring sunscreen and a dry bag.",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Rafting/FloatDeschutes.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/deschutes-float.jpg",
+      "imageAlt": "Kayaking on a calm river through forest",
+      "seasonRank": {
+        "winter": 630,
+        "spring": 650,
+        "summer": 10,
+        "fall": 650
+      },
+      "source": "curated-regional"
+    },
+    {
+      "id": "sun-country-tours",
+      "title": "Sun Country Tours Whitewater",
+      "category": "river-floats",
+      "description": "Guided rafting trips on the Deschutes — from mellow scenic floats to Class III rapids through Big Eddy. Professional guides, all gear included.",
+      "seasons": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "seasonLabel": "May through September",
+      "distance": "Pickup in Bend or Sunriver area",
+      "tip": "Book the Big Eddy Thriller for families with teens.",
+      "url": "https://www.suncountrytours.com/",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Rafting/SunCountryTours.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/sun-country-tours.jpg",
+      "imageAlt": "Whitewater raft navigating river rapids",
+      "seasonRank": {
+        "winter": 640,
+        "spring": 160,
+        "summer": 20,
+        "fall": 230
+      },
+      "source": "curated-regional"
+    },
+    {
+      "id": "big-eddy",
+      "title": "Big Eddy Thriller",
+      "category": "river-floats",
+      "description": "The Deschutes' most famous whitewater stretch — Class III rapids through a scenic canyon. Half-day guided trips suitable for adventurous beginners.",
+      "seasons": [
+        "spring",
+        "summer"
+      ],
+      "seasonLabel": "May through August",
+      "distance": "30 min drive to put-in",
+      "tip": "Wear a swimsuit under the wetsuit — you'll get soaked.",
+      "url": "https://www.suncountrytours.com/rafting/big-eddy-thriller/",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Rafting/BigEddy.jpeg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/big-eddy.jpg",
+      "imageAlt": "Raft going through whitewater rapids",
+      "seasonRank": {
+        "winter": 650,
+        "spring": 170,
+        "summer": 30,
+        "fall": 660
+      },
+      "source": "curated-regional"
+    },
+    {
+      "id": "standup-paddle-deschtues",
+      "title": "Deschutes River SUP & Kayak",
+      "category": "river-floats",
+      "description": "Calmer sections of the Deschutes near Sunriver are perfect for stand-up paddleboarding and kayak exploring. Several outfitters rent gear by the half-day.",
+      "seasons": [
+        "summer",
+        "fall"
+      ],
+      "seasonLabel": "June through September",
+      "distance": "Sunriver Marina",
+      "tip": "Morning water is glassy — best for SUP.",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Rafting/SUP.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/standup-paddle-deschtues.jpg",
+      "imageAlt": "Stand-up paddleboarding on a calm lake",
+      "seasonRank": {
+        "winter": 660,
+        "spring": 660,
+        "summer": 40,
+        "fall": 240
+      },
+      "source": "curated-regional"
+    },
+    {
+      "id": "mt-bachelor",
+      "title": "Mt. Bachelor Ski Resort",
+      "category": "skiing-snowboarding",
+      "description": "3,365 acres of lift-served terrain on a single volcano — groomers, bowls, glades, and a legendary spring skiing season that runs into May. 24 minutes from the house.",
+      "seasons": [
+        "fall",
+        "winter",
+        "spring"
+      ],
+      "seasonLabel": "November through May",
+      "distance": "24 min drive",
+      "tip": "Buy lift tickets online in advance during peak weeks.",
+      "url": "https://www.mtbachelor.com/",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Skiing/MtBachelor.jpeg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/mt-bachelor.jpg",
+      "imageAlt": "Skier carving down a snowy mountain slope",
+      "seasonRank": {
+        "winter": 10,
+        "spring": 10,
+        "summer": 640,
+        "fall": 170
+      },
+      "source": "curated-regional"
+    },
+    {
+      "id": "bachelor-nordic",
+      "title": "Mt. Bachelor Nordic Center",
+      "category": "skiing-snowboarding",
+      "description": "56 km of groomed cross-country trails through snow-covered forests at the base of the volcano. Rentals and lessons available for all skill levels.",
+      "seasons": [
+        "winter",
+        "spring"
+      ],
+      "seasonLabel": "December through March",
+      "distance": "24 min drive",
+      "tip": "The Twilight Trail is magical under the lights.",
+      "url": "https://www.mtbachelor.com/nordic/",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Skiing/NordicCenter.jpeg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/bachelor-nordic.jpg",
+      "imageAlt": "Cross-country skier on a snowy forest trail",
+      "seasonRank": {
+        "winter": 20,
+        "spring": 20,
+        "summer": 650,
+        "fall": 620
+      },
+      "source": "curated-regional"
+    },
+    {
+      "id": "hoodoo-ski",
+      "title": "Hoodoo Ski Area",
+      "category": "skiing-snowboarding",
+      "description": "A fun, family-friendly ski area on Santiam Pass with night skiing, affordable tickets, and a laid-back vibe. Smaller than Bachelor but less crowded.",
+      "seasons": [
+        "winter",
+        "spring"
+      ],
+      "seasonLabel": "December through March",
+      "distance": "50 min drive",
+      "tip": "Night skiing on weekends is a unique experience.",
+      "url": "https://www.hoodoo.com/",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Skiing/HoodooSkiArea.jpeg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/hoodoo-ski.jpg",
+      "imageAlt": "Snowboarder on a mountain with pine trees",
+      "seasonRank": {
+        "winter": 30,
+        "spring": 30,
+        "summer": 660,
+        "fall": 630
+      },
+      "source": "curated-regional"
+    },
+    {
+      "id": "bachelor-summer-lift",
+      "title": "Mt. Bachelor Scenic Chairlift",
+      "category": "skiing-snowboarding",
+      "description": "Not just for winter — ride the Pine Marten lift in summer for hiking, mountain biking, and panoramic views from 9,000 ft. Cool escape on hot days.",
+      "seasons": [
+        "summer",
+        "fall"
+      ],
+      "seasonLabel": "July through September",
+      "distance": "24 min drive",
+      "tip": "Bring a jacket — it's 20° cooler at the top.",
+      "url": "https://www.mtbachelor.com/summer/",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Skiing/SummerChairLift.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/bachelor-summer-lift.jpg",
+      "imageAlt": "Mountain summit view above the clouds",
+      "seasonRank": {
+        "winter": 360,
+        "spring": 500,
+        "summer": 290,
+        "fall": 180
+      },
+      "source": "curated-regional"
+    },
+    {
+      "id": "phils-trail",
+      "title": "Phil's Trail Complex",
+      "category": "mountain-biking",
+      "description": "Bend's most beloved trail network — flowing singletrack through ponderosa pine with options from mellow to technical. Dozens of interconnected loops.",
+      "seasons": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "seasonLabel": "April through October",
+      "distance": "25 min drive to Bend trailheads",
+      "tip": "Start with 'Phil's Trail' proper — the original and still the best intro.",
+      "url": "https://visitcentraloregon.com/things-to-do/attractions/phils-trail-complex/",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Biking/PhilsTrailComplex.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/phils-trail.jpg",
+      "imageAlt": "Mountain biker on a forest trail",
+      "seasonRank": {
+        "winter": 530,
+        "spring": 60,
+        "summer": 130,
+        "fall": 90
+      },
+      "source": "curated-regional"
+    },
+    {
+      "id": "wanoga-snow",
+      "title": "Wanoga Snow Park Trails",
+      "category": "mountain-biking",
+      "description": "In winter, this sno-park transforms into fat-bike and cross-country ski terrain. In summer, nearby trails like Swampy Lakes offer high-elevation riding.",
+      "seasons": [
+        "year-round"
+      ],
+      "seasonLabel": "Year-round (seasonal trail conditions vary)",
+      "distance": "20 min drive",
+      "tip": "Check Trailforks for current trail conditions before heading out.",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Biking/WanogaBikeTrails.jpeg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/wanoga-snow.jpg",
+      "imageAlt": "Mountain biker riding through a pine forest",
+      "seasonRank": {
+        "winter": 280,
+        "spring": 210,
+        "summer": 340,
+        "fall": 330
+      },
+      "source": "curated-regional"
+    },
+    {
+      "id": "bachelor-bike-park",
+      "title": "Mt. Bachelor Bike Park",
+      "category": "mountain-biking",
+      "description": "Lift-served downhill mountain biking in summer — no pedaling uphill required. Trails from green to double-black with full-suspension rentals at the base.",
+      "seasons": [
+        "summer",
+        "fall"
+      ],
+      "seasonLabel": "June through September",
+      "distance": "24 min drive",
+      "tip": "Rent a downhill bike at the base — it's worth it.",
+      "url": "https://www.mtbachelor.com/the-mountain/bike-park/info/",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Biking/MtBachelorBikePark.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/bachelor-bike-park.jpg",
+      "imageAlt": "Downhill mountain biker on a forest trail",
+      "seasonRank": {
+        "winter": 540,
+        "spring": 540,
+        "summer": 140,
+        "fall": 100
+      },
+      "source": "curated-regional"
+    },
+    {
+      "id": "sunriver-paths",
+      "title": "Sunriver Paved Path Network",
+      "category": "mountain-biking",
+      "description": "Sunriver Paved Path Network in Central Oregon.",
+      "seasons": [
+        "year-round"
+      ],
+      "seasonLabel": "Year-round",
+      "tip": "Ride to the Village for breakfast, then loop back via the river trail.",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Biking/SunriverBike.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/sunriver-paths.jpg",
+      "imageAlt": "Family biking on a paved path through trees",
+      "seasonRank": {
+        "winter": 290,
+        "spring": 220,
+        "summer": 350,
+        "fall": 340
+      },
+      "source": "curated-regional"
+    },
+    {
+      "id": "tiddlywinks",
+      "title": "Tiddlywinks & Forest Service Trails",
+      "category": "mountain-biking",
+      "description": "Playful, berm-filled flow trails near Bend that feel like a roller coaster on two wheels. Popular with intermediate riders looking for fun, not suffering.",
+      "seasons": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "seasonLabel": "May through October",
+      "distance": "25 min drive",
+      "tip": "Ride mid-week to avoid crowds.",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Biking/tiddlywinks.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/tiddlywinks.jpg",
+      "imageAlt": "Mountain biker navigating a berm on a flow trail",
+      "seasonRank": {
+        "winter": 550,
+        "spring": 70,
+        "summer": 150,
+        "fall": 110
+      },
+      "source": "curated-regional"
+    },
+    {
+      "id": "crater-lake",
+      "title": "Crater Lake National Park",
+      "category": "scenic-adventures",
+      "description": "The deepest lake in the US, filling a collapsed volcano caldera with impossibly blue water. Rim Drive, boat tours to Wizard Island, and hikes for every ability.",
+      "seasons": [
+        "summer",
+        "fall"
+      ],
+      "seasonLabel": "June through October (full Rim Drive)",
+      "distance": "2 hour drive",
+      "tip": "Enter from the north entrance for the shortest drive from Sunriver.",
+      "url": "https://www.nps.gov/crla/",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/DayTrips/CraterLake.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/crater-lake.jpg",
+      "imageAlt": "Crater Lake with deep blue water and volcanic rim",
+      "seasonRank": {
+        "winter": 420,
+        "spring": 550,
+        "summer": 180,
+        "fall": 40
+      },
+      "source": "curated-regional"
+    },
+    {
+      "id": "lava-river-cave",
+      "title": "Lava River Cave",
+      "category": "scenic-adventures",
+      "description": "Explore a mile-long lava tube — bring flashlights and warm layers for this underground adventure. One of the longest lava tubes in Oregon.",
+      "seasons": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "seasonLabel": "May through September",
+      "distance": "15 min drive",
+      "tip": "Rent lanterns at the entrance — phone flashlights aren't enough.",
+      "url": "https://www.fs.usda.gov/r06/deschutes/recreation/lava-river-cave-interpretive-site",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/DayTrips/LavaRiverCave.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/lava-river-cave.jpg",
+      "imageAlt": "Dark cave tunnel with light at the end",
+      "seasonRank": {
+        "winter": 430,
+        "spring": 100,
+        "summer": 190,
+        "fall": 50
+      },
+      "source": "curated-regional"
+    },
+    {
+      "id": "high-desert-museum",
+      "title": "High Desert Museum",
+      "category": "scenic-adventures",
+      "description": "World-class museum blending live wildlife, Oregon history, and art. Otters, raptors, a 1904 homestead, and immersive exhibits — great for rainy days or mid-day heat.",
+      "seasons": [
+        "year-round"
+      ],
+      "seasonLabel": "Year-round",
+      "distance": "10 min drive",
+      "tip": "Allow at least 3 hours — there's a lot to see.",
+      "url": "https://www.highdesertmuseum.org/",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/DayTrips/HighDesertMusuem.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/high-desert-museum.jpg",
+      "imageAlt": "Natural history museum exhibit with wildlife",
+      "seasonRank": {
+        "winter": 150,
+        "spring": 260,
+        "summer": 390,
+        "fall": 280
+      },
+      "source": "curated-regional"
+    },
+    {
+      "id": "newberry-caldera",
+      "title": "Newberry National Volcanic Monument",
+      "category": "scenic-adventures",
+      "description": "A massive shield volcano with obsidian flows, Paulina Falls, hot springs, and two crater lakes. Central Oregon's volcanic heart.",
+      "seasons": [
+        "summer",
+        "fall"
+      ],
+      "seasonLabel": "June through October",
+      "distance": "45 min drive",
+      "tip": "Stop at Paulina Falls on the way in — a quick, rewarding hike.",
+      "url": "https://www.fs.usda.gov/r06/deschutes/recreation/newberry-national-volcanic-monument-deschutes-nf",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/DayTrips/NewberryNatMonument.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/newberry-caldera.jpg",
+      "imageAlt": "Volcanic landscape with lake and forest",
+      "seasonRank": {
+        "winter": 440,
+        "spring": 560,
+        "summer": 200,
+        "fall": 60
+      },
+      "source": "curated-regional"
+    },
+    {
+      "id": "stargazing",
+      "title": "Sunriver Stargazing",
+      "category": "scenic-adventures",
+      "description": "Sunriver Stargazing in Central Oregon.",
+      "seasons": [
+        "year-round"
+      ],
+      "seasonLabel": "Clear nights, year-round",
+      "tip": "New moon weeks are best. Turn off deck lights for 10 minutes.",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/DayTrips/SunriverObservatory.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/stargazing.jpg",
+      "imageAlt": "Starry night sky over a dark landscape",
+      "seasonRank": {
+        "winter": 160,
+        "spring": 270,
+        "summer": 400,
+        "fall": 290
+      },
+      "source": "curated-regional"
+    },
+    {
+      "id": "woodlands-golf",
+      "title": "Woodlands Golf Course",
+      "category": "golf-family",
+      "description": "Woodlands Golf Course in Central Oregon.",
+      "seasons": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "seasonLabel": "April through October",
+      "distance": "5 min walk",
+      "tip": "McDivot's Cafe at the clubhouse is perfect for a post-round drink.",
+      "url": "https://www.sunriverresort.com/play/golf/golf-woodlands",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Golf/Woodlands.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/woodlands-golf.jpg",
+      "imageAlt": "Golf course fairway lined with pine trees",
+      "seasonRank": {
+        "winter": 610,
+        "spring": 80,
+        "summer": 160,
+        "fall": 70
+      },
+      "source": "curated-regional"
+    },
+    {
+      "id": "crosswater",
+      "title": "Crosswater Club",
+      "category": "golf-family",
+      "description": "A world-renowned golf course designed by Peter Jacobsen and Jim Hardy — two courses ranked among the best in the Pacific Northwest. Public tee times available.",
+      "seasons": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "seasonLabel": "April through October",
+      "distance": "10 min drive",
+      "tip": "Book well ahead — this is a bucket-list course.",
+      "url": "https://www.crosswater.com/",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Golf/Crosswater.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/crosswater.jpg",
+      "imageAlt": "Scenic golf course with mountain backdrop",
+      "seasonRank": {
+        "winter": 620,
+        "spring": 90,
+        "summer": 170,
+        "fall": 80
+      },
+      "source": "curated-regional"
+    },
+    {
+      "id": "sunriver-stables",
+      "title": "Sunriver Stables",
+      "category": "golf-family",
+      "description": "Guided trail rides through the pines for all experience levels, plus pony rides for little ones. A memorable family outing in any season.",
+      "seasons": [
+        "year-round"
+      ],
+      "seasonLabel": "Year-round",
+      "distance": "8 min drive",
+      "tip": "Book the sunset ride for golden light through the trees.",
+      "url": "https://www.sunriverresort.com/play/stables",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Golf/SunriverStables.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/sunriver-stables.jpg",
+      "imageAlt": "Horseback riding on a forest trail",
+      "seasonRank": {
+        "winter": 330,
+        "spring": 230,
+        "summer": 360,
+        "fall": 300
+      },
+      "source": "curated-regional"
+    },
+    {
+      "id": "village-sunriver",
+      "title": "The Village at Sunriver",
+      "category": "golf-family",
+      "description": "The heart of Sunriver — shops, restaurants, an ice rink in winter, live music in summer, and events year-round. A five-minute bike ride from the house.",
+      "seasons": [
+        "year-round"
+      ],
+      "seasonLabel": "Year-round",
+      "distance": "5 min by bike",
+      "tip": "Check the events calendar for concerts and festivals.",
+      "url": "https://www.villageatsunriver.com/",
+      "imageUrl": "https://sunrivertownhome.com/images/photos/activities/Golf/SunriverVillage.jpg",
+      "imageTvUrl": "https://sunrivertownhome.com/images/tv/village-sunriver.jpg",
+      "imageAlt": "Forest village with shops and pathways",
+      "seasonRank": {
+        "winter": 340,
+        "spring": 240,
+        "summer": 370,
+        "fall": 310
+      },
+      "source": "curated-regional"
+    }
+  ],
+  "officialLinkTemplates": [
+    {
+      "id": "viator-official-link",
+      "title": "Viator experience",
+      "category": "guided-tours-and-activities",
+      "description": "Add an official Viator experience by pasting the share or partner URL for a tour you offer to guests. HostKit will not fetch or scrape Viator pages.",
+      "source": "viator",
+      "linkPolicy": "official-link-or-widget",
+      "needsHostConfirm": true,
+      "seasons": [
+        "year-round"
+      ]
+    },
+    {
+      "id": "alltrails-official-link",
+      "title": "AllTrails trail",
+      "category": "hiking",
+      "description": "Add a trail by pasting an official AllTrails share URL, or confirm a curated trail card. HostKit will not fetch or scrape AllTrails pages.",
+      "source": "alltrails",
+      "linkPolicy": "official-link-or-widget",
+      "needsHostConfirm": true,
+      "seasons": [
+        "year-round"
+      ]
+    }
+  ]
+}

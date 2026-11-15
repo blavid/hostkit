@@ -1,0 +1,91 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<script>/* Pages serves this page for any unknown path. Send old /hostkit-preview/ links and /pair/CODE on. */
+(function(l){var p=l.pathname,m;if(p==="/"||p==="/index.html")return;
+if(p==="/hostkit-preview"||p.indexOf("/hostkit-preview/")===0){l.replace((p.slice(16)||"/")+l.search+l.hash);return}
+m=/^\/pair\/([^\/]+)\/?$/.exec(p);if(m){l.replace("/wizard/?code="+encodeURIComponent(decodeURIComponent(m[1]).toUpperCase())+l.hash);return}
+l.replace("/"+l.search+l.hash)})(location);</script>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>A TV that greets every guest by name · HostKit</title>
+<meta name="description" content="HostKit turns the Roku TV at your rental into a personal welcome for each stay. 30-day free trial, then $5/mo per property.">
+<link rel="preload" href="assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/fraunces-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/site.css"></head><body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="code-banner" role="status"><span>Your TV code <b class="code-chip" data-code>ABC234</b> is ready. Start your free trial and we’ll fill it in for you.</span></div>
+<div class="code-bad" role="status">That TV code doesn’t look right. Check the code on your TV screen, or start your trial and type it in later.</div>
+<header class="hdr"><div class="hdr-in">
+ <a class="logo" href="index.html"><i>H</i>HostKit</a>
+ <nav class="nav" id="site-nav" aria-label="Main"><a href="index.html" aria-current="page">Home</a><a href="guest-experience.html">Guest experience</a><a href="tour.html">Tour the TV</a><a href="features.html">Features</a><a href="pricing.html">Pricing</a><a href="faq.html">FAQ</a></nav>
+ <a class="btn small" data-cta href="signup">Start free trial</a>
+ <button class="menu-btn" aria-controls="site-nav" aria-expanded="false" aria-label="Open menu"><span></span></button>
+</div></header>
+<main id="main">
+
+<section class="dark hero"><div class="wrap hero-grid">
+ <div><div class="kick">HostKit for short-term rental hosts</div>
+  <h1>A TV that greets every guest <em>by name</em>.</h1>
+  <p class="lede">HostKit turns the Roku TV at your rental into a welcome made for each stay: their name and dates, a note from you, your home’s photo, their forecast, and picks for their trip.</p>
+  <div class="cta-row"><a class="btn" data-cta href="signup">Start free trial</a><span class="cta-note"><b>No credit card required.</b> 30-day free trial, then $5/mo per property.</span></div></div>
+ <div class="setup-col"><div class="setup" aria-label="Your setup progress"><h2>Your setup</h2><ol>
+   <li class="s1"><div class="n"><em>1</em></div><div><span class="t"><span class="todo">Add the HostKit channel</span><span class="done">Your TV is set up and waiting</span></span>
+     <span class="d"><span class="todo">The TV shows a code and a QR.</span><span class="done">It’s showing code <span class="mono" data-code></span></span></span></div></li>
+   <li class="s2 now"><div class="n">2</div><div><span class="t">Start your free trial</span><span class="d">30-day free trial, then $5/mo per property. No credit card required.</span></div></li>
+   <li class="s3"><div class="n">3</div><div><span class="t">Add your touches and publish</span><span class="d">Your note, your photo, your picks. Then each guest is greeted by name.</span></div></li>
+  </ol><a class="btn wide" data-cta href="signup">Start free trial</a></div></div>
+</div>
+<div class="wrap" style="margin-top:44px;max-width:760px">
+ <div class="home-shot"><figure class="tv "><div class="tv-screen"><img src="img/01-home-1280.jpg" srcset="img/01-home-720.jpg 720w, img/01-home-1280.jpg 1280w" sizes="(max-width: 700px) 92vw, 640px" width="1280" height="720" loading="eager" alt="Personalized HostKit welcome: Welcome, the Martinez family"></div></figure><div class="cap">What the Martinez family sees when they turn on the TV. Sample stay: the Martinez family, host Dana and Pine Hollow Cabin are fictional.</div></div>
+ <div class="pair-shot"><figure class="tv "><div class="tv-screen"><img src="img/07-pairing-1280.jpg" srcset="img/07-pairing-720.jpg 720w, img/07-pairing-1280.jpg 1280w" sizes="(max-width: 700px) 92vw, 640px" width="1280" height="720" loading="lazy" alt="HostKit pairing screen with code and QR"></div></figure><div class="cap">This is the screen you just scanned. Once you publish, it greets your next guest by name.</div></div>
+</div></section>
+
+<section class="light sec" id="before-after"><div class="wrap">
+ <h2>From “Please select an input” to “Welcome, the Martinez family”</h2>
+ <p class="sub">A generic TV welcome says nothing about your place. HostKit makes the first screen your guests see about them, and about you.</p>
+ <figure class="ba-desktop"><img src="img/marketing-before-after-1280.jpg" srcset="img/marketing-before-after-720.jpg 720w, img/marketing-before-after-1280.jpg 1280w" sizes="(max-width: 1220px) 94vw, 1140px" width="1280" height="720" loading="lazy" alt="Before: a generic TV asking to select an input. After: HostKit welcoming the Martinez family by name."></figure>
+ <div class="ba-mobile">
+  <figure class="ba-item"><figcaption class="ba-lbl"><span class="ba-tag">Before</span>A generic TV</figcaption>
+   <img src="img/marketing-before-after-mobile-before.png" width="1020" height="470" loading="lazy" alt="A generic TV welcome that says: Please select an input. HDMI 1, HDMI 2, TV, Apps."></figure>
+  <figure class="ba-item"><figcaption class="ba-lbl"><span class="ba-tag after">After</span>HostKit, made for the Martinez family</figcaption>
+   <img src="img/marketing-before-after-mobile-after.png" width="1020" height="470" loading="lazy" alt="HostKit welcome screen: Welcome, the Martinez family. Fri, Nov 20 to Mon, Nov 23. Checkout 11:00 AM. A note from Dana, your host."></figure>
+ </div>
+ <div class="cap">Sample stay: the Martinez family, host Dana and Pine Hollow Cabin are fictional. The “before” screen is a generic example, not a real brand.</div>
+ <div class="cta-row"><a class="btn" data-cta href="signup">Start free trial</a><span class="cta-note"><b>No credit card required.</b> 30-day free trial, then $5/mo per property.</span></div>
+</div></section>
+
+<section class="dark sec" id="answers"><div class="wrap">
+ <h2>Every screen knows who’s staying</h2>
+ <p class="sub">You write your note, tips and picks once. HostKit fills in each guest’s name and dates for every stay.</p>
+ <div class="qa"><div class="qa-row"><div class="q"><span class="lbl">Made for this stay</span>Their name, front and center</div><div><span class="lbl">On the TV: A welcome by name</span>“Welcome, the Martinez family,” with their dates, your note, your home’s photo and their forecast.<div class="links"><a class="tlink" href="features.html#welcome">Feature details</a><a class="tlink" href="tour.html#welcome">Try it in the tour</a></div></div><figure class="tv flat"><div class="tv-screen"><img src="img/01-home-1280.jpg" srcset="img/01-home-720.jpg 720w, img/01-home-1280.jpg 1280w" sizes="(max-width: 700px) 92vw, 640px" width="1280" height="720" loading="lazy" alt="A welcome by name screen"></div></figure></div><div class="qa-row"><div class="q"><span class="lbl">Made for this stay</span>Picks for their dates</div><div><span class="lbl">On the TV: Picks for their stay</span>Things to do “picked for your stay,” ordered for their dates and the weather.<div class="links"><a class="tlink" href="features.html#things-to-do">Feature details</a><a class="tlink" href="tour.html#things-to-do">Try it in the tour</a></div></div><figure class="tv flat"><div class="tv-screen"><img src="img/04-things-to-do-1280.jpg" srcset="img/04-things-to-do-720.jpg 720w, img/04-things-to-do-1280.jpg 1280w" sizes="(max-width: 700px) 92vw, 640px" width="1280" height="720" loading="lazy" alt="Picks for their stay screen"></div></figure></div><div class="qa-row"><div class="q"><span class="lbl">Made for this stay</span>A new tip every day</div><div><span class="lbl">On the TV: A daily “Did you know?”</span>A daily “Did you know?” about your home or the area.<div class="links"><a class="tlink" href="features.html#did-you-know">Feature details</a><a class="tlink" href="tour.html#did-you-know">Try it in the tour</a></div></div><figure class="tv flat"><div class="tv-screen"><img src="img/05b-popup-did-you-know-1280.jpg" srcset="img/05b-popup-did-you-know-720.jpg 720w, img/05b-popup-did-you-know-1280.jpg 1280w" sizes="(max-width: 700px) 92vw, 640px" width="1280" height="720" loading="lazy" alt="A daily “Did you know?” screen"></div></figure></div><div class="qa-row"><div class="q"><span class="lbl">Made for this stay</span>Checkout, by name</div><div><span class="lbl">On the TV: A checkout reminder, by name</span>“Checkout is tomorrow at 11:00 AM, Martinez family,” the evening before.<div class="links"><a class="tlink" href="features.html#reminder">Feature details</a><a class="tlink" href="tour.html#reminder">Try it in the tour</a></div></div><figure class="tv flat"><div class="tv-screen"><img src="img/05a-popup-reminder-1280.jpg" srcset="img/05a-popup-reminder-720.jpg 720w, img/05a-popup-reminder-1280.jpg 1280w" sizes="(max-width: 700px) 92vw, 640px" width="1280" height="720" loading="lazy" alt="A checkout reminder, by name screen"></div></figure></div><div class="qa-row"><div class="q"><span class="lbl">Made for this stay</span>An invitation back</div><div><span class="lbl">On the TV: Book Direct, addressed to them</span>“Martinez family, come back any time,” with a QR to your own booking page.<div class="links"><a class="tlink" href="features.html#book-direct">Feature details</a><a class="tlink" href="tour.html#book-direct">Try it in the tour</a></div></div><figure class="tv flat"><div class="tv-screen"><img src="img/06-book-direct-1280.jpg" srcset="img/06-book-direct-720.jpg 720w, img/06-book-direct-1280.jpg 1280w" sizes="(max-width: 700px) 92vw, 640px" width="1280" height="720" loading="lazy" alt="Book Direct, addressed to them screen"></div></figure></div></div>
+ <div class="cta-row"><a class="btn" data-cta href="signup">Start free trial</a><a class="tlink" href="features.html">See every feature →</a></div>
+</div></section>
+
+<section class="dark sec tight"><div class="wrap"><div class="honest"><h3>No made-up numbers</h3>
+ <p>HostKit is new, so we don’t have stats to show you, and we won’t invent any. Here’s what it does: every guest is welcomed by name, with your note and your picks.</p>
+ <a class="btn" data-cta href="signup">Start free trial</a></div></div></section>
+
+<section class="dark sec" id="how" style="border-top:1px solid #3A4A66"><div class="wrap">
+ <h2>How it works</h2><p class="sub">Three steps, and the code from your TV carries through to the setup wizard.</p>
+ <ol class="steps"><li><div><b>Add the HostKit channel</b>Open it on your Roku. The TV shows a pairing code and a QR.</div></li><li><div><b>Scan and start your free trial</b>Your phone opens this site with the code already filled in.</div></li><li><div><b>Add your touches and publish</b>Write your welcome note, add your home’s photo and local picks, and connect your stays. Then every guest is greeted by name.</div></li></ol>
+ <div class="cta-row"><a class="btn" data-cta href="signup">Start free trial</a><a class="tlink" href="features.html#pairing">How pairing works →</a></div>
+</div></section>
+
+<section class="light sec" id="explore"><div class="wrap">
+ <h2>See it from every side</h2><p class="sub">Follow a guest’s stay, try the TV yourself, or go feature by feature.</p>
+ <div class="explore"><a href="guest-experience.html"><figure class="tv flat"><div class="tv-screen"><img src="img/01-home-1280.jpg" srcset="img/01-home-720.jpg 720w, img/01-home-1280.jpg 1280w" sizes="(max-width: 700px) 92vw, 640px" width="1280" height="720" loading="lazy" alt="Guest experience preview"></div></figure><div class="x-body"><h3>Guest experience</h3><p>Follow the Martinez family’s stay, from “Welcome” to “come back any time.”</p><span class="go">Read their stay →</span></div></a><a href="tour.html"><figure class="tv flat"><div class="tv-screen"><img src="img/04-things-to-do-1280.jpg" srcset="img/04-things-to-do-720.jpg 720w, img/04-things-to-do-1280.jpg 1280w" sizes="(max-width: 700px) 92vw, 640px" width="1280" height="720" loading="lazy" alt="Tour the TV preview"></div></figure><div class="x-body"><h3>Tour the TV</h3><p>Pick up the remote and click through every personalized screen.</p><span class="go">Start the tour →</span></div></a><a href="features.html"><figure class="tv flat"><div class="tv-screen"><img src="img/05a-popup-reminder-1280.jpg" srcset="img/05a-popup-reminder-720.jpg 720w, img/05a-popup-reminder-1280.jpg 1280w" sizes="(max-width: 700px) 92vw, 640px" width="1280" height="720" loading="lazy" alt="Features preview"></div></figure><div class="x-body"><h3>Features</h3><p>What guests see, what you set up, and where each detail comes from.</p><span class="go">See all features →</span></div></a></div>
+ <div class="cta-row"><a class="btn" data-cta href="signup">Start free trial</a></div>
+</div></section>
+
+<section class="dark sec"><div class="wrap price-strip">
+ <div><div class="kick">Pricing</div><div class="pl" style="margin-top:8px">30-day free trial, then $5/mo per property.</div>
+  <p class="sub" style="margin:10px 0 0">No credit card required. Every feature is included. <a class="tlink" href="pricing.html">Pricing details</a> · <a class="tlink" href="faq.html">FAQ</a></p></div>
+ <div><a class="btn" data-cta href="signup">Start free trial</a></div>
+</div></section>
+</main>
+<footer class="foot"><div class="wrap"><nav aria-label="Footer"><a href="index.html">Home</a><a href="guest-experience.html">Guest experience</a><a href="tour.html">Tour the TV</a><a href="features.html">Features</a><a href="pricing.html">Pricing</a><a href="faq.html">FAQ</a></nav>
+<p class="noindex-note">Hidden preview · noindex</p>
+<p>HostKit preview. All guest and property details shown are sample data. Sample stay: the Martinez family, host Dana and Pine Hollow Cabin are fictional.</p>
+<p>30-day free trial, then $5/mo per property. No credit card required.</p></div></footer>
+<div class="sticky"><div class="sticky-txt"><b>No credit card required</b><span>30-day free trial, then $5/mo per property</span><span class="sticky-code">TV code <b data-code></b></span></div><a class="btn" data-cta href="signup">Start free trial</a></div>
+<script src="assets/site.js"></script>
+</body></html>

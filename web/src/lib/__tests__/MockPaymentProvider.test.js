@@ -1,6 +1,6 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
-import { MockPaymentProvider } from "../MockPaymentProvider.js";
+import { MockPaymentProvider, PLAN } from "../MockPaymentProvider.js";
 
 describe("MockPaymentProvider", () => {
   it("starts a 30-day trial", async () => {
@@ -12,22 +12,42 @@ describe("MockPaymentProvider", () => {
     assert.equal(sub.trialEndsAt, "2026-01-31T00:00:00.000Z");
   });
 
-  it("subscribes monthly or annual", async () => {
+  it("has exactly one plan: 30-day trial, then $5/mo per property", () => {
+    assert.equal(PLAN.priceUsd, 5);
+    assert.equal(PLAN.interval, "month");
+    assert.equal(PLAN.per, "property");
+    assert.equal(PLAN.trialDays, 30);
+    assert.equal(PLAN.label, "30-day free trial, then $5/mo per property");
+  });
+
+  it("subscribes to the single plan and rejects any other", async () => {
     const t0 = Date.parse("2026-01-01T00:00:00Z");
     const p = new MockPaymentProvider({ now: () => t0 });
-    await p.startTrial("h");
-    const monthly = await p.subscribe("h", "monthly");
-    assert.equal(monthly.status, "active");
-    assert.equal(monthly.plan, "monthly");
-    const annual = await p.subscribe("h", "annual");
-    assert.equal(annual.plan, "annual");
+    const trial = await p.startTrial("h");
+    assert.equal(trial.plan, PLAN.id);
+    const sub = await p.subscribe("h");
+    assert.equal(sub.status, "active");
+    assert.equal(sub.plan, PLAN.id);
+    assert.equal(sub.currentPeriodEndsAt, "2026-01-31T00:00:00.000Z");
+    await assert.rejects(() => p.subscribe("h", "annual"), /invalid plan/);
+  });
+
+  it("adopts a trial started at signup without restarting it", async () => {
+    const t0 = Date.parse("2026-01-10T00:00:00Z");
+    const p = new MockPaymentProvider({ now: () => t0 });
+    const record = { startedAt: "2026-01-01T00:00:00.000Z", trialEndsAt: "2026-01-31T00:00:00.000Z" };
+    const sub = await p.adoptTrial("h", record);
+    assert.equal(sub.status, "trial");
+    assert.equal(sub.plan, PLAN.id);
+    assert.equal(sub.trialEndsAt, record.trialEndsAt);
+    await assert.rejects(() => p.adoptTrial("h2", { trialEndsAt: "nope" }), /invalid trial/);
   });
 
   it("cancel → past_due with 14-day grace, then canceled", async () => {
     let now = Date.parse("2026-01-01T00:00:00Z");
     const p = new MockPaymentProvider({ now: () => now });
     await p.startTrial("h");
-    await p.subscribe("h", "monthly");
+    await p.subscribe("h");
     const canceled = await p.cancel("h");
     assert.equal(canceled.status, "past_due");
     assert.ok(canceled.graceEndsAt);

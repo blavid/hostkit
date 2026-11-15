@@ -5,6 +5,18 @@
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 const GRACE_DAYS = 14;
+const TRIAL_DAYS = 30;
+
+/** The only plan: a 30-day free trial, then $5/mo per property. `id` is the
+    schema's subscription.plan value for monthly billing. */
+export const PLAN = Object.freeze({
+  id: "monthly",
+  priceUsd: 5,
+  interval: "month",
+  per: "property",
+  trialDays: TRIAL_DAYS,
+  label: "30-day free trial, then $5/mo per property",
+});
 
 function iso(d) {
   return new Date(d).toISOString();
@@ -16,12 +28,12 @@ export class MockPaymentProvider {
     this.store = store;
   }
 
-  async startTrial(hostId, days = 30) {
+  async startTrial(hostId, days = TRIAL_DAYS) {
     const start = this.now();
     const sub = {
       hostId,
       status: "trial",
-      plan: "monthly",
+      plan: PLAN.id,
       trialEndsAt: iso(start + days * DAY_MS),
       graceDays: GRACE_DAYS,
       currentPeriodEndsAt: iso(start + days * DAY_MS),
@@ -30,18 +42,37 @@ export class MockPaymentProvider {
     return { ...sub };
   }
 
-  async subscribe(hostId, plan) {
-    if (plan !== "monthly" && plan !== "annual") {
+  /** Adopt a trial already started on the signup page, keeping its end date. */
+  async adoptTrial(hostId, { startedAt, trialEndsAt } = {}) {
+    const ends = Date.parse(trialEndsAt);
+    if (!Number.isFinite(ends)) throw new Error("invalid trial record");
+    const existing = this.store.get(hostId);
+    if (existing && existing.status !== "trial") return { ...existing };
+    const sub = {
+      hostId,
+      status: "trial",
+      plan: PLAN.id,
+      trialStartedAt: startedAt,
+      trialEndsAt: iso(ends),
+      graceDays: GRACE_DAYS,
+      currentPeriodEndsAt: iso(ends),
+    };
+    this.store.set(hostId, sub);
+    return this.getStatus(hostId);
+  }
+
+  async subscribe(hostId, plan = PLAN.id) {
+    if (plan !== PLAN.id) {
       throw new Error(`invalid plan: ${plan}`);
     }
     const existing = this.store.get(hostId) || {};
     const start = this.now();
-    const periodDays = plan === "annual" ? 365 : 30;
+    const periodDays = 30;
     const sub = {
       ...existing,
       hostId,
       status: "active",
-      plan,
+      plan: PLAN.id,
       trialEndsAt: existing.trialEndsAt,
       graceDays: GRACE_DAYS,
       currentPeriodEndsAt: iso(start + periodDays * DAY_MS),

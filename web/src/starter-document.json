@@ -17,7 +17,8 @@
         "url": "https://example.com/hero.jpg",
         "tvUrl": "https://example.com/hero-tv.jpg"
       }
-    ]
+    ],
+    "timezone": "America/Los_Angeles"
   },
   "links": {
     "hostToolsDirect": "https://example.com/book",
