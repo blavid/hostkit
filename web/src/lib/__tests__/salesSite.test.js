@@ -22,6 +22,7 @@ test("every page is noindex and shows the noindex-safe price wording only", () =
     assert.ok(html.includes("Hidden preview · noindex"), `${p} lacks the visible noindex note`);
     assert.match(html, /<footer[\s\S]*Hidden preview · noindex[\s\S]*<\/footer>/, `${p} noindex note is not in the footer`);
     assert.ok(!/<header[\s\S]*Hidden preview · noindex[\s\S]*<\/header>/.test(html), `${p} noindex note is in the header`);
+    assert.ok(html.includes("HostKit preview. All guest and property details shown are sample data. Sample stay: the Martinez family, host Dana and Pine Hollow Cabin are fictional."), `${p} lacks the shared sample-data footer`);
   }
 });
 
