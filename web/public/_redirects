@@ -1,5 +1,10 @@
-# SPA fallback for deep links and refresh under the hidden preview path.
-# Existing static assets are served first; this rewrite only applies on miss.
-# /* covers pair codes if the more specific rule is not applied.
-/hostkit-preview/*  /hostkit-preview/wizard/index.html  200
-/*                  /hostkit-preview/wizard/index.html  200
+# Pages edge rules. Upload this as the deployment's _redirects form field
+# (wrangler does this; a plain asset named _redirects is not applied).
+# The old /hostkit-preview/ base moves to the root, query string kept.
+/hostkit-preview      /         301
+/hostkit-preview/*    /:splat   301
+# SPA deep links. Static files are served first; these apply on a miss.
+# Rewrite to the directory, not .../index.html (Pages would not serve that).
+/pair/*               /pair/     200
+/wizard/*             /wizard/   200
+/setup/*              /setup/    200

@@ -27,8 +27,8 @@ test("normalize trims and uppercases", () => {
 });
 
 test("prefill from ?code= and /pair/:code", () => {
-  assert.equal(codeFromLocation("?code=abC234", "/hostkit-preview/wizard"), "ABC234");
-  assert.equal(codeFromLocation("", "/hostkit-preview/pair/xyz234"), "XYZ234");
-  assert.equal(codeFromLocation("", "/hostkit-preview/pair/xyz234/"), "XYZ234");
+  assert.equal(codeFromLocation("?code=abC234", "/wizard"), "ABC234");
+  assert.equal(codeFromLocation("", "/pair/xyz234"), "XYZ234");
+  assert.equal(codeFromLocation("", "/pair/xyz234/"), "XYZ234");
   assert.equal(codeFromLocation("", "/wizard"), "");
 });

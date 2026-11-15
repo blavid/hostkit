@@ -1,15 +1,18 @@
 #!/usr/bin/env node
 /**
- * Assemble a Pages upload tree:
- *   <out>/index.html          — SPA shell (from dist/wizard/) so unknown paths, such as
- *                               /hostkit-preview/pair/:code, still boot the app
- *   <out>/hostkit-preview/index.html is the static sales home (web/sales-site)
- *   <out>/_headers
- *   <out>/_redirects
- *   <out>/robots.txt
- *   <out>/hostkit-preview/**  — vite dist (basename /hostkit-preview/)
+ * Assemble the Pages upload tree. The site is served at the root on both
+ * host-kit.com and hostkit-preview.pages.dev:
+ *   <out>/index.html          — static sales home (web/sales-site). Pages also serves it
+ *                               for unknown paths; its inline script forwards old
+ *                               /hostkit-preview/* links and /pair/:code.
+ *   <out>/wizard|setup|pair/  — SPA shell
+ *   <out>/_headers, _redirects — send both as deployment form fields, not only as assets
+ *   <out>/robots.txt, hostkit-config.json
+ *
+ * HOSTKIT_API_BASE=<url> overrides apiBase in hostkit-config.json (default
+ * https://api.host-kit.com from public/).
  */
-import { cpSync, mkdirSync, writeFileSync, rmSync, existsSync } from "node:fs";
+import { cpSync, mkdirSync, writeFileSync, rmSync, existsSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -17,31 +20,21 @@ const webRoot = dirname(dirname(fileURLToPath(import.meta.url)));
 const dist = join(webRoot, "dist");
 const out = process.argv[2] || join(webRoot, "..", "..", "hostkit-preview-upload");
 
-if (!existsSync(join(dist, "wizard", "index.html"))) {
-  throw new Error("web/dist is missing — run npm run build first");
+for (const f of ["index.html", "wizard/index.html", "_headers", "_redirects", "robots.txt", "hostkit-config.json"]) {
+  if (!existsSync(join(dist, f))) throw new Error(`web/dist/${f} is missing — run npm run build first`);
+}
+if (!readFileSync(join(dist, "_headers"), "utf8").includes("X-Robots-Tag: noindex")) {
+  throw new Error("_headers must keep X-Robots-Tag: noindex");
 }
 
+rmSync(out, { recursive: true, force: true });
 mkdirSync(out, { recursive: true });
-const destPreview = join(out, "hostkit-preview");
-rmSync(destPreview, { recursive: true, force: true });
-mkdirSync(destPreview, { recursive: true });
-cpSync(dist, destPreview, { recursive: true });
+cpSync(dist, out, { recursive: true });
 
-const headers = "/*\n  X-Robots-Tag: noindex, nofollow\n";
-const robots = "User-agent: *\nDisallow: /\n";
-const redirects = `# SPA fallback for deep links and refresh.
-# Existing static assets are served first; this rewrite only applies on miss.
-/hostkit-preview/*  /hostkit-preview/wizard/index.html  200
-/*                  /hostkit-preview/wizard/index.html  200
-`;
-// Root index.html is the same SPA shell (absolute asset URLs under
-// /hostkit-preview/). Direct-upload Pages may serve this file for
-// unknown paths, including /hostkit-preview/pair/:code.
-writeFileSync(join(out, "_headers"), headers);
-writeFileSync(join(out, "_redirects"), redirects);
-writeFileSync(join(out, "robots.txt"), robots);
-cpSync(join(dist, "wizard", "index.html"), join(out, "index.html"));
-writeFileSync(join(destPreview, "_headers"), headers);
-writeFileSync(join(destPreview, "robots.txt"), robots);
+const apiBase = String(process.env.HOSTKIT_API_BASE || "").trim().replace(/\/+$/, "");
+if (apiBase) {
+  if (!/^https:\/\/[^/]+$/.test(apiBase)) throw new Error("HOSTKIT_API_BASE must be an https origin");
+  writeFileSync(join(out, "hostkit-config.json"), JSON.stringify({ apiBase }, null, 2) + "\n");
+}
 
-console.log(`packed preview upload at ${out}`);
+console.log(`packed upload at ${out}`);

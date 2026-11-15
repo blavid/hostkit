@@ -18,7 +18,7 @@
     root.classList.add('has-code');
     document.querySelectorAll('[data-code]').forEach(function (e) { e.textContent = code; });
   }
-  // Every CTA -> signup(?code=) under /hostkit-preview/, every internal page link keeps the code.
+  // Every CTA -> signup(?code=), every internal page link keeps the code.
   window.hostkitLink = function (href) {
     if (!code) return href;
     var m = href.match(/^([a-z0-9-]+\.html)(#.*)?$/i);

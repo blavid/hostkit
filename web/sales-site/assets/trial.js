@@ -33,7 +33,7 @@ export function buildTrialRecord({ name, email, code } = {}, now = Date.now()) {
   };
 }
 
-/** Relative to /hostkit-preview/, so the code rides along to the wizard. */
+/** Relative to the site root, so the code rides along to the wizard. */
 export function wizardHref(code) {
   const c = normalizeCode(code);
   return c ? `wizard/?code=${encodeURIComponent(c)}` : "wizard/";

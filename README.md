@@ -8,7 +8,7 @@ HostKit turns a short-term rental's guest guide into a Roku channel, a Cloudflar
 |------|-------|---------|
 | `roku/` | Rocky | SceneGraph channel |
 | `worker/` | Rocky | Cloudflare Worker API + KV (`HOSTKIT`) |
-| `web/` | Web | Host wizard + marketing (static export, base `/hostkit-preview`) |
+| `web/` | Web | Sales site + host wizard (static export served at `/`; old `/hostkit-preview/*` links redirect to the root) |
 | `schema/` | Shared | `hostkit.v1.schema.json` + fixtures |
 
 ## Rules

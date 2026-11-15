@@ -22,3 +22,12 @@ export function applyPreviewPathNormalization(loc = window.location, hist = wind
   }
   return loc.pathname;
 }
+
+const LEGACY_PREFIX = "/hostkit-preview";
+
+/** Path without the old /hostkit-preview prefix, or null when there is none. */
+export function legacyPreviewPath(pathname) {
+  const path = String(pathname || "/");
+  if (path !== LEGACY_PREFIX && !path.startsWith(`${LEGACY_PREFIX}/`)) return null;
+  return path.slice(LEGACY_PREFIX.length) || "/";
+}

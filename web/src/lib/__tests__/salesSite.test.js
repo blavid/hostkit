@@ -23,7 +23,7 @@ test("every page is noindex and shows the noindex-safe price wording only", () =
   }
 });
 
-test("CTAs stay under /hostkit-preview/ and no third-party fonts load", () => {
+test("CTAs stay relative and no third-party fonts load", () => {
   for (const p of pages) {
     const html = readFileSync(join(site, p), "utf8");
     assert.ok(!html.includes('href="/signup'), `${p} has a root /signup link`);

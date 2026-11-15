@@ -1,4 +1,9 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8">
+<script>/* Pages serves this page for any unknown path. Send old /hostkit-preview/ links and /pair/CODE on. */
+(function(l){var p=l.pathname,m;if(p==="/"||p==="/index.html")return;
+if(p==="/hostkit-preview"||p.indexOf("/hostkit-preview/")===0){l.replace((p.slice(16)||"/")+l.search+l.hash);return}
+m=/^\/pair\/([^\/]+)\/?$/.exec(p);if(m){l.replace("/wizard/?code="+encodeURIComponent(decodeURIComponent(m[1]).toUpperCase())+l.hash);return}
+l.replace("/"+l.search+l.hash)})(location);</script>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
 <title>Answer guest questions once, on the TV · HostKit</title>
