@@ -107,8 +107,11 @@ async function readJson(request) {
 async function pairStart(request, env, url) {
   const body = await safeJson(request);
   if (body.error) return body.error;
-  const deviceId = String(body.json.deviceId || "").trim();
-  if (!deviceId || deviceId.length > 200) return json({ error: "invalid_device_id" }, 400);
+  // Accept "deviceid" too: older Roku firmware can lowercase AA literal keys.
+  const rawId = body.json.deviceId ?? body.json.deviceid ?? body.json.DeviceId ?? "";
+  const deviceId = String(rawId).trim();
+  if (!deviceId) return json({ error: "missing_device_id" }, 400);
+  if (deviceId.length > 200) return json({ error: "device_id_too_long" }, 400);
 
   const kv = env.KV;
   const now = nowMs(env);

@@ -634,5 +634,7 @@ function HostKitFailureTag(result as object) as string
     if reason = invalid or reason = "" then return ""
     code = result.httpCode
     if code = invalid then code = 0
-    return "  (" + reason + " " + code.ToStr() + ")"
+    tag = reason + " " + code.ToStr()
+    if result.errorText <> invalid and result.errorText <> "" then tag = tag + " " + result.errorText
+    return "  (" + tag + ")"
 end function

@@ -24,6 +24,7 @@ function HostKitEmptyResult(action as string) as object
         ok: "no",
         action: action,
         reason: "none",
+        errorText: "",
         httpCode: 0,
         body: "",
         etag: "",
@@ -52,11 +53,14 @@ function HostKitDoStart() as object
         result.reason = "no-device-id"
         return result
     end if
-    payload = FormatJson({ deviceId: deviceId })
+    ' Build the body by hand: an AA literal's keys are not guaranteed to keep
+    ' their case on device firmware, and the Worker expects "deviceId".
+    payload = "{" + Chr(34) + "deviceId" + Chr(34) + ":" + FormatJson(deviceId) + "}"
     print "HostKit: pair start request"
     response = HostKitHttp("POST", base + "/v1/pair/start", payload, "", "")
     result.httpCode = response.code
     result.reason = response.reason
+    result.errorText = HostKitErrorText(response.body)
     if response.reason <> "ok"
         print "HostKit: pair start failure reason="; response.reason; " code="; response.code; " url="; base + "/v1/pair/start"
         return result
@@ -275,4 +279,14 @@ function HostKitJsonInt(obj as object, name as string, fallback as integer) as i
     kind = type(value)
     if kind = "Integer" or kind = "roInt" or kind = "roInteger" or kind = "Float" or kind = "roFloat" or kind = "Double" then return value
     return fallback
+end function
+
+' Pull the Worker's {"error":"..."} reason out of a failed response body.
+function HostKitErrorText(body as dynamic) as string
+    if body = invalid or body = "" then return ""
+    parsed = ParseJson(body)
+    if parsed = invalid then return ""
+    text = HostKitFieldText(parsed, "error")
+    if Len(text) > 40 then text = Left(text, 40)
+    return text
 end function

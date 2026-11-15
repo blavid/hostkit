@@ -251,3 +251,15 @@ describe("14-day grace math", () => {
     );
   });
 });
+
+describe("pair/start device id from Roku", () => {
+  it("accepts a lowercased deviceid key and names the error when missing", async () => {
+    const env = envWithClock(clock(Date.now()));
+    const lower = await call(env, "POST", "/v1/pair/start", { body: { deviceid: "tv-lower" } });
+    assert.equal(lower.status, 200);
+    assert.equal(isValidCode(lower.json.code), true);
+    const missing = await call(env, "POST", "/v1/pair/start", { body: {} });
+    assert.equal(missing.status, 400);
+    assert.equal(missing.json.error, "missing_device_id");
+  });
+});
