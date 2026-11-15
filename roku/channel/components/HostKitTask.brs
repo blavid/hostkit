@@ -24,6 +24,7 @@ function HostKitEmptyResult(action as string) as object
         ok: "no",
         action: action,
         reason: "none",
+        errorText: "",
         httpCode: 0,
         body: "",
         etag: "",
@@ -52,13 +53,16 @@ function HostKitDoStart() as object
         result.reason = "no-device-id"
         return result
     end if
-    payload = FormatJson({ deviceId: deviceId })
+    ' Build the body by hand: an AA literal's keys are not guaranteed to keep
+    ' their case on device firmware, and the Worker expects "deviceId".
+    payload = "{" + Chr(34) + "deviceId" + Chr(34) + ":" + FormatJson(deviceId) + "}"
     print "HostKit: pair start request"
     response = HostKitHttp("POST", base + "/v1/pair/start", payload, "", "")
     result.httpCode = response.code
     result.reason = response.reason
+    result.errorText = HostKitErrorText(response.body)
     if response.reason <> "ok"
-        print "HostKit: pair start failure reason="; response.reason; " code="; response.code
+        print "HostKit: pair start failure reason="; response.reason; " code="; response.code; " url="; base + "/v1/pair/start"
         return result
     end if
     parsed = ParseJson(response.body)
@@ -78,9 +82,14 @@ function HostKitDoStart() as object
     end if
     result.ok = "yes"
     print "HostKit: pair start code="; result.code
-    if result.qrUrl <> ""
-        qrPath = HostKitDownloadQr(result.qrUrl)
-        result.qrPath = qrPath
+    print "HostKit: pair url="; result.shortUrl
+    qrUrl = result.qrUrl
+    if qrUrl = "" and result.code <> ""
+        qrUrl = base + "/v1/pair/qr?code=" + result.code
+        result.qrUrl = qrUrl
+    end if
+    if qrUrl <> ""
+        result.qrPath = HostKitDownloadQr(qrUrl, result.code)
     end if
     return result
 end function
@@ -163,24 +172,32 @@ function HostKitDoConfig() as object
     return result
 end function
 
-function HostKitDownloadQr(url as string) as string
+function HostKitDownloadQr(url as string, code as string) as string
     if url = invalid or url = "" then return ""
     transfer = CreateObject("roUrlTransfer")
     port = CreateObject("roMessagePort")
     if transfer = invalid or port = invalid then return ""
     HostKitPrepareCacheDir()
-    path = HostKitQrCachePath()
+    path = HostKitQrCachePath(code)
+    fetchUrl = url
+    ' Cache-bust the GET by code even if the server URL was a stable path.
+    if code <> invalid and code <> "" and InStr(fetchUrl, "code=") = 0
+        sep = "?"
+        if InStr(fetchUrl, "?") > 0 then sep = "&"
+        fetchUrl = fetchUrl + sep + "code=" + code
+    end if
     transfer.SetMessagePort(port)
     transfer.SetCertificatesFile("common:/certs/ca-bundle.crt")
     transfer.InitClientCertificates()
     transfer.EnableEncodings(true)
-    transfer.SetUrl(url)
+    transfer.AddHeader("Cache-Control", "no-cache")
+    transfer.SetUrl(fetchUrl)
     started = transfer.AsyncGetToFile(path)
     if started = false or started = invalid then return ""
     event = wait(8000, port)
     if type(event) <> "roUrlEvent" then return ""
     if event.GetResponseCode() <> 200 then return ""
-    print "HostKit: pair qr saved"
+    print "HostKit: pair qr saved code="; code
     return path
 end function
 
@@ -230,6 +247,8 @@ function HostKitHttp(method as string, url as string, body as string, authorizat
     end if
     if result.code <> 200
         result.reason = "http"
+        failure = event.GetFailureReason()
+        if failure <> invalid then print "HostKit: http failure code="; result.code; " detail="; failure
         result.body = bodyText
         return result
     end if
@@ -260,4 +279,14 @@ function HostKitJsonInt(obj as object, name as string, fallback as integer) as i
     kind = type(value)
     if kind = "Integer" or kind = "roInt" or kind = "roInteger" or kind = "Float" or kind = "roFloat" or kind = "Double" then return value
     return fallback
+end function
+
+' Pull the Worker's {"error":"..."} reason out of a failed response body.
+function HostKitErrorText(body as dynamic) as string
+    if body = invalid or body = "" then return ""
+    parsed = ParseJson(body)
+    if parsed = invalid then return ""
+    text = HostKitFieldText(parsed, "error")
+    if Len(text) > 40 then text = Left(text, 40)
+    return text
 end function

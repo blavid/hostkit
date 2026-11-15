@@ -66,5 +66,7 @@
         <Timer id="refreshTimer" repeat="true" duration="21600" />
         <!-- Proves the render thread is still dispatching. -->
         <Timer id="heartbeatTimer" repeat="true" duration="5" />
+        <!-- Pairing-code face. A Font uri must point at a packaged TTF. -->
+        <Font id="hostKitMonoFont" uri="pkg:/fonts/UbuntuMono-Regular.ttf" size="96" />
     </children>
 </component>

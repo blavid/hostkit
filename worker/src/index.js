@@ -5,6 +5,8 @@
  * env.KV          — Cloudflare KV (or MemoryKV locally)
  * env.HOST_TOKEN  — stub host bearer (default "host-preview")
  * env.PUBLIC_BASE — origin used in shortUrl (no trailing slash)
+ * env.WIZARD_URL  — host setup wizard that /pair/:code redirects to
+ *                   (default: the preview wizard on Pages)
  * env.now         — optional () => epoch ms, for tests
  * env.ALLOW_TEST_HOOKS — "1" enables local-only expire/inspect routes
  * env.DEFAULT_CONFIG   — optional JSON string seeded as property "eaglewood"
@@ -54,6 +56,7 @@ async function route(request, url, env) {
   if (method === "POST" && path === "/v1/pair/claim") return pairClaim(request, env);
   if (method === "POST" && path === "/v1/pair/revoke") return pairRevoke(request, env);
   if (method === "GET" && path === "/v1/pair/qr") return pairQr(url);
+  if ((method === "GET" || method === "HEAD") && path.startsWith("/pair/")) return pairShortLink(path, env);
   if (method === "GET" && path === "/v1/config") return getConfig(request, env);
   if (method === "PUT" && path === "/v1/config") return putConfig(request, env);
 
@@ -63,6 +66,20 @@ async function route(request, url, env) {
   }
 
   return json({ error: "not_found" }, 404);
+}
+
+const DEFAULT_WIZARD_URL = "https://hostkit-preview.pages.dev/hostkit-preview/wizard/";
+
+// The TV's shortUrl and QR point here; send the phone to the wizard with the code filled in.
+function pairShortLink(path, env) {
+  const code = decodeURIComponent(path.slice("/pair/".length)).trim().toUpperCase();
+  if (!isValidCode(code)) return json({ error: "invalid_code" }, 404);
+  const target = new URL(env.WIZARD_URL || DEFAULT_WIZARD_URL);
+  target.searchParams.set("code", code);
+  return new Response(null, {
+    status: 302,
+    headers: { location: target.toString(), "cache-control": "no-store" },
+  });
 }
 
 function nowMs(env) {
@@ -107,8 +124,11 @@ async function readJson(request) {
 async function pairStart(request, env, url) {
   const body = await safeJson(request);
   if (body.error) return body.error;
-  const deviceId = String(body.json.deviceId || "").trim();
-  if (!deviceId || deviceId.length > 200) return json({ error: "invalid_device_id" }, 400);
+  // Accept "deviceid" too: older Roku firmware can lowercase AA literal keys.
+  const rawId = body.json.deviceId ?? body.json.deviceid ?? body.json.DeviceId ?? "";
+  const deviceId = String(rawId).trim();
+  if (!deviceId) return json({ error: "missing_device_id" }, 400);
+  if (deviceId.length > 200) return json({ error: "device_id_too_long" }, 400);
 
   const kv = env.KV;
   const now = nowMs(env);

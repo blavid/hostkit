@@ -251,3 +251,50 @@ describe("14-day grace math", () => {
     );
   });
 });
+
+describe("pair/start device id from Roku", () => {
+  it("accepts a lowercased deviceid key and names the error when missing", async () => {
+    const env = envWithClock(clock(Date.now()));
+    const lower = await call(env, "POST", "/v1/pair/start", { body: { deviceid: "tv-lower" } });
+    assert.equal(lower.status, 200);
+    assert.equal(isValidCode(lower.json.code), true);
+    const missing = await call(env, "POST", "/v1/pair/start", { body: {} });
+    assert.equal(missing.status, 400);
+    assert.equal(missing.json.error, "missing_device_id");
+  });
+});
+
+describe("pair short link", () => {
+  it("redirects /pair/:code to the wizard with the code filled in", async () => {
+    const env = envWithClock(clock(Date.now()));
+    const start = await call(env, "POST", "/v1/pair/start", { body: { deviceId: "tv-link" } });
+    const path = new URL(start.json.shortUrl).pathname;
+    const res = await handleRequest(new Request(`http://hostkit.test${path}`), env);
+    assert.equal(res.status, 302);
+    const loc = new URL(res.headers.get("location"));
+    assert.equal(loc.origin + loc.pathname, "https://hostkit-preview.pages.dev/hostkit-preview/wizard/");
+    assert.equal(loc.searchParams.get("code"), start.json.code);
+    const bad = await handleRequest(new Request("http://hostkit.test/pair/BAD0"), env);
+    assert.equal(bad.status, 404);
+  });
+});
+
+describe("host-kit.com settings", () => {
+  // Production env: PUBLIC_BASE=https://api.host-kit.com, WIZARD_URL=https://host-kit.com/
+  it("puts the short link and QR on api.host-kit.com and sends /pair/:code to the home page", async () => {
+    const env = envWithClock(clock(Date.now()), {
+      PUBLIC_BASE: "https://api.host-kit.com/",
+      WIZARD_URL: "https://host-kit.com/",
+    });
+    const start = await call(env, "POST", "/v1/pair/start", {
+      body: { deviceId: "tv-hk" },
+      origin: "https://api.host-kit.com",
+    });
+    assert.equal(start.status, 200);
+    assert.equal(start.json.shortUrl, `https://api.host-kit.com/pair/${start.json.code}`);
+    assert.ok(start.json.qrUrl.startsWith("https://api.host-kit.com/v1/pair/qr?code="));
+    const res = await handleRequest(new Request(start.json.shortUrl), env);
+    assert.equal(res.status, 302);
+    assert.equal(res.headers.get("location"), `https://host-kit.com/?code=${start.json.code}`);
+  });
+});

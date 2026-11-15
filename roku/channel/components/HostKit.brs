@@ -175,8 +175,10 @@ function HostKitCachePath() as string
     return "cachefs:/hostkit/config.json"
 end function
 
-function HostKitQrCachePath() as string
-    return "cachefs:/hostkit/pair-qr.png"
+function HostKitQrCachePath(code as string) as string
+    ' Unique file per code so the Poster reloads after a refresh.
+    if code = invalid or code = "" then return "cachefs:/hostkit/pair-qr.png"
+    return "cachefs:/hostkit/pair-qr-" + code + ".png"
 end function
 
 sub HostKitPrepareCacheDir()
